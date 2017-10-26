@@ -1,0 +1,164 @@
+\documentclass{article}
+\usepackage{graphicx}
+\title{Travlendar+ \\Requirement Analysis and Specification Document}
+\author{Fumagalli Paolo, Grotti Pietro, Gullo Marco}
+\begin{document}
+\pagenumbering{roman}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+\pagenumbering{arabic}
+\section{Introduction}
+\subsection{Purpose}
+\paragraph{}
+Many endeavors require scheduling meetings at various locations all across a city, whether in support of a mobile job or a busy parent. The goal of this project is to create a calendar interface that automatically computes and accounts for travel time between appointments to make sure that you're never late for an appointment. The application will also suggest travel means by appointment (e.g., perhaps you drive to the office in the morning but the bus is a better choice between a pair of afternoon meetings) and by day ( e.g. working days or weekends, traffic, public transport strikes, weather). The application will support an user interface where complete and automatically well-fitted schedules can be made. System will alert for any appointment overlap and non-doable consecutive appointments (e.g. two meetings really close in time but in locations too far from each other). Furthermore, different preferences, such as travel options and break time, can be expressed by the user.
+\paragraph{Goals\\} The application has the following goals:
+\begin{enumerate}
+\item[\textbf{G1:}] Allow a guest user to register to Travlendar+ by filling the registration form with the data needed.
+\item[\textbf{G2:}] Allow the user to select preferences and modify them whenever he wants.
+\item[\textbf{G3:}] Allow the user to easily create an organized and customizable agenda based on his preferences.
+\item[\textbf{G4:}] To help the user plan his movements in a clever and efficient way.
+\item[\textbf{G5:}] To guarantee the user no to be late for his appointments.
+\begin{enumerate}
+\item[\textbf{G5.1:}] The system will take into account the possibility of accidents and plan for the user to arrive at least 10 minutes before the beginning of the event.
+\item[\textbf{G5.2:}] The user will be notified if an appointment is not reachable in time.
+\end{enumerate}
+\item[\textbf{G6:}] To let the users buy bus or train tickets (both single or seasonal).
+\item[\textbf{G7:}] To let the user find vehicles from vehicle sharing systems.
+\item[\textbf{G8:}] Allow the user to buy in advance tickets which can be used later on.
+\end{enumerate}
+\newpage
+\subsection{Scope}
+\paragraph{}
+Travlendar+ is an application which will be able to manage daily appointments of the users and assist them by creating a specific course around the city which will identify the best mobility option to move from one appointment to the other. It will consider all public transportation options (train, metro, bus, etc.), car and bike sharing systems, the eventuality of a private vehicle and the weather conditions as well, to avoid having the user bike in harsh weather conditions or when it is too hot. It will also be possible to buy tickets and locate cars and bikes directly through the application. Users will have to create meetings specifying the location, the date and the time and the application will automatically calculate the suggested course and travel time, if it is impossible to reach a certain meeting in time the application will send a warning to the user. It will also feature the possibility of selecting a time span in which it will have to save some time for a break in which the user can have lunch (for example if the user wants to have lunch between 11:30 to 2:30 and it should be at least half an hour long, the application will reserve at least 30 minutes for lunch every day). Travlendar+ will also give the possibility to the users to buy tickets, this will make it easier to move with public transportation around the city. To allow these transactions the system will have to work with a bank which will support the possibility of either using a credit/debit card to buy tickets or creating a balance that will be connected to the account. The balance can be charged by credit/debit card or through selected shops which will allow the acquisition of cards containing unique codes, which will load money on the balance.
+\subsection{Definitions, Acronyms, Abbreviations}
+\subsubsection{Definitions}
+\subsubsection{Abbreviations}
+G* : Specific goal\\ R* : Specific functional requirements\\ D* : Specific domain assumption \\ App : Application
+\subsubsection{Acronyms}
+ETA : Estimated Time of Arrival\\ API : Application Programming Interface\\ PTS : Public Transportation System\\ CSS : Car-Sharing System\\ BSS : Bike-Sharing System
+\subsection{Revision history}
+Version 1.0.0
+\subsection{Reference Documents}
+
+\subsection{Document Structure}
+\section{Overall Description}
+\subsection{Product perspective}
+The product’s main purpose is to fit in user’s everyday reality, dealing with a large number of external factors and environments, such as weather conditions, traffic, news, etc. In order to face up all these agents, the system will always cooperate with other existing applications and ask for external help. Travlendar+ will work as an agent-in-the-middle between user and different interfaces, putting together all data required for user’s planning and traveling needs. All the various interactions will be described in high-level details in UML Section (see …). 
+\subsection{Product functions}
+All main functions will be described in following sections (see …) and are the ones that will cover all project goals provided above(see …). 
+\subsection{User characteristics}
+\paragraph{Actors:}
+\begin{itemize}
+\item \textbf{Guest User:} unregistered customer, he has just downloaded the app or visited the website. He wants to try Travlendar+ and needs to find a user-friendly interface.
+\item \textbf{Registered User:} more familiar with the environment, can access all Travlendar+ functionalities and customize his preferences. Expects an efficient service.
+\item \textbf{Public Transportation System:} local public transportation business, is willing to cooperate with the app in order to increase tickets’ sales and reduce irregular PTS use. Online purchases may also decrease the costs of printed tickets. 
+\item \textbf{Car-sharing System:} local private enterprise, is interested in Travlendar+ development to enhance their business’ reach and visibility. 
+\item \textbf{Bike-sharing System:} same as car-sharing system.
+\item \textbf{Google Maps:} is a web mapping service developed by Google. It offers satellite imagery, street maps, 360° panoramic views of streets, real-time traffic conditions, and route planning for traveling by foot, car or public transportation. It is completely free-to-use (its API can be integrated easily in any system) for any system. Travlendar+ will benefit of this.
+\item \textbf{Bank:} it is the entity necessary for Travlendar+ to deal with money transactions (ticket and pass purchases). The bank surely has its own secure channels and count on integrity of data coming from the app’s system.
+\end{itemize}
+\subsection{Assumptions, dependencies and constraints}
+The following assumptions are to be considered true in the world that we will analyize:
+\begin{enumerate}
+\item[\textbf{D1:}] The city is covered by several public and private transport services.
+\item[\textbf{D2:}] The services are almost always available, and when they aren’t there’s an alternative which can be suggested by Travlendar+ to the user.
+\item[\textbf{D3:}] A database containing all the correct information needed for transport services (location of the vehicles or the stationts, time tables, etc.) is connected to Travlendar+.
+\item[\textbf{D4:}] An application able to calculate travel times and distances which can also access current traffic information is connected to Travlendar+.
+\item[\textbf{D5:}] Some services allow external applications to interact with them to take advantage of certain functions (e.g.: to buy bus tickets from the PTS or to find a car of a BSS) in a transparent way from the user's point of view.
+\item[\textbf{D6.}] An internet connection is available everywhere and at any given time in the area covered by Travlendar+.
+\item[\textbf{D7:}] Users of the application have a working GPS that can accurately calculate their position.
+\item[\textbf{D8:}] The public transportation companies agree to let the application developers sell tickets through Travlendar+.
+\item[\textbf{D9:}] The transactions are handled through a bank that agrees to work with Travlendar+.
+\item[\textbf{D10:}] Bikes and cars of sharing-systems are equipped with an accurate GPS that can be traced in the map.
+\item[\textbf{D11:}] Vehicles sharing systems agree to work with Travlendar+.
+\item[\textbf{D12:}] "Activated" tickets are accepted by public transportation companies.
+\end{enumerate}
+\section{Specific Requirements}
+
+\subsection{External Interface Requirements}
+\subsubsection{User Interfaces}
+\subsubsection{Hardware Interfaces}
+\subsubsection{Software Interfaces}
+\subsubsection{Communication Interfaces}
+\subsection{Functional Requirements}
+In this section we will define the functional requirements combined with the domain assumptions that are needed to reach the goals set in the section 1.1.
+\begin{enumerate}
+\item[\textbf{G1:}] Allow a guest user to register to Travlendar+ by filling the registration form with the data needed.
+\begin{enumerate}
+\item[\textbf{R1:}] A guest user can create a new account through the registration process by providing his credentials to the system. An e-mail will be necessary and it must be unique.
+\item[\textbf{R2:}] At the end of the registration process the system will send an e-mail to the user to verify the account.
+\item[\textbf{R3:}] The account must be verified with the link provided by the system before it becomes active.
+\item[\textbf{R4:}] A guest user can log in the application with his credentials.
+\end{enumerate}
+\item[\textbf{G2:}] Allow the user to select preferences and modify them whenever he wants.
+\begin{enumerate}
+\item[\textbf{R5:}] A registered user can modify his preferences by choosing the preferred movement system at any time.
+\item[\textbf{R6:}] A registered user can select a specific time during the day (or night) after which he doesn't want to take public transportation.
+\item[\textbf{R7:}] A registered user can choose a maximum distance that he is willing to walk to move from one place to the other.
+\end{enumerate}
+\item[\textbf{G3:}] Allow the user to easily create an organized and customizable agenda based on his preferences.
+\begin{enumerate}
+\item[\textbf{R8:}] A registered user can create an event by filling the time, date, duration and location of the event.
+\item[\textbf{R9:}] A registered user can select a time slot during the day in which he wants to take a break, he can also choose the length of the break (which doesn't have to necessarily be equal to the time slot).
+\end{enumerate}
+\item[\textbf{G4:}] To help the user plan his movements in a clever and efficient way.
+\begin{enumerate}
+\item[\textbf{R10:}] The user has to declare if he has a driving license.
+\item[\textbf{R11:}] The user can declare if he owns a personal vehicle and indicate which kind of vehicle (car, motorbike, bike).
+\item[\textbf{R12:}] The system has to calculate a route to move araound the city based on the user's preferences.
+\item[\textbf{R13:}] The system will have to adjust accordingly to unexpected events (accidents, strikes, weather, natural disasters) changing the route of the day and notifying the user.
+\item[\textbf{D1:}] The city is covered by several public and private transport services..
+\item[\textbf{D2:}] The services are almost always available, and when they aren’t there’s an alternative which can be suggested by Travlendar+ to the user.
+\item[\textbf{D3:}] A database containing all the correct information needed for transport services (location of the vehicles or the stationts, time tables, etc.) is connected to Travlendar+.
+\item[\textbf{D4:}] An application able to calculate travel times and distances which can also access current traffic information is connected to Travlendar+.
+\end{enumerate}
+\item[\textbf{G5:}] To guarantee the user no to be late for his appointments.
+\begin{enumerate}
+\item[\textbf{R14:}] The system will always try to have the ETA to an event at least 10 minutes earlier than the beginning of the event.
+\item[\textbf{R15:}] The system will notify the user if one appointment is not reachable, this feature has to update the user in real time, which means that if an event becomes unreachable it will notify the user immediately.
+\item[\textbf{D4:}] An application able to calculate travel times and distances which can also access current traffic information is connected to Travlendar+.
+\item[\textbf{D7:}] Users of the application have a working GPS that can accurately calculate their position.
+\end{enumerate}
+\item[\textbf{G6:}] To let the users buy bus or train tickets (both single or seasonal).
+\begin{enumerate}
+\item[\textbf{R16:}] The system will support the acquisition of valid tickets for public transportation.
+\item[\textbf{R17:}] The user can link h is account to a credit card to pay for tickets.
+\item[\textbf{R18:}] The user can open a balance connected to his account that can be used to pay for tickets.
+\item[\textbf{R19:}] The balance can be charged with credit cards or with cash, by going to shops that are certified by the application.
+\item[\textbf{R20:}] After being bought a ticket will be flagged as "Available".
+\item[\textbf{D8:}] The public transportation companies agree to let the application developers sell tickets through Travlendar+.
+\item[\textbf{D9:}] The transactions are handled through a bank that agrees to work with Travlendar+.
+\end{enumerate}
+\item[\textbf{G7:}] To let the user find vehicles from vehicle sharing systems.
+\begin{enumerate}
+\item[\textbf{R21:}] The system must be able to locate vehicles from vehicle sharing systems.
+\item[\textbf{D10:}] Bikes and cars of sharing-systems are equipped with an accurate GPS that can be traced in the map.
+\item[\textbf{D11:}] Vehicles sharing systems agree to work with Travlendar+.
+\end{enumerate}
+\item[\textbf{G8:}] Allow the user to buy in advance tickets which can be used later on.
+\begin{enumerate}
+\item[\textbf{R21:}] An "Available" ticket can be activated.
+\item[\textbf{R22:}] After a ticket is activated it will be flagged as "Active".
+\item[\textbf{R23:}] Once the time expires on an "Active" ticket it will be flagged as "Expired".
+\item[\textbf{R24:}] An "Expired" ticket can't be activated.
+\item[\textbf{D12:}] "Activated" tickets are accepted by public transportation companies.
+\end{enumerate}
+\end{enumerate}
+\subsection{Performance Requirements}
+\subsection{Design Constraints}
+\subsubsection{Standards compliance}
+\subsubsection{Hardware limitations}
+\subsubsection{Any other constraint}
+\subsection{Software System Attributes}
+\subsubsection{Reliability}
+\subsubsection{Availability}
+\subsubsection{Security}
+\subsubsection{Maintainability}
+\subsubsection{Portability}
+\section{Formal Analysis Using Alloy}
+\newpage
+\section{Effort Spent}
+\section{References}
+\end{document}
