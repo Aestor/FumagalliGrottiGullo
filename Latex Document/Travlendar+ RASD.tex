@@ -146,17 +146,40 @@ In this section we will define the functional requirements combined with the dom
 \item[\textbf{D12:}] "Activated" tickets are accepted by public transportation companies.
 \end{enumerate}
 \end{enumerate}
-\subsection{Performance Requirements}
 \subsection{Design Constraints}
-\subsubsection{Standards compliance}
-\subsubsection{Hardware limitations}
-\subsubsection{Any other constraint}
-\subsection{Software System Attributes}
-\subsubsection{Reliability}
-\subsubsection{Availability}
+\subsubsection{Regulatory Policy}
+\paragraph{}
+Any sensible data, such as personal and payment info, will be stored with the purpose of ensure the best service and will not be handed only to third parties. This agreement will be described in better details in the Terms and Conditions the user will accept in the registration process.
+\subsubsection{Hardware Limitations}
+\paragraph{}
+Main limitations will come from the mobile version of Travlendar+, which means:
+\begin{itemize}
+\item{} No Windows Phone OS-supporting version
+\item{} 3G/4G/LTE connection
+\item{} GPS accuracy
+\end{itemize}
+\subsubsection{Interfaces With Other Applications}
+\paragraph{}
+As written above in Product Perspective (section 2.1), the system will be developed to cooperate and interact dynamically with different external applications, so it must be flexible and open to new collaborations with new services in future. Developers will make sure to choose the appropriate middleware for such aim.
+\subsection{Non-Functional Requirements}
+\subsubsection{Extensibility}
+\paragraph{}
+Since Travlendar+ will be developed from scratch, it will be first launched with only the essential characteristics, its core goals, but is meant to be open to future additional features and improvements. Therefore, the system shall provide an API, a way for programmers to create own application which can interact with the system’s data and functionalities. This choice implies a more complex security system, in order to avoid developers to access sensitive users’ data. More specific information will be given in the design document.  
+\subsubsection{Performance}
+\paragraph{}
+The aim of Travlendar+ is to become a large-scale used application. The system must be able to handle a great number of simultaneous requests and respond correctly in the best time possible. 
+\subsubsection{Reliablity}
+\paragraph{}
+System must work ideally 24/7, but a short period of time should be dedicated to daily maintenance.
 \subsubsection{Security}
-\subsubsection{Maintainability}
-\subsubsection{Portability}
+\paragraph{}
+User’s credentials, personal information, payment data will be stored and must be protected.
+\subsubsection{Accuracy}
+\paragraph{}
+System must be accurate in computing routes and in estimating time necessary of any movement from a place to another. For this purposes very precise maps must be used, the system also must take account of GPS accuracy (GPS technology is theoretically able to provide locations with an error less or equal to 7.8 meters).
+\subsubsection{Interoperability}
+\paragraph{}
+System must interact efficiently with other applications, such as vehicle sharing apps, to provide a complete service. Travlendar+ will be also mediator in purchases, so needs to be connected to one or more bank/payment system.
 \section{Formal Analysis Using Alloy}
 \newpage
 \section{Effort Spent}
