@@ -227,7 +227,7 @@ fact eventsAtLunch {
 sig Path {
 	transport: one Transport, // The mean of transport
 	accepted: one Bool, // Accepted by the user
-	onTime: one Bool // Defines if the user will be able to be on time following this path
+	inTime: one Bool // Defines if the user will be able to be in time following this path
 }
 
 	// ...facts
@@ -278,7 +278,7 @@ fact timeConstraint {
 
 // An alternative is suggested only if the main path is refused or if the user is late
 fact suggestAlternativesIfLateOrRefused {
-	all p: Path | all e: Event | (p in e.path and p.accepted = True and p.onTime = True) => #e.alternative = 0
+	all p: Path | all e: Event | (p in e.path and p.accepted = True and p.inTime = True) => #e.alternative = 0
 }
 
 			// TICKETS
@@ -336,14 +336,18 @@ pred noExternalActors {
 	#PublicTransports = 0 and #BikeSharingService = 0 and #CarSharingService = 0 and #TrainService = 0 and #TaxiService = 0
 }
 
-// The system suggests alternative paths for some events
+// The system suggests acceptable alternative paths for some events
 pred alternativesExisting {
 	some e: Event | #e.alternative = 1
+	all p: Path | all e: Event | p in e.alternative => p.accepted = True and p.inTime = True
 }
 
 // Some users bought some tickets
 pred ticketsExisting {
 	#TrainTicket > 0 and #PublicTransportTicket > 0
+	#Actor = 2
+	#Registered = 1
+	#Path > 0
 }
 
 //	run noEvents
