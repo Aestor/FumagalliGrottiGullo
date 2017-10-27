@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage{graphicx}
+\usepackage{float}
 \title{Travlendar+ \\Requirement Analysis and Specification Document}
 \author{Fumagalli Paolo, Grotti Pietro, Gullo Marco}
 \begin{document}
@@ -180,8 +181,229 @@ System must be accurate in computing routes and in estimating time necessary of 
 \subsubsection{Interoperability}
 \paragraph{}
 System must interact efficiently with other applications, such as vehicle sharing apps, to provide a complete service. Travlendar+ will be also mediator in purchases, so needs to be connected to one or more bank/payment system.
-\section{Formal Analysis Using Alloy}
+\section{UML Diagrams, Use Cases, Statecharts And Sequence Diagrams}
+\subsection{Use Case Diagram}
+We defined the Use Case Diagrams for the actors as Guest Users and Registered User.
+\subsubsection{Guest User}
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{Guestuserusecase.jpg}
+\caption{Guest user use case diagram}
+\label{fig:UCD1}
+\end{figure}
+\subsubsection{Registered User}
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{Registered_user_use_case.jpg}
+\caption{Registered user use case diagram}
+\label{fig:UCD2}
+\end{figure}
 \newpage
+\subsection{Use Cases}
+\paragraph{}
+In the following section we include the use cases with their relative Sequence Diagrams and Statecharts.\\
+\subsubsection{Create Account}
+\begin{center}
+\begin{tabular}{| p{3cm} || p{8cm} |}
+\hline
+Name & Create Account \\ \hline
+Actors & Guest User \\ \hline
+Assumptions & The user has started a registration form. \\ &The user has a valid e-mail address. \\ \hline
+Flow Of Events & The user types his e-mail in the form. \\&The user reads the app's terms and conditions. \\& The user accepts the app's terms and conditions. \\& The user submits the information. \\& The system sends an e-mail to the user. \\& The user confirms the account through the link in the e-mail. \\ \hline
+Exit Condition & The account is created \\ \hline
+Exceptions & The e-mail is already linked to an account. The account is not created. \\
+\hline
+\end{tabular}
+\end{center}
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{Create_Account.jpg}
+\caption{Create Account Sequence Diagram}
+\label{fig:SQ1}
+\end{figure}
+\subsubsection{Login}
+\begin{center}
+\begin{tabular}{| p{3cm} || p{8cm} |}
+\hline
+Name & Login\\ \hline
+Actors & Registered User \\ \hline
+Assumptions & The User has alreadty registered an account. \\&The user hasn't logged in yet. \\ \hline
+Flow Of Events & The user has to open the app homepage. \\&The user has to input his information (e-mail and password). \\& The system checks if the information sent by the user are valid. \\ \hline
+Exit Condition & The user is logged in the system \\ \hline
+Exceptions & The information provided by the user are wrong.The user is not logged in. The page will refresh with an error message. \\
+\hline
+\end{tabular}
+\end{center}
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{Login.jpg}
+\caption{Login Sequence Diagram}
+\label{fig:SQ2}
+\end{figure}
+\subsubsection{Create Event}
+\begin{center}
+\begin{tabular}{| p{3cm} || p{8cm} |}
+\hline
+Name & Create Event \\ \hline
+Actors & Registered User \\ \hline
+Assumptions & The user has already logged in the account. \\ \hline
+Flow Of Events & The user has to go to the homepage of the app \\&The user has to open the "Create an event" page.\\&The user has to fill the information needed for the event (time, date, duration and location).\\&The user submits the information.\\&The system sends a confirmation request under the form of a review of the event.\\&The user confirms the information.\\&The system loads the information on the user's schedule. \\ \hline
+Exit Condition & The event is successfully created and added on the schedule. \\ \hline
+Exceptions &The user does not confirm the information. The system will go back to the information submission page and ask the user to input the correct information.\\& The connection is lost during the submission of the information. The event will not be created and the system will send an error message to the user who will be notified once the connection is restored. \\&The location does not exist on the map. The system will send an error message and the user will have to update the location. \\&The event is conflicting in time with another event, in this case the event will be created but the system will send the user a notification. \\
+\hline
+\end{tabular}
+\end{center}
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{Create_Event.jpg}
+\caption{Create Event Sequence Diagram}
+\label{fig:SQ3}
+\end{figure}
+\subsubsection{Accept Path}
+\begin{center}
+\begin{tabular}{| p{3cm} || p{8cm} |}
+\hline
+Name &Accept Path \\ \hline
+Actors & Registered User\\&Google Maps \\ \hline
+Assumptions & The user is logged in the system.\\&The user has successfully created an event. \\ \hline
+Flow Of Events & The system receives the new event\\&The system checks the preferences of the user.\\&The system will send the information of the event to Google Maps.\\&Google Maps will calculate a path.\\&Google Maps will send the path to the system.\\&The system will send the path to the user.\\&The user accepts the path.\\&The system verifies its compatibility in the users' schedule. \\ \hline
+Exit Condition &The path is created. \\ \hline
+Exceptions & The user doesn’t accept the path. The system will be notified and will have to start again by sending the information to Google Maps.\\&The system, after learning from Google Maps, realises there are incompatible events and send a warning to the user. The user will have to select which event is more important. The system will send the new information to Google Maps and start again.\\
+\hline
+\end{tabular}
+\end{center}
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{Accept_Path.jpg}
+\caption{Accept Path Sequence Diagram}
+\label{fig:SQ4}
+\end{figure}
+\subsubsection{Buy Ticket}
+\begin{center}
+\begin{tabular}{| p{3cm} || p{8cm} |}
+\hline
+Name & Buy Ticket \\ \hline
+Actors & Registered User \\&Public Transportation System \\ \hline
+Assumptions &The user is logged in the system.\\&The user has opened a balance in the app or has a credit/debit card connected to it. \\ \hline
+Flow Of Events &The user clicks on “buy a ticket” from the homepage of the app.\\&
+The user selects the ticket he wants to buy.\\&
+The system receives the request and forwards it to the correct public transportation system.\\&
+The public transportation system sends the information to Travlendar+’s system to complete the transaction.\\&
+The system sends the information to the user.\\&
+The user accepts the payment request.\\&
+The user selects the payment option.\\&
+The system sends the payment confirmation to the PTS.\\&
+The PTS confirms the ticket.\\&
+The PTS sends the ticket information to the system.\\&
+The system saves the ticket in the user’s information. \\ \hline
+Exit Condition &The ticket is available to be used by the user. \\ \hline
+Exceptions &The balance does not have enough money to buy the ticket. The system will ask the user to select a different payment method.\\&
+The credit card does not allow transaction. The system will ask the user to select a different payment method. \\&
+The connection is lost between the system and the PTS. The system will have to ask to the user to start again from the selection of the ticket.
+ \\
+\hline
+\end{tabular}
+\end{center}
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{Buy_Ticket.jpg}
+\caption{Buy Ticket Sequence Diagram}
+\label{fig:SQ5}
+\end{figure}
+\subsubsection{Activate Ticket}
+\begin{center}
+\begin{tabular}{| p{3cm} || p{8cm} |}
+\hline
+Name &Activate Ticket \\ \hline
+Actors &Registered user\\&
+PTS
+ \\ \hline
+Assumptions &The user has logged in the system.\\&
+The user has bought at least one ticket.\\&
+The ticket has not been activated yet.
+ \\ \hline
+Flow Of Events &The user has to click on “My tickets” in his personal page.\\&
+The system will send to the user the information about his ticket.\\&
+The user will select the ticket that he wants to activate.\\&
+The user will press on “Activate ticket”.\\&
+The system will send a confirmation message to the user with a summary about the ticket.\\&
+The user confirms the ticket.\\&
+The system sends the details about the activation to the PTS.\\&
+The PTS will send a confirmation of the activation of the ticket.
+The system sends the confirmation to the user.\\&
+The system will tag the ticket as “activated”.
+ \\ \hline
+Exit Condition &The ticket is activated and it becomes valid for the duration of the ticket.  \\ \hline
+Exceptions & The user doesn’t confirm the ticket. The system will bring the user back to the selection of the ticket.\\&
+There is a connection problem between the system and the PTS. The user will be notified of this and he will have to start the process again from the selection of the ticket.
+\\
+\hline
+\end{tabular}
+\end{center}
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{Activate_Ticket.jpg}
+\caption{Activate Ticket Sequence Diagram}
+\label{fig:SQ6}
+\end{figure}
+\subsubsection{Find Vehicle And Access Service}
+\begin{center}
+\begin{tabular}{| p{3cm} || p{8cm} |}
+\hline
+Name & Find Car/Bike And Access Service \\ \hline
+Actors & Registered user\\&
+Car-Sharing system (CSS) or Bike-Sharing system (BSS)
+\\ \hline
+Assumptions &The user is logged in the system.\\&
+The user has a driving license.\\&
+The information provided by the CSS are true.\\&
+The user’s GPS is working and has the correct position.
+ \\ \hline
+Flow Of Events & The user has to click on “Find a vehicle” in the homepage of the app.\\&
+The user has to select “Car” or “Bike”.\\&
+The system sends a request for information to the CSS/ BSS.\\&
+The CSS/ BSS sends the information needed to the system.\\&
+The system will redirect the user to a map of his surroundings, with system.\\&
+Once a vehicle is chosen, the system will redirect to that vehicle’s service app.
+\\ \hline
+Exit Condition & The user will be able to see available cars from different car sharing systems near his location and pick one. \\ \hline
+Exceptions & There is a connection problem between the CSS(BSS) and Travlendar+’s system. The system will notify the user. The user will have to start again. \\
+\hline
+\end{tabular}
+\end{center}
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{Find_Car_Bike.jpg}
+\caption{Find Vehicle And Acceess Service Sequence Diagram}
+\label{fig:SQ7}
+\end{figure}
+\subsubsection{Load Balance}
+\begin{center}
+\begin{tabular}{| p{3cm} || p{8cm} |}
+\hline
+Name &Load Balance \\ \hline
+Actors &Registered User\\&
+Bank \\ \hline
+Assumptions & The user has a credit/debit card connected to the account or
+The user has bought a code to load the balance from a certified shop.\\ \hline
+Flow Of Events &The user has to click on “Load balance”.\\&
+The system will redirect him to the loading balance page.\\&
+The user will have to select “Credit/debit Card” or “Use a code”.\\&
+\begin{enumerate}
+\item Credit/Debit Card case: The user has to select the amount of money he wishes to load into the balance.
+The system sends the request to the bank.
+The bank confirms the transaction.
+\item Use a code:
+The system asks the user to insert the code written on the card he bought.
+The user inserts the information requested and confirms.
+The system checks that the information is correct.
+ \end{enumerate}\\& The system sends a confirmation message to the user. \\ \hline
+Exit Condition & The balance is updated. \\ \hline
+Exceptions & The bank does not allow the transaction. The system requests the user to try again.\\&
+The information sent by the user are incorrect. The system asks the user to check if the code is correct and to try again.
+\\
+\hline
+\end{tabular}
+\end{center}
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{Load_Balance.jpg}
+\caption{Load Balance Sequence Diagram}
+\label{fig:SQ8}
+\end{figure}
+
+
+\section{Formal Analysis Using Alloy}
 \section{Effort Spent}
 \section{References}
 \end{document}
