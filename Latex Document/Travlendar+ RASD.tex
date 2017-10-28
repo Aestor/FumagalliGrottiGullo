@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{subcaption}
 \title{Travlendar+ \\Requirement Analysis and Specification Document}
 \author{Fumagalli Paolo, Grotti Pietro, Gullo Marco}
 \begin{document}
@@ -46,6 +47,12 @@ Version 1.0.0
 \subsection{Document Structure}
 \section{Overall Description}
 \subsection{Product perspective}
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{Class_Diagram}
+\caption{Class Diagram}
+\label{fig:CD}
+\end{figure}
+
 The product’s main purpose is to fit in user’s everyday reality, dealing with a large number of external factors and environments, such as weather conditions, traffic, news, etc. In order to face up all these agents, the system will always cooperate with other existing applications and ask for external help. Travlendar+ will work as an agent-in-the-middle between user and different interfaces, putting together all data required for user’s planning and traveling needs. All the various interactions will be described in high-level details in UML Section (see …). 
 \subsection{Product functions}
 All main functions will be described in following sections (see …) and are the ones that will cover all project goals provided above(see …). 
@@ -80,6 +87,106 @@ The following assumptions are to be considered true in the world that we will an
 
 \subsection{External Interface Requirements}
 \subsubsection{User Interfaces}
+\paragraph{}
+In the following section we will show some mock-ups of how the application will look like from the user's point of view.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.2\linewidth]{01-email_and_password.png}
+\caption{Account Creation Mock-Up}
+\label{fig:MU1}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.2\linewidth]{02-Terms_and_conditions.png}
+\caption{Terms And Conditions Mock-Up}
+\label{fig:MU2}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.2\linewidth]{03-login.png}
+\caption{Login Mock-Up}
+\label{fig:MU3}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.2\linewidth]{01-Home_Page.png}
+\caption{Home Page Mock-Up}
+\label{fig:MU4}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.2\linewidth]{02-Create_an_event.png}
+\caption{Create Event Mock-Up}
+\label{fig:MU5}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.2\linewidth]{03-Summary.png}
+\caption{Summary Mock-Up}
+\label{fig:MU6}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.2\linewidth]{04-Schedule.png}
+\caption{Schedule Mock-Up}
+\label{fig:MU7}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.2\linewidth]{05-Path.png}
+\caption{Path Mock-Up}
+\label{fig:MU8}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.2\linewidth]{06-Path_not_available.png}
+\caption{Unreachable Path Mock-Up}
+\label{fig:MU9}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.2\linewidth]{01-Ticket_Store.png}
+\caption{Ticket Store Mock-Up}
+\label{fig:MU10}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.2\linewidth]{02-Personal_page.png}
+\caption{Personal Page Mock-Up}
+\label{fig:MU11}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.2\linewidth]{03-Ticket_Wallet.png}
+\caption{My Tickets Mock-Up}
+\label{fig:MU12}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.2\linewidth]{04-Ticket_activation.png}
+\caption{Ticket Activation Mock-Up}
+\label{fig:MU13}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.2\linewidth]{05-Find_a_vehicle.png}
+\caption{Find a Vehicle Mock-Up}
+\label{fig:MU14}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.2\linewidth]{06-Balance.png}
+\caption{Balance Mock-Up}
+\label{fig:MU15}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.2\linewidth]{07-Credit_card_balance_loading.png}
+\caption{Balance Loading Mock-Up}
+\label{fig:MU16}
+\end{figure}
+
 \subsubsection{Hardware Interfaces}
 \subsubsection{Software Interfaces}
 \subsubsection{Communication Interfaces}
