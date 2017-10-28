@@ -2,11 +2,26 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage[final]{pdfpages}
+\usepackage{hyperref}
+\hypersetup{
+colorlinks,
+citecolor=black,
+filecolor=black,
+linkcolor=black,
+urlcolor=black
+}
 \title{Travlendar+ \\Requirement Analysis and Specification Document}
 \author{Fumagalli Paolo, Grotti Pietro, Gullo Marco}
 \begin{document}
 \pagenumbering{roman}
+
 \maketitle
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{Logo_Politecnico_Milano.png}
+\label{fig:Logo}
+\end{figure}
 \newpage
 \tableofcontents
 \newpage
@@ -43,8 +58,15 @@ ETA : Estimated Time of Arrival\\ API : Application Programming Interface\\ PTS 
 \subsection{Revision history}
 Version 1.0.0
 \subsection{Reference Documents}
-
+\begin{itemize}
+\item{} IEEE Recommended Practice for Software Requirements Specifications, Software Engineering Standards Committe, 1998
+\item{} Specification Document: “Mandatory Project Assignments 2017-2018”
+\item{} \href{https://www.programmableweb.com/api-university/what-are-apis-and-how-do-they-work}{API overall description}
+\item{} \href{http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=392555}{RASD structure according IEEE standard}
+\end{itemize}
 \subsection{Document Structure}
+We decided to structure the document starting from the IEEE standard, but modifying it to make it more readable and linear.\\ Chapter 2 will give an overall presentation of the application, starting with the purpose of the project and later defining which will be the actors interacting with Travlendar+ and which are the assumptions that we will consider as true for the development of the project.\\ Later in chapter 3 we will define all the requirements, both functional and non-functional. In this chapter we will include some initial mock-ups of the application.\\We've decided to divide the requirements from the diagrams, so chapter 4 will contain all of our UML, Use Cases, Statecharts and Sequence Diagrams, which will be related to the goals and requirements we defined before this chapter.\\ Chapter 5 will show a formal analysis of the application which was created in Alloy, and it will also show some instances of the application.
+\newpage
 \section{Overall Description}
 \subsection{Product perspective}
 \begin{figure}[H]
@@ -53,9 +75,9 @@ Version 1.0.0
 \label{fig:CD}
 \end{figure}
 
-The product’s main purpose is to fit in user’s everyday reality, dealing with a large number of external factors and environments, such as weather conditions, traffic, news, etc. In order to face up all these agents, the system will always cooperate with other existing applications and ask for external help. Travlendar+ will work as an agent-in-the-middle between user and different interfaces, putting together all data required for user’s planning and traveling needs. All the various interactions will be described in high-level details in UML Section (see …). 
+The product’s main purpose is to fit in user’s everyday reality, dealing with a large number of external factors and environments, such as weather conditions, traffic, news, etc. In order to face up all these agents, the system will always cooperate with other existing applications and ask for external help. Travlendar+ will work as an agent-in-the-middle between user and different interfaces, putting together all data required for user’s planning and traveling needs. All the various interactions will be described in high-level details in UML Section (see Section 4.2: Use Cases). 
 \subsection{Product functions}
-All main functions will be described in following sections (see …) and are the ones that will cover all project goals provided above(see …). 
+All main functions will be described in following sections (see Section 3: Specific Requirements) and are the ones that will cover all project goals provided above(see Section 1.1: Purpose). 
 \subsection{User characteristics}
 \paragraph{Actors:}
 \begin{itemize}
@@ -93,105 +115,102 @@ In the following section we will show some mock-ups of how the application will 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.2\linewidth]{01-email_and_password.png}
-\caption{Account Creation Mock-Up}
+\caption{Account Creation}
 \label{fig:MU1}
 \end{figure}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.2\linewidth]{02-Terms_and_conditions.png}
-\caption{Terms And Conditions Mock-Up}
+\caption{Terms And Conditions}
 \label{fig:MU2}
 \end{figure}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.2\linewidth]{03-login.png}
-\caption{Login Mock-Up}
+\caption{Login}
 \label{fig:MU3}
 \end{figure}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.2\linewidth]{01-Home_Page.png}
-\caption{Home Page Mock-Up}
+\caption{Home Page}
 \label{fig:MU4}
 \end{figure}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.2\linewidth]{02-Create_an_event.png}
-\caption{Create Event Mock-Up}
+\caption{Create Event}
 \label{fig:MU5}
 \end{figure}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.2\linewidth]{03-Summary.png}
-\caption{Summary Mock-Up}
+\caption{Summary}
 \label{fig:MU6}
 \end{figure}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.2\linewidth]{04-Schedule.png}
-\caption{Schedule Mock-Up}
+\caption{Schedule}
 \label{fig:MU7}
 \end{figure}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.2\linewidth]{05-Path.png}
-\caption{Path Mock-Up}
+\caption{Path}
 \label{fig:MU8}
 \end{figure}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.2\linewidth]{06-Path_not_available.png}
-\caption{Unreachable Path Mock-Up}
+\caption{Unreachable Path}
 \label{fig:MU9}
 \end{figure}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.2\linewidth]{01-Ticket_Store.png}
-\caption{Ticket Store Mock-Up}
+\caption{Ticket Store}
 \label{fig:MU10}
 \end{figure}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.2\linewidth]{02-Personal_page.png}
-\caption{Personal Page Mock-Up}
+\caption{Personal Page}
 \label{fig:MU11}
 \end{figure}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.2\linewidth]{03-Ticket_Wallet.png}
-\caption{My Tickets Mock-Up}
+\caption{My Tickets}
 \label{fig:MU12}
 \end{figure}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.2\linewidth]{04-Ticket_activation.png}
-\caption{Ticket Activation Mock-Up}
+\caption{Ticket Activation}
 \label{fig:MU13}
 \end{figure}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.2\linewidth]{05-Find_a_vehicle.png}
-\caption{Find a Vehicle Mock-Up}
+\caption{Find a Vehicle}
 \label{fig:MU14}
 \end{figure}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.2\linewidth]{06-Balance.png}
-\caption{Balance Mock-Up}
+\caption{Balance}
 \label{fig:MU15}
 \end{figure}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.2\linewidth]{07-Credit_card_balance_loading.png}
-\caption{Balance Loading Mock-Up}
+\caption{Balance Loading	}
 \label{fig:MU16}
 \end{figure}
-
-\subsubsection{Hardware Interfaces}
-\subsubsection{Software Interfaces}
-\subsubsection{Communication Interfaces}
+\newpage
 \subsection{Functional Requirements}
-In this section we will define the functional requirements combined with the domain assumptions that are needed to reach the goals set in the section 1.1.
+In this section we will define the functional requirements combined with the domain assumptions that are needed to reach the goals set in the Section 1.1.
 \begin{enumerate}
 \item[\textbf{G1:}] Allow a guest user to register to Travlendar+ by filling the registration form with the data needed.
 \begin{enumerate}
@@ -288,6 +307,7 @@ System must be accurate in computing routes and in estimating time necessary of 
 \subsubsection{Interoperability}
 \paragraph{}
 System must interact efficiently with other applications, such as vehicle sharing apps, to provide a complete service. Travlendar+ will be also mediator in purchases, so needs to be connected to one or more bank/payment system.
+\newpage
 \section{UML Diagrams, Use Cases, Statecharts And Sequence Diagrams}
 \subsection{Use Case Diagram}
 We defined the Use Case Diagrams for the actors as Guest Users and Registered User.
@@ -509,8 +529,60 @@ The information sent by the user are incorrect. The system asks the user to chec
 \label{fig:SQ8}
 \end{figure}
 
-
+\newpage
 \section{Formal Analysis Using Alloy}
+\subsection{Model Representation}
+\paragraph{}
+This Alloy document generates a model of the system in a precise moment. It represents a “photography” of the system and deals more with its global coherence than with the integrity of the transitions. In short, the most important properties of the model are:
+\begin{itemize}
+\item{} Users and external actors belong to the same system (Travlendar+).
+\item{} The users are distinguished in guest and registered users. Since only the registered ones can operate on the system, we are referring to them saying "users".
+\item{} Every user can define some settings and the system must not violate them when it suggests some paths.
+\item{} Every user owns a schedule containing every event they need to attend.
+\item{} The system suggests some paths for the users' events, and those paths are grouped in the users' daily paths.
+\item{} The system can suggest an alternative path for an event only if the main path has been refused or it is not "in time".
+\item{} The external actors determine the presence of their transports as options in t he system and (some of the actors) the possiblity to buy tickets for those transports.
+\end{itemize}
+\paragraph{Alloy Code\\} The following is the source code of our alloy model.
+\includepdf[pages=-,pagecommand={}, width=\textwidth]{Alloy_text.pdf}
+\subsection{Instances}
+\subsubsection{Instance 1}
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{Instance_1.png}
+\caption{First Instance}
+\label{fig:ALLOY1}
+\end{figure}
+\paragraph{Instance 1\\}
+In this instance there are no users’ events, so the system doesn’t generate any suggested path. However, there exist users’ settings, schedules, daily paths and system’s external actors. The system is ready to add an event in the registered user’s schedule. 
+\subsubsection{Instance 2}
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{Instance_2.png}
+\caption{Second Instance}
+\label{fig:ALLOY2}
+\end{figure}
+\paragraph{Instance 2\\}
+In this instance, the registered user has one event in his schedule. The system suggests a main path for this event, but it is neither “in time” or “accepted by the user”. So, the system suggests an alternative path for the same event, which allows the user to be in time.
+\subsubsection{Instance 3}
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{Instance_3.png}
+\caption{Third Instance}
+\label{fig:ALLOY3}
+\end{figure}
+\paragraph{Instance 3}
+In this instance, both Public Transports and Train Service exist as external actors in the system. The registered user owns in his account a single train ticket and a public transports ticket. The link between the tickets and the actors which allowed their purchase is highlighted by the relation “issued”.
 \section{Effort Spent}
+\begin{itemize}
+\item{Fumagalli Paolo:} 25 hours.
+\item{Grotti Pietro:} 25 hours.
+\item{Gullo Marco:} 25 hours.
+\end{itemize}
 \section{References}
+\subsection{Tools Used}
+\begin{itemize}
+\item{} Google Doc
+\item{} Signavio
+\item{} Alloy Analyzer 4.2
+\item{} StarUML 5.3
+\item{} TeXworks
+\end{itemize}
 \end{document}
