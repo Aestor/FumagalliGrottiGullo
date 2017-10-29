@@ -5,6 +5,7 @@
 \usepackage{amsmath}
 \usepackage[final]{pdfpages}
 \usepackage{hyperref}
+\usepackage{titlesec}
 \hypersetup{
 colorlinks,
 citecolor=black,
@@ -12,6 +13,8 @@ filecolor=black,
 linkcolor=black,
 urlcolor=black
 }
+\titlespacing*{\section}{0pt}{1cm}{0.5cm}
+\titlespacing*{\subsection}{0pt}{0.5cm}{0.5cm}
 \title{Travlendar+ \\Requirement Analysis and Specification Document}
 \author{Fumagalli Paolo, Grotti Pietro, Gullo Marco}
 \begin{document}
@@ -105,108 +108,89 @@ The following assumptions are to be considered true in the world that we will an
 \item[\textbf{D11:}] Vehicles sharing systems agree to work with Travlendar+.
 \item[\textbf{D12:}] "Activated" tickets are accepted by public transportation companies.
 \end{enumerate}
+\newpage
 \section{Specific Requirements}
 
 \subsection{External Interface Requirements}
 \subsubsection{User Interfaces}
 \paragraph{}
 In the following section we will show some mock-ups of how the application will look like from the user's point of view.
-
 \begin{figure}[H]
-\centering
-\includegraphics[width=0.2\linewidth]{01-email_and_password.png}
-\caption{Account Creation}
-\label{fig:MU1}
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{01-email_and_password.png}
+  \caption{Account Creation}\label{fig:MU1}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{02-Terms_and_conditions.png}
+  \caption{Terms And Conditions}\label{fig:MU2}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{03-login.png}
+  \caption{Login}\label{fig:MU3}
+\endminipage
+\end{figure}
+\begin{figure}[H]
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{01-Home_Page.png}
+  \caption{Home Page}\label{fig:MU4}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{02-Create_an_event.png}
+  \caption{Create Event}\label{fig:MU5}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{03-Summary.png}
+  \caption{Summary}\label{fig:MU6}
+\endminipage
+\end{figure}
+\begin{figure}[H]
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{04-Schedule.png}
+  \caption{Schedule}\label{fig:MU7}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{05-Path.png}
+  \caption{Path}\label{fig:MU8}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{06-Path_not_available.png}
+  \caption{Unreachable Path}\label{fig:MU9}
+\endminipage
+\end{figure}
+\begin{figure}[H]
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{01-Ticket_Store.png}
+  \caption{Ticket Store}\label{fig:MU10}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{02-Personal_page.png}
+  \caption{Personal Page}\label{fig:MU11}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{03-Ticket_Wallet.png}
+  \caption{My Tickets}\label{fig:MU12}
+\endminipage
+\end{figure}
+\begin{figure}[H]
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{04-Ticket_activation.png}
+  \caption{Ticket Activation}\label{fig:MU13}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{05-Find_a_vehicle.png}
+  \caption{Find a Vehicle}\label{fig:MU14}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{06-Balance.png}
+  \caption{Balance}\label{fig:MU15}
+\endminipage
 \end{figure}
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.2\linewidth]{02-Terms_and_conditions.png}
-\caption{Terms And Conditions}
-\label{fig:MU2}
-\end{figure}
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.2\linewidth]{03-login.png}
-\caption{Login}
-\label{fig:MU3}
-\end{figure}
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.2\linewidth]{01-Home_Page.png}
-\caption{Home Page}
-\label{fig:MU4}
-\end{figure}
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.2\linewidth]{02-Create_an_event.png}
-\caption{Create Event}
-\label{fig:MU5}
-\end{figure}
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.2\linewidth]{03-Summary.png}
-\caption{Summary}
-\label{fig:MU6}
-\end{figure}
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.2\linewidth]{04-Schedule.png}
-\caption{Schedule}
-\label{fig:MU7}
-\end{figure}
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.2\linewidth]{05-Path.png}
-\caption{Path}
-\label{fig:MU8}
-\end{figure}
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.2\linewidth]{06-Path_not_available.png}
-\caption{Unreachable Path}
-\label{fig:MU9}
-\end{figure}
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.2\linewidth]{01-Ticket_Store.png}
-\caption{Ticket Store}
-\label{fig:MU10}
-\end{figure}
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.2\linewidth]{02-Personal_page.png}
-\caption{Personal Page}
-\label{fig:MU11}
-\end{figure}
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.2\linewidth]{03-Ticket_Wallet.png}
-\caption{My Tickets}
-\label{fig:MU12}
-\end{figure}
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.2\linewidth]{04-Ticket_activation.png}
-\caption{Ticket Activation}
-\label{fig:MU13}
-\end{figure}
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.2\linewidth]{05-Find_a_vehicle.png}
-\caption{Find a Vehicle}
-\label{fig:MU14}
-\end{figure}
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.2\linewidth]{06-Balance.png}
-\caption{Balance}
-\label{fig:MU15}
-\end{figure}
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.2\linewidth]{07-Credit_card_balance_loading.png}
-\caption{Balance Loading	}
-\label{fig:MU16}
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{07-Credit_card_balance_loading.png}
+  \caption{Balance Loading}\label{fig:MU16}
+\endminipage\hfill
 \end{figure}
 \newpage
 \subsection{Functional Requirements}
@@ -288,6 +272,7 @@ Main limitations will come from the mobile version of Travlendar+, which means:
 \subsubsection{Interfaces With Other Applications}
 \paragraph{}
 As written above in Product Perspective (section 2.1), the system will be developed to cooperate and interact dynamically with different external applications, so it must be flexible and open to new collaborations with new services in future. Developers will make sure to choose the appropriate middleware for such aim.
+\newpage
 \subsection{Non-Functional Requirements}
 \subsubsection{Extensibility}
 \paragraph{}
