@@ -6,6 +6,8 @@
 \usepackage[final]{pdfpages}
 \usepackage{hyperref}
 \usepackage{titlesec}
+\usepackage{caption}
+\captionsetup[figure]{labelformat=empty}
 \hypersetup{
 colorlinks,
 citecolor=black,
@@ -20,11 +22,12 @@ urlcolor=black
 \begin{document}
 \pagenumbering{roman}
 
-\maketitle
-\begin{figure}[H]
+
+\begin{figure}[t]
 \includegraphics[width=\linewidth]{Logo_Politecnico_Milano.png}
 \label{fig:Logo}
 \end{figure}
+\maketitle
 \newpage
 \tableofcontents
 \newpage
@@ -555,6 +558,7 @@ In this instance, the registered user has one event in his schedule. The system 
 \end{figure}
 \paragraph{Instance 3}
 In this instance, both Public Transports and Train Service exist as external actors in the system. The registered user owns in his account a single train ticket and a public transports ticket. The link between the tickets and the actors which allowed their purchase is highlighted by the relation “issued”.
+\newpage
 \section{Effort Spent}
 \begin{itemize}
 \item{Fumagalli Paolo:} 25 hours.
