@@ -49,6 +49,8 @@ public class CardsPage extends VerticalLayout implements View{
         fetchCards();
         Button addCard = new Button("Add Card");
         
+        
+        
     }
     
     private void fetchCards(){
