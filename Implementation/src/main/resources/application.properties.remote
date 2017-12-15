@@ -1,0 +1,4 @@
+spring.datasource.url=jdbc:mysql://den1.mysql6.gear.host:3306/travlendar
+spring.datasource.username=travlendar
+spring.datasource.password=	Nw61c~~9uWLU
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver

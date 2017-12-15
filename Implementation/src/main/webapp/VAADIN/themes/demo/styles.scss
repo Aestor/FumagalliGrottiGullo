@@ -1,0 +1,24 @@
+
+$al-bar-height: 70px;
+$al-bar-background-color: rgb(128, 0, 0);
+$al-bar-font-color: rgb(255, 255, 255);
+$al-drawer-width: 250px;
+$al-drawer-small-width: 70px;
+$al-drawer-submenu-indention: 10px;
+$al-drawer-submenu-background-color: transparent;
+
+@import "../valo/valo.scss";
+
+@import "addons.scss";
+
+@import "mytheme.scss";
+
+.demo {
+
+    
+    
+
+
+@include valo;
+@include addons;
+}

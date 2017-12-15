@@ -1,0 +1,13 @@
+@charset "ISO-8859-1";
+/* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+#mapob {
+	height: 600px;
+	width: 600px;
+}
+/* Optional: Makes the sample page fill the window. */
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
