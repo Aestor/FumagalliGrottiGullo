@@ -6,17 +6,22 @@ import java.util.List;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.VerticalLayout;
 
-public class TimeSelectorComponent extends CustomComponent{
-	
+public class TimeSelectorComponent extends CustomComponent {
+
 	private List<String> hour = new ArrayList<>();
 	private List<String> minute = new ArrayList<>();
 	private ComboBox<String> hours = new ComboBox<>();
 	private ComboBox<String> minutes = new ComboBox<>();
-
+	private Label caption;
 	private final HorizontalLayout layout = new HorizontalLayout();
-	
-	public TimeSelectorComponent() {
+	private final VerticalLayout layout2 = new VerticalLayout();
+
+	public TimeSelectorComponent(String caption) {
+		this.caption = new Label(caption);
+
 		hour.add("00");
 		hour.add("01");
 		hour.add("02");
@@ -41,7 +46,7 @@ public class TimeSelectorComponent extends CustomComponent{
 		hour.add("21");
 		hour.add("22");
 		hour.add("23");
-		
+
 		minute.add("00");
 		minute.add("01");
 		minute.add("02");
@@ -102,7 +107,7 @@ public class TimeSelectorComponent extends CustomComponent{
 		minute.add("57");
 		minute.add("58");
 		minute.add("59");
-	
+
 		hours.setItems(hour);
 		minutes.setItems(minute);
 		hours.setWidth("86.5px");
@@ -112,17 +117,22 @@ public class TimeSelectorComponent extends CustomComponent{
 		hours.setEmptySelectionAllowed(false);
 		minutes.setEmptySelectionAllowed(false);
 		layout.addComponents(hours, minutes);
+		layout2.addComponents(this.caption, layout);
 		
+
 	}
-	
+
 	public HorizontalLayout getLayout() {
 		return layout;
 	}
-	
-	public String getHour() {
-	return hours.getValue();	
+	public VerticalLayout getLayout2() {
+		return layout2;
 	}
-	
+
+	public String getHour() {
+		return hours.getValue();
+	}
+
 	public String getMinute() {
 		return minutes.getValue();
 	}

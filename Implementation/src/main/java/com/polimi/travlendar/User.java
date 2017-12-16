@@ -2,6 +2,7 @@ package com.polimi.travlendar;
 
 import org.springframework.context.annotation.Scope;
 
+import com.polimi.travlendar.components.Schedule;
 import com.polimi.travlendar.user.UserSettings;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.VaadinSessionScope;
@@ -24,6 +25,7 @@ public class User {
     private UserSettings settings;
     private Long balance;
     private String stripeId;
+    private Schedule schedule;
 
     public User(Long id, String email, String password, String first_name, String last_name) {
         this.id = id;
@@ -124,6 +126,10 @@ public class User {
 
     public void setStripeId(String stripeId) {
         this.stripeId = stripeId;
+    }
+    
+    public Schedule getSchedule() {
+    	return schedule;
     }
 
 }

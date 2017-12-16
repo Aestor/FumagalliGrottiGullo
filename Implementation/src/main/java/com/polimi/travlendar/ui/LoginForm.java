@@ -6,15 +6,16 @@ import org.springframework.dao.EmptyResultDataAccessException;
 
 import com.polimi.travlendar.User;
 import com.polimi.travlendar.UserService;
+import com.polimi.travlendar.components.Schedule;
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
-import com.vaadin.ui.Notification.Type;
 
 /**
  * Vaadin form to login.
@@ -30,6 +31,8 @@ public class LoginForm extends FormLayout {
 	private UserService service;
 	
 	@Autowired User user;
+	
+	@Autowired Schedule schedule;
 	
 	private TextField email = new TextField("Email");
 	private PasswordField password = new PasswordField("Password");
@@ -64,6 +67,7 @@ public class LoginForm extends FormLayout {
 				user.setUser(service.getUser(input.getEmail(), input.getPassword()));
 				VaadinSession.getCurrent().setAttribute("user", input.getEmail());
 				((TravlendarUI) getUI()).setMenuBar();
+				VaadinSession.getCurrent().setAttribute("schedule", new Schedule(user));
 			} catch (EmptyResultDataAccessException e) {
 				e.printStackTrace();
 				Notification.show("Internal error!", Type.ERROR_MESSAGE);

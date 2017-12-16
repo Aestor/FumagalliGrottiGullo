@@ -8,14 +8,19 @@ import java.time.ZonedDateTime;
 import java.util.GregorianCalendar;
 import java.util.Random;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.vaadin.addon.calendar.Calendar;
 import org.vaadin.addon.calendar.handler.BasicDateClickHandler;
 import org.vaadin.addon.calendar.item.BasicItemProvider;
 import org.vaadin.addon.calendar.ui.CalendarComponentEvents;
 
+import com.polimi.travlendar.User;
 import com.polimi.travlendar.components.Meeting.State;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.shared.ui.ContentMode;
+import com.vaadin.spring.annotation.SpringComponent;
+import com.vaadin.spring.annotation.VaadinSessionScope;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
@@ -23,7 +28,10 @@ import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
-
+@SpringComponent
+@VaadinSessionScope
+@SuppressWarnings("serial")
+@Scope("session")
 public class Schedule extends CustomComponent{
 	
 	private final Random R = new Random(0);
@@ -34,13 +42,14 @@ public class Schedule extends CustomComponent{
 	
 	public Panel panel;
 	
-	private String user;
+
+	private User user;
 	
-	public Schedule() {
+	public Schedule(User user) {
 		setId("schedule");
 		setSizeFull();
-		
-		initCalendar((String)VaadinSession.getCurrent().getAttribute("user"));
+		this.user = user;
+		initCalendar();
 		
 		VerticalLayout layout = new VerticalLayout();
 		layout.setMargin(false);
@@ -49,7 +58,7 @@ public class Schedule extends CustomComponent{
 		
 		panel = new Panel(calendar);
 		panel.setHeight(100, Unit.PERCENTAGE);
-		layout.addComponent(new Label("Calendar of: " + user));
+		layout.addComponent(new Label("Calendar of: "+this.user.getFirst_name()+" "+this.user.getLast_name()));
 		layout.addComponent(panel);
 		
 		setCompositionRoot(layout);
@@ -82,8 +91,7 @@ public class Schedule extends CustomComponent{
 		Notification.show(meeting.getName(), meeting.getDetails(), Type.HUMANIZED_MESSAGE);
 	}
 
-	private void initCalendar(String user) {
-		this.user = user;
+	private void initCalendar() {
 		eventProvider = new MeetingDataProvider();
 		
 		calendar = new Calendar<>(eventProvider);
