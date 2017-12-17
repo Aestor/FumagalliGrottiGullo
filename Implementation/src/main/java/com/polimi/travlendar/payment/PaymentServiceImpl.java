@@ -84,16 +84,16 @@ public class PaymentServiceImpl implements PaymentService {
     public void chargeCreditCard(ChargeRequest chargeRequest) {
 
         // Stripe requires the charge amount to be in cents
-        int chargeAmountCents = (int) chargeRequest.getAmount() * 100;
+        //int chargeAmountCents = (int) chargeRequest.getAmount(). * 100;
 
         //User user = chargeRequest.getUser();
 
         Map<String, Object> chargeParams = new HashMap<String, Object>();
-        chargeParams.put("amount", chargeAmountCents);
+     //   chargeParams.put("amount", chargeAmountCents);
         chargeParams.put("currency", "eur");
         chargeParams.put("description", "Monthly Charges");
         //chargeParams.put("customer", user.getStripeId());
-        chargeParams.put("amount", chargeRequest.getAmount());
+      //  chargeParams.put("amount", chargeRequest.getAmount());
         chargeParams.put("description", chargeRequest.getDescription());
         chargeParams.put("source", chargeRequest.getStripeToken());
 

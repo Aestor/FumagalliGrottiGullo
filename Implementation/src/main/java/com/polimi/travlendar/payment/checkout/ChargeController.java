@@ -18,39 +18,39 @@ package com.polimi.travlendar.payment.checkout;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
  * @author jaycaves
  */
-@Controller
+@RestController
 public class ChargeController {
     
     @Autowired
     private StripeService paymentsService;
  
-    @PostMapping("/charge")
+    @RequestMapping("/charge")
     public String charge(ChargeRequest chargeRequest, Model model)
       throws StripeException {
         chargeRequest.setDescription("Example charge");
+        System.out.println(chargeRequest.getStripeToken());
         Charge charge = paymentsService.charge(chargeRequest);
         model.addAttribute("id", charge.getId());
         model.addAttribute("status", charge.getStatus());
         model.addAttribute("chargeId", charge.getId());
         model.addAttribute("balance_transaction", charge.getBalanceTransaction());
-        System.out.println(chargeRequest.getStripeToken());
-        return "result";
+        
+        return "Result";
     }
  
     @ExceptionHandler(StripeException.class)
     public String handleError(Model model, StripeException ex) {
         model.addAttribute("error", ex.getMessage());
-        System.err.println("cazzo");
-        return "result";
+        System.err.println(ex.getMessage());
+        return "Ciaone";
     }
 }

@@ -15,7 +15,6 @@
  */
 package com.polimi.travlendar.payment.checkout;
 
-import com.polimi.travlendar.User;
 import lombok.Data;
 
 /**
@@ -27,7 +26,7 @@ import lombok.Data;
 public class ChargeRequest {
 
     private String description;
-    private int amount;
+    private String data_amount;
     private String stripeEmail;
     private String stripeToken;
    

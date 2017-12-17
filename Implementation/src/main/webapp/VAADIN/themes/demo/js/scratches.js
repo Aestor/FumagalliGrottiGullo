@@ -97,3 +97,29 @@
      handler.close();
      });
      } */
+ var stripe = require("stripe")(
+            "sk_test_RuQWeP6fRFKs0DbXl8tSkCEi");
+    var handler = StripeCheckout.configure({
+        key: 'pk_test_Br0eRZUzudfg2GZQWZVAJxju',
+        token: function (token) {
+
+            // Create a Customer:
+            stripe.customers.create({
+                email: "paying.user@example.com",
+                source: token,
+            }).then(function (customer) {
+                // YOUR CODE: Save the customer ID and other info in a database for later.
+                return stripe.charges.create({
+                    amount: state.amount,
+                    currency: "eur",
+                    customer: customer.id,
+                });
+            }).then(function (charge) {
+                // Use and save the charge info.
+            });
+        }
+    });
+
+    window.addEventListener('popstate', function () {
+        handler.close();
+    });

@@ -1,7 +1,8 @@
 
 com_polimi_travlendar_payment_checkout_CheckoutJs = function () {
 
-var me = this;
+    var me = this;
+    
 
     me.formElement = document.createElement("form");
     me.formElement.setAttribute("action", "/charge");
@@ -11,7 +12,7 @@ var me = this;
     me.getElement().appendChild(me.formElement);
 
     // create a new script tag with attributes from state
-    var makeScriptTag = function(state) {
+    var makeScriptTag = function (state) {
         var scriptEl = document.createElement("script");
         scriptEl.setAttribute("src", "https://checkout.stripe.com/checkout.js");
         scriptEl.setAttribute("data-key", state.key);
@@ -22,11 +23,11 @@ var me = this;
         scriptEl.setAttribute("data-zip-code", "true");
         scriptEl.setAttribute("data-currency", "eur");
         scriptEl.setAttribute("class", "stripe-button");
-        
+
         return scriptEl;
     }
 
-    me.onStateChange = function() {
+    me.onStateChange = function () {
         // remove existing script
         var child = me.formElement.firstChild;
         if (child) {
@@ -35,15 +36,11 @@ var me = this;
         // add script tag as form child
         me.formElement.appendChild(makeScriptTag(me.getState()));
     }
+
     
-   /* var handler = StripeCheckout.configure({
- 
-  token: function(token) {
-    // You can access the token ID with `token.id`.
-    // Get the token ID to your server-side code for use.
-  }
-}); */
+
+
 }
-   
+
 
 

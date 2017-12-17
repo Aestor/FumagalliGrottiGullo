@@ -22,10 +22,10 @@ import com.stripe.exception.AuthenticationException;
 import com.stripe.exception.CardException;
 import com.stripe.exception.InvalidRequestException;
 import com.stripe.model.Charge;
+import com.stripe.model.Customer;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.PostConstruct;
-import lombok.Value;
 import org.springframework.stereotype.Service;
 
 /**
@@ -36,7 +36,7 @@ import org.springframework.stereotype.Service;
 public class StripeService {
     
      //@Value("${STRIPE_SECRET_KEY}")
-    private String secretKey= "pk_test_Br0eRZUzudfg2GZQWZVAJxju";
+    private String secretKey= "sk_test_RuQWeP6fRFKs0DbXl8tSkCEi";
      
     @PostConstruct
     public void init() {
@@ -47,10 +47,15 @@ public class StripeService {
       throws AuthenticationException, InvalidRequestException,
         APIConnectionException, CardException, APIException {
         Map<String, Object> chargeParams = new HashMap<>();
-        chargeParams.put("amount", chargeRequest.getAmount());
+        chargeParams.put("amount", chargeRequest.getData_amount());
         chargeParams.put("currency", "eur");
         chargeParams.put("description", chargeRequest.getDescription());
         chargeParams.put("source", chargeRequest.getStripeToken());
         return Charge.create(chargeParams);
+    }
+    
+    public Customer customerCheck(ChargeRequest chargeRequest){
+        return null;
+        
     }
 }
