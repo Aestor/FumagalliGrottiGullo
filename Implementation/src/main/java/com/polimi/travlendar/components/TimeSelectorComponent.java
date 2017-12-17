@@ -136,5 +136,10 @@ public class TimeSelectorComponent extends CustomComponent {
 	public String getMinute() {
 		return minutes.getValue();
 	}
+	
+	public void clear() {
+		hours.clear();
+		minutes.clear();
+	}
 
 }

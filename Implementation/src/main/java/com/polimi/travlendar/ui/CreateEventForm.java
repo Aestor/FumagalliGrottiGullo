@@ -15,10 +15,15 @@ import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.FormLayout;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 
+@SuppressWarnings("serial")
 public class CreateEventForm extends FormLayout {
 
 	private TextField location = new TextField("Location");
@@ -26,77 +31,171 @@ public class CreateEventForm extends FormLayout {
 	private TextField description = new TextField("Description");
 	private DateField date = new DateField("Date");
 	private Button submit = new Button("Submit");
+	private Button reset = new Button("Reset");
 	private Schedule schedule;
 	private VerticalLayout content;
 	private TimeSelectorComponent startingTime = new TimeSelectorComponent("Starting time");
 	private TimeSelectorComponent endingTime = new TimeSelectorComponent("Ending time");
 	private ZonedDateTime begin;
 	private ZonedDateTime end;
-	
+	protected boolean eventOk = true;
+	protected boolean wait = false;
+
 	public CreateEventForm(Schedule schedule) {
-		
 		this.schedule = schedule;
 		setSizeUndefined();
 		date.setDateFormat("dd-MM-yyyy");
 		date.setPlaceholder("dd-mm-yyyy");
 		date.setRangeStart(LocalDate.now());
-		
-		
-		addComponents(location, name, description, date, startingTime.getLayout(), endingTime.getLayout(), submit);
+
+		HorizontalLayout submitReset = new HorizontalLayout();
+		submitReset.addComponents(submit, reset);
+		addComponents(location, name, description, date, startingTime.getLayout(), endingTime.getLayout(), submitReset);
 		content = new VerticalLayout();
 		submit.setClickShortcut(KeyCode.ENTER);
 		submit.addClickListener(e -> this.submit());
-		
+		reset.addClickListener(e -> this.reset());
+
 	}
-	
+
 	public VerticalLayout getLayout() {
 		return content;
 	}
 
-	
 	public void submit() {
+
 		try {
-			try {
 			convertBegin();
 			convertEnd();
-			} catch (DateTimeParseException e) {
-				Notification.show("Insert time");
-			}
-		} catch (NullPointerException e1) {
+
+			Meeting meeting = new Meeting(false);
+
+			meeting.setStart(begin);
+			meeting.setEnd(end);
+
+			meeting.setName(name.getValue());
+			meeting.setLocation(location.getValue());
+			meeting.setDetails(description.getValue());
+			meeting.setState(State.planned);
+			CreateEventRecap recap = new CreateEventRecap(meeting);
+			UI.getCurrent().addWindow(recap);
+
+
+		} catch (NullPointerException e) {
 			// TODO Auto-generated catch block
-			Notification.show("Insert a date");
-		}
-		Meeting meeting = new Meeting(false);
-		try {
-		meeting.setStart(begin);
-		meeting.setEnd(end);
-		
-		meeting.setName(name.getValue());
-		meeting.setLocation(location.getValue());
-		meeting.setDetails(description.getValue());
-		meeting.setState(State.planned);
+			Notification.show(error());
+		} catch (DateTimeParseException e) {
+			Notification.show(error());
+
 		} catch (EmptyResultDataAccessException e) {
-			Notification.show("Invalid data, insert something");
+			// TODO Auto-generated catch block
+			Notification.show(error());
 		}
-		schedule.onSubmitEvent(meeting);
 	}
-	
+
+	public void createEvent() {
+
+	}
+
+	public void reset() {
+		location.clear();
+		name.clear();
+		description.clear();
+		date.clear();
+		startingTime.clear();
+		endingTime.clear();
+
+	}
+
 	private void convertBegin() {
-		LocalTime time = LocalTime.parse(startingTime.getHour()+":"+startingTime.getMinute());
+		LocalTime time = LocalTime.parse(startingTime.getHour() + ":" + startingTime.getMinute());
 		begin = ZonedDateTime.of(date.getValue(), time, ZonedDateTime.now().getZone());
-		
+
 	}
-	
+
 	private void convertEnd() {
-		LocalTime time = LocalTime.parse(endingTime.getHour()+":"+endingTime.getMinute());
+		LocalTime time = LocalTime.parse(endingTime.getHour() + ":" + endingTime.getMinute());
 		if (time.isBefore(begin.toLocalTime())) {
 			end = ZonedDateTime.of(date.getValue().plusDays(1), time, ZonedDateTime.now().getZone());
-		}
-		else {
+		} else {
 			end = ZonedDateTime.of(date.getValue(), time, ZonedDateTime.now().getZone());
 		}
-		
-		
+
 	}
-	
+
+	public String getLocation() {
+		try {
+			return location.getValue();
+		} catch (NullPointerException e) {
+			return "Invalid input";
+		}
+	}
+
+	public String getDescription() {
+		try {
+			return description.getValue();
+		} catch (NullPointerException e) {
+			return "Invalid input";
+		}
+	}
+
+	public String getName() {
+		try {
+			return name.getValue();
+		} catch (NullPointerException e) {
+			return "Invalid input";
+		}
+	}
+
+	public String getBeginTimeToString() {
+		return begin.toLocalTime().toString();
+	}
+
+	public String getEndTimeToString() {
+		return end.toLocalTime().toString();
+	}
+
+	public String getDateToString() {
+		return begin.toLocalDate().toString();
+	}
+
+	private String error() {
+		return "Insert valid data";
+	}
+
+	private class CreateEventRecap extends Window {
+
+		public CreateEventRecap(Meeting form) {
+			super("Recap");
+			setModal(true);
+			center();
+
+			setClosable(false);
+			Button ok = new Button("OK", e -> {
+				schedule.onSubmitEvent(form);
+				Notification.show("Event created successfully");
+				close();
+			});
+			Button no = new Button("NO", e -> {
+				Notification.show("Event not created");
+				close();
+			});
+			VerticalLayout layout = new VerticalLayout();
+			TextArea area = new TextArea();
+			area.setValue("Event Recap:\n" + "Location: " + form.getLocation() + "\nEvent: " + form.getName()
+					+ "\nDescription: " + form.getDetails() + "\nDate: " + form.getStart().toLocalDate().toString()
+					+ "\nFrom: " + form.getStart().toLocalTime().toString() + " to "
+					+ form.getEnd().toLocalTime().toString());
+			HorizontalLayout buttons = new HorizontalLayout();
+			buttons.addComponents(ok, no);
+			layout.addComponents(area, buttons);
+			setContent(layout);
+		}
+
+		public boolean getEventOk() {
+			return eventOk;
+		}
+
+	}
+
 }

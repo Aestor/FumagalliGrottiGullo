@@ -4,11 +4,7 @@ import java.time.Month;
 import java.time.ZonedDateTime;
 import java.time.format.TextStyle;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.polimi.travlendar.User;
 import com.polimi.travlendar.components.Schedule;
-import com.polimi.travlendar.ui.CreateEventForm;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.VaadinSession;
@@ -26,8 +22,6 @@ public class SchedulePage extends VerticalLayout implements View {
 
 	public static final String NAME = "SchedulePage";
 
-//	private CreateEventForm createEvent;
-
 	@Override
 	public void enter(ViewChangeListener.ViewChangeEvent event) {
 		
@@ -42,9 +36,10 @@ public class SchedulePage extends VerticalLayout implements View {
 				(Button.ClickEvent clickEvent) -> schedule.getCalendar().withDay(ZonedDateTime.now()));
 		Button week = new Button("week",
 				(Button.ClickEvent clickEvent) -> schedule.getCalendar().withWeek(ZonedDateTime.now()));
-
-		HorizontalLayout nav = new HorizontalLayout(months, today, week);
-		this.addComponents(nav/*, createEvent*/);
+		Button month = new Button("month",
+				(Button.ClickEvent clickEvent) -> schedule.getCalendar().withMonth(ZonedDateTime.now().getMonth()));
+		HorizontalLayout nav = new HorizontalLayout(months, today, week, month);
+		this.addComponents(nav);
 		this.addComponent(schedule);
 
 	}

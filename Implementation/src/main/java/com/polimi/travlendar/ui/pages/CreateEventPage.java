@@ -12,6 +12,7 @@ import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 
 /**
  *
@@ -23,7 +24,6 @@ import com.vaadin.ui.VerticalLayout;
 public class CreateEventPage extends VerticalLayout implements View {
 
 	public static final String NAME = "CreateEventPage";
-
 	private CreateEventForm createEvent;
 
 	@Override
@@ -31,6 +31,7 @@ public class CreateEventPage extends VerticalLayout implements View {
 		
 		createEvent = new CreateEventForm((Schedule)VaadinSession.getCurrent().getAttribute("schedule"));
 		addComponent(createEvent);
+		
 		
 	}
 
