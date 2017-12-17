@@ -29,7 +29,5 @@ public class ChargeRequest {
     private String data_amount;
     private String stripeEmail;
     private String stripeToken;
-   
-    
 
 }

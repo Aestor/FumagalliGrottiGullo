@@ -6,7 +6,6 @@ import com.github.appreciated.app.layout.annotations.MenuCaption;
 import com.polimi.travlendar.NotificationManager;
 import com.polimi.travlendar.User;
 import com.polimi.travlendar.ui.AddCardForm;
-import com.polimi.travlendar.ui.CheckoutForm;
 import com.polimi.travlendar.ui.pages.gmaps.MapsAddOnPage;
 import com.polimi.travlendar.ui.pages.gmaps.MapsPage;
 import com.polimi.travlendar.ui.pages.gmaps.PlaceSearchPage;
