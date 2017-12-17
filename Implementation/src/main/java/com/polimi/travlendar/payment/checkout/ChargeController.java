@@ -36,7 +36,7 @@ public class ChargeController {
     @RequestMapping("/charge")
     public String charge(ChargeRequest chargeRequest, Model model)
       throws StripeException {
-        chargeRequest.setDescription("Example charge");
+        chargeRequest.setDescription("Charge");
         System.out.println(chargeRequest.getStripeToken());
         Charge charge = paymentsService.charge(chargeRequest);
         model.addAttribute("id", charge.getId());

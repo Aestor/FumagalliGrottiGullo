@@ -18,7 +18,7 @@ package com.polimi.travlendar.payment.checkout;
 import lombok.Data;
 
 /**
- * Simple request for charge a customer
+ * Simple POJO that contains charge data
  *
  * @author jaycaves
  */
