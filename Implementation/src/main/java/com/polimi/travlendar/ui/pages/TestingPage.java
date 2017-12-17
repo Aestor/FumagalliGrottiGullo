@@ -6,6 +6,7 @@ import com.github.appreciated.app.layout.annotations.MenuCaption;
 import com.polimi.travlendar.NotificationManager;
 import com.polimi.travlendar.User;
 import com.polimi.travlendar.ui.AddCardForm;
+import com.polimi.travlendar.ui.CheckoutForm;
 import com.polimi.travlendar.ui.pages.gmaps.MapsAddOnPage;
 import com.polimi.travlendar.ui.pages.gmaps.MapsPage;
 import com.polimi.travlendar.ui.pages.gmaps.PlaceSearchPage;
@@ -40,6 +41,8 @@ public class TestingPage extends VerticalLayout implements View{
 	
 	@Autowired
 	private AddCardForm cardForm;
+        
+                
 	
 	@Override
 	public void enter(ViewChangeListener.ViewChangeEvent event) {
@@ -87,6 +90,7 @@ public class TestingPage extends VerticalLayout implements View{
 		// Payment form
 		
 		this.addComponent(cardForm);
+                                
 	}
 
 }

@@ -15,9 +15,10 @@
  */
 package com.polimi.travlendar.payment;
 
+import com.polimi.travlendar.payment.checkout.ChargeRequest;
 import com.polimi.travlendar.User;
-import com.stripe.Stripe;
 import com.stripe.exception.APIConnectionException;
+import com.stripe.exception.APIException;
 import com.stripe.exception.AuthenticationException;
 import com.stripe.exception.CardException;
 import com.stripe.exception.InvalidRequestException;
@@ -29,6 +30,7 @@ import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.VaadinSessionScope;
 import java.util.HashMap;
 import java.util.Map;
+import lombok.Value;
 import org.springframework.context.annotation.Scope;
 
 /**
@@ -41,7 +43,7 @@ import org.springframework.context.annotation.Scope;
 public class PaymentServiceImpl implements PaymentService {
 
     //@Value("${STRIPE_SECRET_KEY}")
-    private static final String TEST_STRIPE_SECRET_KEY = "pk_test_Br0eRZUzudfg2GZQWZVAJxju";
+    private String STRIPE_SECRET_KEY = "pk_test_Br0eRZUzudfg2GZQWZVAJxju";
 
     
 
@@ -84,13 +86,13 @@ public class PaymentServiceImpl implements PaymentService {
         // Stripe requires the charge amount to be in cents
         int chargeAmountCents = (int) chargeRequest.getAmount() * 100;
 
-        User user = chargeRequest.getUser();
+        //User user = chargeRequest.getUser();
 
         Map<String, Object> chargeParams = new HashMap<String, Object>();
         chargeParams.put("amount", chargeAmountCents);
         chargeParams.put("currency", "eur");
         chargeParams.put("description", "Monthly Charges");
-        chargeParams.put("customer", user.getStripeId());
+        //chargeParams.put("customer", user.getStripeId());
         chargeParams.put("amount", chargeRequest.getAmount());
         chargeParams.put("description", chargeRequest.getDescription());
         chargeParams.put("source", chargeRequest.getStripeToken());
@@ -118,5 +120,8 @@ public class PaymentServiceImpl implements PaymentService {
         }
 
     }
+    
+    
+    
 
 }

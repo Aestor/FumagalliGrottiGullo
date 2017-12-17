@@ -18,6 +18,13 @@ package com.polimi.travlendar.ui.pages;
 import com.github.appreciated.app.layout.annotations.MenuCaption;
 import com.polimi.travlendar.User;
 import com.polimi.travlendar.ui.AddCardForm;
+import com.polimi.travlendar.ui.CheckoutForm;
+import com.stripe.exception.APIConnectionException;
+import com.stripe.exception.APIException;
+import com.stripe.exception.AuthenticationException;
+import com.stripe.exception.CardException;
+import com.stripe.exception.InvalidRequestException;
+import com.stripe.model.Customer;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
@@ -26,35 +33,49 @@ import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * 
+ *
  * @author jaycaves
  */
 @SuppressWarnings("serial")
-@SpringView( name= CardsPage.NAME)
+@SpringView(name = CardsPage.NAME)
 @MenuCaption("My Cards")
-public class CardsPage extends VerticalLayout implements View{
-    
+public class CardsPage extends VerticalLayout implements View {
+
     public static final String NAME = "My Cards";
-    
+
     @Autowired
     AddCardForm adder;
-    
+
     @Autowired
     User user;
     
-     @Override
+    @Autowired
+                private CheckoutForm cf;
+
+    @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
-        //request all cards known
-        //show all cards
-        fetchCards();
+
+        //fetchCards();
         Button addCard = new Button("Add Card");
+        addComponent(addCard);
+        this.addComponent(cf);
+
+      
         
-        
-        
+
     }
-    
-    private void fetchCards(){
-        
-        
+
+    private void fetchCards() {
+
+        try {
+
+            Customer current = Customer.retrieve(user.getStripeId());
+            String cards = current.getSources().toJson();
+
+        } catch (AuthenticationException | InvalidRequestException | APIConnectionException | CardException | APIException ex) {
+
+            System.err.println("ERROR is: " + ex.getMessage());
+        }
+
     }
 }
