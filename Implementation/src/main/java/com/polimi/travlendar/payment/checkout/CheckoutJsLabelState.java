@@ -13,20 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.polimi.travlendar.payment;
+package com.polimi.travlendar.payment.checkout;
 
-import com.polimi.travlendar.payment.checkout.ChargeRequest;
-import com.polimi.travlendar.User;
-
+import com.vaadin.shared.ui.JavaScriptComponentState;
 
 /**
- * All functions for payment handling are defined here.
+ *
  * @author jaycaves
  */
-public interface PaymentService {
-    
-    public String createCustomer(User user);
-    
-    public void chargeCreditCard(ChargeRequest chargeRequest);
-
+public class CheckoutJsLabelState extends JavaScriptComponentState {
+    public String key;
+    public String amount;
+  
 }

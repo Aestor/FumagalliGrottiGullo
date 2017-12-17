@@ -16,6 +16,7 @@ import com.github.appreciated.app.layout.component.MenuHeader;
 import com.polimi.travlendar.User;
 import com.polimi.travlendar.UserService;
 import com.polimi.travlendar.ui.pages.AuthenticationPage;
+import com.polimi.travlendar.ui.pages.CardsPage;
 import com.polimi.travlendar.ui.pages.CreateEventPage;
 import com.polimi.travlendar.ui.pages.ErrorView;
 import com.polimi.travlendar.ui.pages.SchedulePage;
@@ -108,6 +109,7 @@ public class TravlendarUI extends UI {
                 .add(SchedulePage.class)
                 .add(CreateEventPage.class)
                 .add(SettingsPage.class)
+                .add(CardsPage.class)
                 .add(AuthenticationPage.class, Position.FOOTER)
                 .withNavigatorProducer(components -> {
                     navigator.init(this, components);

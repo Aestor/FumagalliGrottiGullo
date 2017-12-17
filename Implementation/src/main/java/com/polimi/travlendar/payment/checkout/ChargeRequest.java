@@ -13,20 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.polimi.travlendar.payment;
+package com.polimi.travlendar.payment.checkout;
 
-import com.polimi.travlendar.payment.checkout.ChargeRequest;
 import com.polimi.travlendar.User;
-
+import lombok.Data;
 
 /**
- * All functions for payment handling are defined here.
+ * Simple request for charge a customer
+ *
  * @author jaycaves
  */
-public interface PaymentService {
+@Data
+public class ChargeRequest {
+
+    private String description;
+    private int amount;
+    private String stripeEmail;
+    private String stripeToken;
+   
     
-    public String createCustomer(User user);
-    
-    public void chargeCreditCard(ChargeRequest chargeRequest);
 
 }

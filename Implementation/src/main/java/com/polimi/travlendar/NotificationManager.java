@@ -1,5 +1,8 @@
 package com.polimi.travlendar;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.springframework.context.annotation.Scope;
 
 import com.vaadin.spring.annotation.SpringComponent;
@@ -11,7 +14,7 @@ import com.vaadin.spring.annotation.SpringComponent;
  */
 @SpringComponent
 @Scope("singleton")
-public class NotificationManager {
+public class NotificationManager extends Thread{
 	
 	// Singleton pattern
 
@@ -25,18 +28,36 @@ public class NotificationManager {
 		return instance;
 	}
 	
+	// Notifications
+	
+	private HashMap<String, List<Notification>> nextNotifications;
+	
+	private HashMap<String, List<Notification>> currentNotifications;
+	
+	@Override
+	public void run() {
+		while(true) {
+			try {
+				wait(60000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+				// Reboot NotificationManager if interrupted
+			}
+		}
+	}
+	
 	// Singleton test (it works!! See TestingPage)
 	
-	private String text;
+	private String globalMessage;
 
 	public String getText() {
-		if(text == null)
-			text = "";
-		return text;
+		if(globalMessage == null)
+			globalMessage = "";
+		return globalMessage;
 	}
 
 	public void setText(String text) {
-		this.text = text;
+		this.globalMessage = text;
 	}
 	
 	

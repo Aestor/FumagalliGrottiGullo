@@ -37,17 +37,20 @@ public class PlaceSearchPage extends HorizontalLayout implements View {
 	private List<Prediction> predictions;
 
 	private GoogleMap map;
-	private TextField search;
+	private TextField searchTextField;
 	private VerticalLayout autoComplete;
+	
+	private int pred = 0;
+	private int sea = 0;
 
 	@Override
 	public void enter(ViewChangeListener.ViewChangeEvent event) {
 
 		VerticalLayout side = new VerticalLayout();
 		Label title = new Label("Place search");
-		search = new TextField();
+		searchTextField = new TextField();
 		Button submit = new Button(VaadinIcons.SEARCH);
-		HorizontalLayout searchField = new HorizontalLayout(search, submit);
+		HorizontalLayout searchField = new HorizontalLayout(searchTextField, submit);
 		searchField.setSpacing(false);
 		autoComplete = new VerticalLayout();
 		autoComplete.setWidth("600px");
@@ -64,14 +67,38 @@ public class PlaceSearchPage extends HorizontalLayout implements View {
 		this.setSizeUndefined();
 
 		submit.addClickListener(e -> {
-			new Search(search.getValue()).start();
+			search(searchTextField.getValue());
 		});
 		submit.setClickShortcut(KeyCode.ENTER);
 
-		search.setValueChangeMode(ValueChangeMode.LAZY);
-		search.addValueChangeListener(e -> {
-			new Predict(search.getValue()).start();
+		/*
+		searchTextField.setValueChangeMode(ValueChangeMode.LAZY);
+		searchTextField.addValueChangeListener(e -> {
+			predict(searchTextField.getValue());
 		});
+		*/
+	}
+	
+	private void search(String text) {
+		sea++;
+		System.out.println("DEBUG::Search n°" + sea);
+		new Search(text).start();
+	}
+	
+	private void predict(String text) {
+		pred++;
+		System.out.println("DEBUG::Prediction n°" + pred);
+		new Predict(text).start();
+	}
+	
+	private void setMap(Place place) {
+		System.out.println("DEBUG::Setting map...");
+		//this.removeComponent(map);
+		map.clearMarkers();
+		map.addMarker(place.getName(), new LatLon(place.getLatitude(), place.getLongitude()), false, null);
+		map.setCenter(new LatLon(place.getLatitude(), place.getLongitude()));
+		map.setZoom(16);
+		//this.addComponent(map);
 	}
 
 	// NETWORK THREADS
@@ -90,15 +117,11 @@ public class PlaceSearchPage extends HorizontalLayout implements View {
 		@Override
 		public void run() {
 			if (text == null || text.equals("")) {
-				search.setComponentError(new UserError("This field cannot be empty"));
+				searchTextField.setComponentError(new UserError("This field cannot be empty"));
 			} else {
-				results = client.getPlacesByQuery(search.getValue(), 1);
-				for (Place p : results) {
-					map.addMarker(p.getName(), new LatLon(p.getLatitude(), p.getLongitude()), false, null);
-				}
+				results = client.getPlacesByQuery(searchTextField.getValue(), 1);
 				if (results.size() > 0) {
-					map.setCenter(new LatLon(results.get(0).getLatitude(), results.get(0).getLongitude()));
-					map.setZoom(16);
+					setMap(results.get(0));
 				} else {
 					Notification.show("No result found", Type.ERROR_MESSAGE);
 				}
@@ -124,9 +147,11 @@ public class PlaceSearchPage extends HorizontalLayout implements View {
 			for (Prediction p : predictions) {
 				HorizontalLayout row = new HorizontalLayout();
 				Label prediction = new Label(p.getDescription());
-				prediction.addContextClickListener(e -> new Search(p.getDescription()));
 				Button arrow = new Button(VaadinIcons.ARROW_RIGHT);
-				arrow.addClickListener(e -> new Search(p.getDescription()).start());
+				arrow.addClickListener(e -> {
+					System.out.println("Prediction clicked!");
+					setMap(p.getPlace());
+				});
 				row.addComponents(arrow, prediction);
 				autoComplete.addComponent(row);
 			}
