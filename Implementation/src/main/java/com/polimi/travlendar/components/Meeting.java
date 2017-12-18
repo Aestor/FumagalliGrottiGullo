@@ -1,96 +1,116 @@
 package com.polimi.travlendar.components;
 
+import com.polimi.travlendar.User;
+import com.polimi.travlendar.user.PreferenceLevel;
 import java.time.ZonedDateTime;
 
 public class Meeting {
 
-	public State getState() {
-		return state;
-	}
+    private User user;
+    private ZonedDateTime start;
+    private ZonedDateTime end;
+    private String location;
+    private String name;
+    private String details;
+    private State state;
+    private PreferenceLevel level;
 
-	public void setState(State state) {
-		this.state = state;
-	}
+    public State getState() {
+        return state;
+    }
 
-	public boolean isLongTime() {
-		return longTime;
-	}
+    public void setState(State state) {
+        this.state = state;
+    }
 
-	public void setLongTime(boolean longTime) {
-		this.longTime = longTime;
-	}
+    public boolean isLongTime() {
+        return longTime;
+    }
 
-	public enum State {
-		planned, started, ended
-	}
+    public void setLongTime(boolean longTime) {
+        this.longTime = longTime;
+    }
 
-	private String user;
-	private ZonedDateTime start;
-	private ZonedDateTime end;
-	private String location;
-	private String name;
-	private String details;
-	private State state;
+    public enum State {
+        planned, started, ended
+    }
 
-	private boolean longTime;
+    public PreferenceLevel getLevel() {
+        return level;
+    }
 
-	public Meeting(boolean longTime) {
-		this.longTime = longTime;
-	}
+    public void setLevel(PreferenceLevel level) {
+        this.level = level;
+    }
 
-	public ZonedDateTime getStart() {
-		return start;
-	}
+    private boolean longTime;
 
-	public void setStart(ZonedDateTime start) {
-		this.start = start;
-	}
+    public Meeting(boolean longTime) {
+        this.longTime = longTime;
+    }
 
-	public String getUser() {
-		return user;
-	}
-	
-	public void setUser(String user) {
-		this.user = user;
-	}
-	public ZonedDateTime getEnd() {
-		return end;
-	}
+    public ZonedDateTime getStart() {
+        return start;
+    }
 
-	public void setEnd(ZonedDateTime end) {
-		this.end = end;
-	}
+    public void setStart(ZonedDateTime start) {
+        this.start = start;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public User getUser() {
+        return user;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-	public String getDetails() {
-		return details;
-	}
+    public ZonedDateTime getEnd() {
+        return end;
+    }
 
-	public String getLocation() {
-		return location;
-	}
+    public void setEnd(ZonedDateTime end) {
+        this.end = end;
+    }
 
-	public void setLocation(String location) {
-		this.location = location;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setDetails(String details) {
-		this.details = details;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public boolean isEditable() {
-		return state == State.planned;
-	}
+    public String getDetails() {
+        return details;
+    }
 
-	public boolean isLongTimeEvent() {
-		return longTime;
-	}
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
+    public boolean isEditable() {
+        return state == State.planned;
+    }
+
+    public boolean isLongTimeEvent() {
+        return longTime;
+    }
+
+    public PreferenceLevel getPreferenceLevel() {
+        return level;
+    }
+
+    public void setPreferenceLevel(PreferenceLevel other) {
+        this.level = other;
+    }
 
 }

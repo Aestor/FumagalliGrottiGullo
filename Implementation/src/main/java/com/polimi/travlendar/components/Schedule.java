@@ -88,7 +88,7 @@ public class Schedule extends CustomComponent{
 		
 		final Meeting meeting = item.getMeeting();
 		
-		Notification.show(meeting.getName(), meeting.getDetails(), Type.HUMANIZED_MESSAGE);
+		Notification.show(meeting.getName()+"\n"+meeting.getLocation(), meeting.getDetails(), Type.HUMANIZED_MESSAGE);
 	}
 
 	private void initCalendar() {
