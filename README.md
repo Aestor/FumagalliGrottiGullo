@@ -42,5 +42,9 @@ Alternately, create manually a new schema with MySQL Command Line:<br>
 -> USE travlendar;<br>
 -> CREATE TABLE users(id SERIAL, email VARCHAR(255), password VARCHAR(255), first_name VARCHAR(255), last_name VARCHAR(255));
 
+## Stripe Verification
+
+All payments are done through Stripe. All customers, credit card data and transactions are safely stored in the cloud area, accessible with credentials ( username: pie-gro-n26@hotmail.it , password: Tr@vlendar2017 ) from https://dashboard.stripe.com . <br> Account is set in testing mode, so it is advised to used fake credit cards in testing this project (here: https://stripe.com/docs/testing) 
+
 ## Troubles
 Currently Eclipse Java Oxygen is not a good-fitting IDE. We included Lombox 1.16.18. jar , which creates problems in Eclipse. <br> See https://stackoverflow.com/questions/45461777/lombok-problems-with-eclipse-oxygen and https://github.com/rzwitserloot/lombok/issues/1427 articles for further details.
