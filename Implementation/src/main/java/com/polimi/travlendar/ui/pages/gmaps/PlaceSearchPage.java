@@ -3,6 +3,7 @@ package com.polimi.travlendar.ui.pages.gmaps;
 import java.util.List;
 
 import com.github.appreciated.app.layout.annotations.MenuCaption;
+import com.github.appreciated.app.layout.annotations.MenuIcon;
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
@@ -29,6 +30,7 @@ import se.walkercrou.places.exception.GooglePlacesException;
 @SuppressWarnings("serial")
 @SpringView(name = PlaceSearchPage.NAME)
 @MenuCaption("Search place")
+@MenuIcon(VaadinIcons.SEARCH)
 public class PlaceSearchPage extends CssLayout implements View {
 
 	public static final String NAME = "place-search";

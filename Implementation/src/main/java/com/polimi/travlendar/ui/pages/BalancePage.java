@@ -16,6 +16,7 @@
 package com.polimi.travlendar.ui.pages;
 
 import com.github.appreciated.app.layout.annotations.MenuCaption;
+import com.github.appreciated.app.layout.annotations.MenuIcon;
 import com.polimi.travlendar.User;
 import com.polimi.travlendar.ui.AddCardForm;
 import com.polimi.travlendar.ui.CheckoutForm;
@@ -25,23 +26,25 @@ import com.stripe.exception.AuthenticationException;
 import com.stripe.exception.CardException;
 import com.stripe.exception.InvalidRequestException;
 import com.stripe.model.Customer;
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
-import com.vaadin.ui.Button;
+import com.vaadin.ui.RadioButtonGroup;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- *
+ * Page dedicated to user's own balance. Here it is visible the value and it is possible to transfer money.
  * @author jaycaves
  */
 @SuppressWarnings("serial")
-@SpringView(name = CardsPage.NAME)
-@MenuCaption("My Cards")
-public class CardsPage extends VerticalLayout implements View {
+@SpringView(name = BalancePage.NAME)
+@MenuCaption("My Balance")
+@MenuIcon(VaadinIcons.CREDIT_CARD)
+public class BalancePage extends VerticalLayout implements View {
 
-    public static final String NAME = "My Cards";
+    public static final String NAME = "Balance";
 
     @Autowired
     AddCardForm adder;
@@ -55,9 +58,8 @@ public class CardsPage extends VerticalLayout implements View {
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
 
-        //fetchCards();
-        Button addCard = new Button("Add Card");
-        addComponent(addCard);
+        
+        
         this.addComponent(cf);
 
       
@@ -65,17 +67,5 @@ public class CardsPage extends VerticalLayout implements View {
 
     }
 
-    private void fetchCards() {
-
-        try {
-
-            Customer current = Customer.retrieve(user.getStripeId());
-            String cards = current.getSources().toJson();
-
-        } catch (AuthenticationException | InvalidRequestException | APIConnectionException | CardException | APIException ex) {
-
-            System.err.println("ERROR is: " + ex.getMessage());
-        }
-
-    }
+    
 }

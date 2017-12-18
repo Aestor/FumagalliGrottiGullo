@@ -15,8 +15,12 @@
  */
 package com.polimi.travlendar.payment.checkout;
 
+import com.polimi.travlendar.ui.pages.PersonalHomePage;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
+import com.vaadin.navigator.View;
+import com.vaadin.spring.annotation.SpringView;
+import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,17 +28,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- *
+ * Here Checkout's response is handled and transaction is started.
  * @author jaycaves
  */
+
 @RestController
-public class ChargeController {
+public class ChargeController extends VerticalLayout implements View{
     
     @Autowired
     private StripeService paymentsService;
+    
+    //what if I autowire the navigator?
  
     @RequestMapping("/charge")
-    public String charge(ChargeRequest chargeRequest, Model model)
+    public void charge(ChargeRequest chargeRequest, Model model)
       throws StripeException {
         chargeRequest.setDescription("Charge");
         System.out.println(chargeRequest.getStripeToken());
@@ -43,8 +50,7 @@ public class ChargeController {
         model.addAttribute("status", charge.getStatus());
         model.addAttribute("chargeId", charge.getId());
         model.addAttribute("balance_transaction", charge.getBalanceTransaction());
-        
-        return "Result";
+        //getUI().getNavigator().navigateTo(PersonalHomePage.NAME);
     }
  
     @ExceptionHandler(StripeException.class)
@@ -53,4 +59,6 @@ public class ChargeController {
         System.err.println(ex.getMessage());
         return "Ciaone";
     }
+    
+    
 }

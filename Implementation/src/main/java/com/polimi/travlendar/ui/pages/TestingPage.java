@@ -3,12 +3,14 @@ package com.polimi.travlendar.ui.pages;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.appreciated.app.layout.annotations.MenuCaption;
+import com.github.appreciated.app.layout.annotations.MenuIcon;
 import com.polimi.travlendar.NotificationManager;
 import com.polimi.travlendar.User;
 import com.polimi.travlendar.ui.AddCardForm;
 import com.polimi.travlendar.ui.pages.gmaps.MapsAddOnPage;
 import com.polimi.travlendar.ui.pages.gmaps.MapsPage;
 import com.polimi.travlendar.ui.pages.gmaps.PlaceSearchPage;
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.VaadinSession;
@@ -28,6 +30,7 @@ import com.vaadin.ui.VerticalLayout;
 @SuppressWarnings("serial")
 @SpringView(name = TestingPage.NAME)
 @MenuCaption("Test")
+@MenuIcon(VaadinIcons.TERMINAL)
 public class TestingPage extends VerticalLayout implements View{
 	
 	public static final String NAME = "test";

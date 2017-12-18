@@ -26,7 +26,7 @@ import lombok.Data;
 public class ChargeRequest {
 
     private String description;
-    private String data_amount;
+    private String amount;
     private String stripeEmail;
     private String stripeToken;
 

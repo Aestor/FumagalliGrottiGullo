@@ -18,7 +18,6 @@ package com.polimi.travlendar.payment;
 import com.polimi.travlendar.payment.checkout.ChargeRequest;
 import com.polimi.travlendar.User;
 import com.stripe.exception.APIConnectionException;
-import com.stripe.exception.APIException;
 import com.stripe.exception.AuthenticationException;
 import com.stripe.exception.CardException;
 import com.stripe.exception.InvalidRequestException;
@@ -30,7 +29,6 @@ import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.VaadinSessionScope;
 import java.util.HashMap;
 import java.util.Map;
-import lombok.Value;
 import org.springframework.context.annotation.Scope;
 
 /**

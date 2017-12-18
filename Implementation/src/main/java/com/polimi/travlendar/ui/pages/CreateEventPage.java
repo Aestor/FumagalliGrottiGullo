@@ -5,8 +5,10 @@
  */
 package com.polimi.travlendar.ui.pages;
 
+import com.github.appreciated.app.layout.annotations.MenuIcon;
 import com.polimi.travlendar.components.Schedule;
 import com.polimi.travlendar.ui.CreateEventForm;
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.VaadinSession;
@@ -21,6 +23,7 @@ import com.vaadin.ui.Window;
 
 @SuppressWarnings("serial")
 @SpringView(name = CreateEventPage.NAME)
+@MenuIcon(VaadinIcons.CALENDAR_USER)
 public class CreateEventPage extends VerticalLayout implements View {
 
 	public static final String NAME = "CreateEventPage";

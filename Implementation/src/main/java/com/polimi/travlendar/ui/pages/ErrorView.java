@@ -1,5 +1,7 @@
 package com.polimi.travlendar.ui.pages;
 
+import com.github.appreciated.app.layout.annotations.MenuIcon;
+import com.vaadin.icons.VaadinIcons;
 import org.springframework.context.annotation.Scope;
 
 import com.vaadin.navigator.View;
@@ -12,6 +14,7 @@ import com.vaadin.ui.VerticalLayout;
 @SuppressWarnings("serial")
 @SpringView
 @Scope("prototype")
+@MenuIcon(VaadinIcons.WARNING)
 public class ErrorView extends VerticalLayout implements View {
 	
 	@Override

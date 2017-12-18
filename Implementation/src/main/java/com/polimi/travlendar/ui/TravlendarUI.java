@@ -16,7 +16,7 @@ import com.github.appreciated.app.layout.component.MenuHeader;
 import com.polimi.travlendar.User;
 import com.polimi.travlendar.UserService;
 import com.polimi.travlendar.ui.pages.AuthenticationPage;
-import com.polimi.travlendar.ui.pages.CardsPage;
+import com.polimi.travlendar.ui.pages.BalancePage;
 import com.polimi.travlendar.ui.pages.CreateEventPage;
 import com.polimi.travlendar.ui.pages.ErrorView;
 import com.polimi.travlendar.ui.pages.SchedulePage;
@@ -94,7 +94,7 @@ public class TravlendarUI extends UI {
     }
 
     /**
-     * Creates dynamic menu. Must not be done before user has logged in.
+     * Creates dynamic menu. Not instantiated until user has logged in.
      */
     protected void setMenuBar() {
     	setContent(AppLayoutBuilder.get(Behaviour.LEFT_RESPONSIVE)
@@ -102,14 +102,14 @@ public class TravlendarUI extends UI {
                 .withDesign(AppBarDesign.MATERIAL)
                 .withCDI(true)
                 .withNavigationElementInfoProvider(new DefaultSpringNavigationElementInfoProvider())
-                .add(new MenuHeader("Current user", VaadinSession.getCurrent().getAttribute("user").toString(), new ThemeResource("logo.png")), Position.HEADER)
+                .add(new MenuHeader("Current user", VaadinSession.getCurrent().getAttribute("user").toString(), new ThemeResource("google_travel_logo.png")), Position.HEADER)
                 .add(TestingPage.class)
                 .add(MapsAddOnPage.class)
                 .add(PlaceSearchPage.class)
                 .add(SchedulePage.class)
                 .add(CreateEventPage.class)
                 .add(SettingsPage.class)
-                .add(CardsPage.class)
+                .add(BalancePage.class)
                 .add(AuthenticationPage.class, Position.FOOTER)
                 .withNavigatorProducer(components -> {
                     navigator.init(this, components);

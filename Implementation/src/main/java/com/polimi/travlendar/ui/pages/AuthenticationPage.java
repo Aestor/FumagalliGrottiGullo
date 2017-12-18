@@ -3,9 +3,11 @@ package com.polimi.travlendar.ui.pages;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.appreciated.app.layout.annotations.MenuCaption;
+import com.github.appreciated.app.layout.annotations.MenuIcon;
 import com.polimi.travlendar.ui.LoginForm;
 import com.polimi.travlendar.ui.RegisterForm;
 import com.polimi.travlendar.ui.TravlendarUI;
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.VaadinSession;
@@ -24,6 +26,7 @@ import com.vaadin.ui.VerticalLayout;
 @SuppressWarnings("serial")
 @SpringView(name = AuthenticationPage.NAME)
 @MenuCaption("Logout")
+@MenuIcon(VaadinIcons.EXIT)
 public class AuthenticationPage extends VerticalLayout implements View {
 	public static final String NAME = "authentication";
 

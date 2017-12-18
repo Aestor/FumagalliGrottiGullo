@@ -19,7 +19,7 @@ import com.vaadin.annotations.JavaScript;
 import com.vaadin.ui.AbstractJavaScriptComponent;
 
 /**
- *
+ * Triggers the checkout_stripe.js script.
  * @author jaycaves
  */
 @JavaScript(value = { "vaadin://themes/demo/js/checkout_stripe.js" })
@@ -28,14 +28,20 @@ public class CheckoutJs extends AbstractJavaScriptComponent {
     
     private static final long serialVersionUID = -1418946324742025425L;
 
-    public CheckoutJs() {
+    public CheckoutJs(String user, String amount) {
         setKey("pk_test_Br0eRZUzudfg2GZQWZVAJxju");
-        setAmount("1000");
+        setAmount(amount);
+        setUser(user);
         
     }
 
+    public String getUser(){
+        return getState().user;
+    }
     
-    
+    public void setUser(String user){
+        getState().user= user;
+    }
     
     public String getAmount() {
         return getState().amount;

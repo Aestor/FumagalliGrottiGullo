@@ -15,15 +15,18 @@
  */
 package com.polimi.travlendar.ui;
 
-import com.polimi.travlendar.payment.CreditCardField;
-import com.polimi.travlendar.payment.PaymentServiceImpl;
 import com.polimi.travlendar.payment.checkout.CheckoutJs;
+import com.vaadin.server.VaadinSession;
 import com.vaadin.spring.annotation.SpringComponent;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.FormLayout;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.RadioButtonGroup;
 import org.springframework.context.annotation.Scope;
 
 /**
+ * Stripe Checkout form is injected in this view component. User can update his
+ * balance here.
  *
  * @author jaycaves
  */
@@ -31,19 +34,36 @@ import org.springframework.context.annotation.Scope;
 @SpringComponent
 @Scope("prototype")
 public class CheckoutForm extends FormLayout {
-    
+
     private static final String KEY = "pk_test_Br0eRZUzudfg2GZQWZVAJxju";
-    
-    @Autowired
-   private  PaymentServiceImpl paymentHandler;
-    
+    private boolean first;
+
     public CheckoutForm() {
+
+        Label title = new Label("UPDATE BALANCE");
         
-        CheckoutJs checkout= new CheckoutJs();
-        addComponent(checkout);
-    	
-    	
-    	
-    	
+        Label rbg= new Label("Choose the money you want to add to your balance");
+
+        RadioButtonGroup<String> single
+                = new RadioButtonGroup<>();
+
+        single.setItems("5", "10", "15", "20");
+
+        Button ok = new Button("Boost my balance!");
+
+        addComponents(title, rbg, single, ok);
+
+        first = true;
+
+        ok.addClickListener(e -> {
+
+            if ((first) && (single.getValue() != single.getEmptyValue())) {
+                String username = (String) VaadinSession.getCurrent().getAttribute("user");
+                CheckoutJs checkout = new CheckoutJs(username, single.getValue() + "00"); //checkout wants amount in cents
+                addComponent(checkout);
+                first = false;
+            }
+        });
+
     }
 }

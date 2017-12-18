@@ -1,10 +1,12 @@
 package com.polimi.travlendar.ui.pages;
 
+import com.github.appreciated.app.layout.annotations.MenuIcon;
 import java.time.Month;
 import java.time.ZonedDateTime;
 import java.time.format.TextStyle;
 
 import com.polimi.travlendar.components.Schedule;
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.VaadinSession;
@@ -16,6 +18,7 @@ import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("serial")
 @SpringView(name = SchedulePage.NAME)
+@MenuIcon(VaadinIcons.CALENDAR)
 public class SchedulePage extends VerticalLayout implements View {
 
 	private Schedule schedule;

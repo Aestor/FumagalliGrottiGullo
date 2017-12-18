@@ -18,11 +18,12 @@ package com.polimi.travlendar.payment.checkout;
 import com.vaadin.shared.ui.JavaScriptComponentState;
 
 /**
- *
+ * Contains some parameters that are passed to the Checkout javascript file.
  * @author jaycaves
  */
 public class CheckoutJsLabelState extends JavaScriptComponentState {
     public String key;
     public String amount;
+    public String user;
   
 }

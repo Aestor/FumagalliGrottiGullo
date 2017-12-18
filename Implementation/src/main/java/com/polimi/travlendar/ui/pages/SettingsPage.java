@@ -6,6 +6,8 @@
 package com.polimi.travlendar.ui.pages;
 
 import com.github.appreciated.app.layout.annotations.MenuCaption;
+import com.github.appreciated.app.layout.annotations.MenuIcon;
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.VaadinSession;
@@ -20,6 +22,7 @@ import com.vaadin.ui.VerticalLayout;
 @SuppressWarnings("serial")
 @SpringView(name = SettingsPage.NAME)
 @MenuCaption("Settings")
+@MenuIcon(VaadinIcons.ABACUS)
 public class SettingsPage extends VerticalLayout implements View{
     
     public static final String NAME = "SettingsPage";

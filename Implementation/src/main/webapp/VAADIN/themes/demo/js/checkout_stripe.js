@@ -2,7 +2,7 @@
 com_polimi_travlendar_payment_checkout_CheckoutJs = function () {
 
     var me = this;
-    
+
 
     me.formElement = document.createElement("form");
     me.formElement.setAttribute("action", "/charge");
@@ -13,6 +13,7 @@ com_polimi_travlendar_payment_checkout_CheckoutJs = function () {
 
     // create a new script tag with attributes from state
     var makeScriptTag = function (state) {
+
         var scriptEl = document.createElement("script");
         scriptEl.setAttribute("src", "https://checkout.stripe.com/checkout.js");
         scriptEl.setAttribute("data-key", state.key);
@@ -20,9 +21,10 @@ com_polimi_travlendar_payment_checkout_CheckoutJs = function () {
         scriptEl.setAttribute("data-description", "Travlendar+");
         scriptEl.setAttribute("data-image", "https://stripe.com/img/documentation/checkout/marketplace.png");
         scriptEl.setAttribute("data-locale", "auto");
-        scriptEl.setAttribute("data-zip-code", "true");
-        scriptEl.setAttribute("data-currency", "eur");
+        scriptEl.setAttribute("data-zip-code", "false");
+        scriptEl.setAttribute("data-currency", "usd");
         scriptEl.setAttribute("class", "stripe-button");
+        
 
         return scriptEl;
     }
@@ -34,10 +36,16 @@ com_polimi_travlendar_payment_checkout_CheckoutJs = function () {
             me.formElement.removeChild(child);
         }
         // add script tag as form child
+        var x = document.createElement("INPUT");
+        x.setAttribute("type", "hidden");
+        x.setAttribute("value", me.getState().amount);
+        x.setAttribute("name", "amount");
+        me.formElement.append(x);
+
         me.formElement.appendChild(makeScriptTag(me.getState()));
     }
 
-    
+
 
 
 }
