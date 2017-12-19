@@ -15,6 +15,7 @@
  */
 package com.polimi.travlendar.payment.checkout;
 
+import com.polimi.travlendar.ui.pages.BalancePage;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
 import com.vaadin.navigator.View;
@@ -36,20 +37,37 @@ public class ChargeController extends VerticalLayout implements View {
     @Autowired
     private StripeService paymentsService;
 
+    private String htmlResponse = "<html xmlns='http://www.w3.org/1999/xhtml' xmlns:th='http://www.thymeleaf.org'>\n"
+            + "    <head>\n"
+            + "        <title>Result</title>\n"
+            + "    </head>\n"
+            + "    <body>\n"
+            + "        <h3 th:if='${error}' th:text='${error}' style='color: red;'></h3>\n"
+            + "        <div th:unless='${error}'>\n"
+            + "            <h3 style='color: green;'>Success!</h3>\n"
+            + "            <div>Id.: <span th:text='${id}' /></div>\n"
+            + "            <div>Status: <span th:text='${status}' /></div>\n"
+            + "            <div>Charge id.: <span th:text='${chargeId}' /></div>\n"
+            + "            <div>Balance transaction id.: <span th:text='${balance_transaction}' /></div>\n"
+            + "        </div>\n"
+            + "        <a href='/#!" + BalancePage.NAME + "'>Checkout again</a>\n"
+            + "    </body>\n"
+            + "</html>";
+
     @RequestMapping("/charge")
-    public void charge(ChargeRequest chargeRequest)
+    public String charge(ChargeRequest chargeRequest)
             throws StripeException {
         chargeRequest.setDescription("Charge");
         Charge charge = paymentsService.charge(chargeRequest);
         paymentsService.customerBalanceUpdate(charge);
-
+        return htmlResponse;
     }
 
     @ExceptionHandler(StripeException.class)
     public String handleError(Model model, StripeException ex) {
         model.addAttribute("error", ex.getMessage());
         System.err.println(ex.getMessage());
-        return "Stripe Payment was unsuccessful!";
+        return htmlResponse;
     }
 
 }
