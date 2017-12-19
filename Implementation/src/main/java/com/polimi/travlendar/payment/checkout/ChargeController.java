@@ -15,11 +15,9 @@
  */
 package com.polimi.travlendar.payment.checkout;
 
-import com.polimi.travlendar.ui.pages.PersonalHomePage;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
 import com.vaadin.navigator.View;
-import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -29,36 +27,29 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Here Checkout's response is handled and transaction is started.
+ *
  * @author jaycaves
  */
-
 @RestController
-public class ChargeController extends VerticalLayout implements View{
-    
+public class ChargeController extends VerticalLayout implements View {
+
     @Autowired
     private StripeService paymentsService;
-    
-    //what if I autowire the navigator?
- 
+
     @RequestMapping("/charge")
-    public void charge(ChargeRequest chargeRequest, Model model)
-      throws StripeException {
+    public void charge(ChargeRequest chargeRequest)
+            throws StripeException {
         chargeRequest.setDescription("Charge");
-        System.out.println(chargeRequest.getStripeToken());
         Charge charge = paymentsService.charge(chargeRequest);
-        model.addAttribute("id", charge.getId());
-        model.addAttribute("status", charge.getStatus());
-        model.addAttribute("chargeId", charge.getId());
-        model.addAttribute("balance_transaction", charge.getBalanceTransaction());
-        //getUI().getNavigator().navigateTo(PersonalHomePage.NAME);
+        paymentsService.customerBalanceUpdate(charge);
+
     }
- 
+
     @ExceptionHandler(StripeException.class)
     public String handleError(Model model, StripeException ex) {
         model.addAttribute("error", ex.getMessage());
         System.err.println(ex.getMessage());
-        return "Ciaone";
+        return "Stripe Payment was unsuccessful!";
     }
-    
-    
+
 }

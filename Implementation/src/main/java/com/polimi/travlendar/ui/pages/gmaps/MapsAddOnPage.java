@@ -1,6 +1,8 @@
 package com.polimi.travlendar.ui.pages.gmaps;
 
 import com.github.appreciated.app.layout.annotations.MenuCaption;
+import com.github.appreciated.app.layout.annotations.MenuIcon;
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
@@ -17,6 +19,7 @@ import com.vaadin.ui.VerticalLayout;
 @SuppressWarnings("serial")
 @SpringView(name = MapsAddOnPage.NAME)
 @MenuCaption("Map")
+@MenuIcon(VaadinIcons.MAP_MARKER)
 public class MapsAddOnPage extends VerticalLayout implements View {
 	
 	public static final String NAME = "maps-addon";

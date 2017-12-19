@@ -35,13 +35,22 @@ com_polimi_travlendar_payment_checkout_CheckoutJs = function () {
         if (child) {
             me.formElement.removeChild(child);
         }
-        // add script tag as form child
+        
+        //pass amount parameter
         var x = document.createElement("INPUT");
         x.setAttribute("type", "hidden");
         x.setAttribute("value", me.getState().amount);
         x.setAttribute("name", "amount");
         me.formElement.append(x);
-
+        
+        //pass user parameter
+        var y = document.createElement("INPUT");
+        y.setAttribute("type", "hidden");
+        y.setAttribute("value", me.getState().user);
+        y.setAttribute("name", "user");
+        me.formElement.append(y);
+        
+        // add script tag as form child
         me.formElement.appendChild(makeScriptTag(me.getState()));
     }
 

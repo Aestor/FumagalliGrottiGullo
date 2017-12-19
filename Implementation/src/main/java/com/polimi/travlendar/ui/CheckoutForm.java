@@ -15,6 +15,8 @@
  */
 package com.polimi.travlendar.ui;
 
+import com.polimi.travlendar.User;
+import com.polimi.travlendar.UserService;
 import com.polimi.travlendar.payment.checkout.CheckoutJs;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.spring.annotation.SpringComponent;
@@ -22,6 +24,7 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.RadioButtonGroup;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 
 /**
@@ -35,14 +38,22 @@ import org.springframework.context.annotation.Scope;
 @Scope("prototype")
 public class CheckoutForm extends FormLayout {
 
+    @Autowired
+    private UserService service;
+
+    @Autowired
+    User user;
+
     private static final String KEY = "pk_test_Br0eRZUzudfg2GZQWZVAJxju";
     private boolean first;
 
     public CheckoutForm() {
 
-        Label title = new Label("UPDATE BALANCE");
         
-        Label rbg= new Label("Choose the money you want to add to your balance");
+        
+        Label title = new Label("UPDATE BALANCE");
+
+        Label rbg = new Label("Choose the money you want to add to your balance");
 
         RadioButtonGroup<String> single
                 = new RadioButtonGroup<>();
@@ -50,14 +61,14 @@ public class CheckoutForm extends FormLayout {
         single.setItems("5", "10", "15", "20");
 
         Button ok = new Button("Boost my balance!");
-
+        
         addComponents(title, rbg, single, ok);
 
         first = true;
 
         ok.addClickListener(e -> {
 
-            if ((first) && (single.getValue() != single.getEmptyValue())) {
+            if ((first) && (!single.getValue().equals(single.getEmptyValue()))) {
                 String username = (String) VaadinSession.getCurrent().getAttribute("user");
                 CheckoutJs checkout = new CheckoutJs(username, single.getValue() + "00"); //checkout wants amount in cents
                 addComponent(checkout);

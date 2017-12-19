@@ -17,54 +17,30 @@ package com.polimi.travlendar.ui.pages;
 
 import com.github.appreciated.app.layout.annotations.MenuCaption;
 import com.github.appreciated.app.layout.annotations.MenuIcon;
-import com.polimi.travlendar.ui.CheckoutForm;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Page dedicated to user's own balance. Here it is visible the value and it is possible to transfer money.
+ * Page dedicated to user's public transportation virtual tickets. Can purchase or access his own ones.
  * @author jaycaves
  */
 @SuppressWarnings("serial")
-@SpringView(name = BalancePage.NAME)
-@MenuCaption("My Balance")
-@MenuIcon(VaadinIcons.CREDIT_CARD)
-public class BalancePage extends VerticalLayout implements View {
+@SpringView(name = TicketsPage.NAME)
+@MenuCaption("My Tickets")
+@MenuIcon(VaadinIcons.TICKET)
+public class TicketsPage extends VerticalLayout implements View {
 
-    public static final String NAME = "Balance";
+    public static final String NAME = "Tickets Page";
 
-    
-    
-    @Autowired
-                private CheckoutForm cf;
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
 
-        //this.addComponent(new BalanceSection());
-        
-        this.addComponent(cf);
-
-      
-        
 
     }
 
-    private class BalanceSection extends HorizontalLayout{
-
-        public BalanceSection() {
-            
-            Label title= new Label("MY BALANCE:");
-        
-        //here balance is queried from db
-        }
-        
-    }
     
 }
