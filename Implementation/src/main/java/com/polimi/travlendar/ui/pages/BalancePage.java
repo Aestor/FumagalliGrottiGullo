@@ -21,14 +21,20 @@ import com.polimi.travlendar.ui.CheckoutForm;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.server.VaadinSession;
 import com.vaadin.spring.annotation.SpringView;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
- * Page dedicated to user's own balance. Here it is visible the value and it is possible to transfer money.
+ * Page dedicated to user's own balance. Here it is visible the value and it is
+ * possible to transfer money.
+ *
  * @author jaycaves
  */
 @SuppressWarnings("serial")
@@ -38,33 +44,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class BalancePage extends VerticalLayout implements View {
 
     public static final String NAME = "Balance";
+    private Long current_balance;
 
-    
-    
     @Autowired
-                private CheckoutForm cf;
+    private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private CheckoutForm cf;
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
 
-        //this.addComponent(new BalanceSection());
-        
+        this.addComponent(new BalanceSection());
+
         this.addComponent(cf);
 
-      
-        
-
     }
 
-    private class BalanceSection extends HorizontalLayout{
+    private class BalanceSection extends HorizontalLayout {
 
         public BalanceSection() {
+
+            Label title = new Label("MY BALANCE: \n");
+
+            current_balance = (Long) jdbcTemplate.queryForObject("SELECT balance FROM users WHERE email = ?",
+                    new Object[]{VaadinSession.getCurrent().getAttribute("user")}, Long.class); 
+            Component b = new Panel (current_balance.toString()+ " $$");
             
-            Label title= new Label("MY BALANCE:");
-        
-        //here balance is queried from db
+            addComponents(title, b);
+            
+            
         }
-        
+
     }
-    
+
 }

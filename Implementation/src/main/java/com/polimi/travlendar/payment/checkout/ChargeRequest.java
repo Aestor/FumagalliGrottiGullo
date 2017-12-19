@@ -25,7 +25,7 @@ import lombok.Data;
 @Data
 public class ChargeRequest {
 
-    private String description;
+    
     private String amount;
     private String stripeEmail;
     private String stripeToken;

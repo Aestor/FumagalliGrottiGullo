@@ -20,6 +20,8 @@ public class UserRowMapper implements RowMapper<User> {
 		user.setPassword(rs.getString("password"));
 		user.setFirst_name(rs.getString("first_name"));
 		user.setLast_name(rs.getString("last_name"));
+                                user.setStripeId(rs.getString("stripeId"));
+                                user.setBalance(rs.getLong("balance"));
 		return user;
 	}
 

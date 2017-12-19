@@ -15,7 +15,8 @@
  */
 package com.polimi.travlendar.payment.checkout;
 
-import com.polimi.travlendar.UserService;
+import com.polimi.travlendar.User;
+import com.polimi.travlendar.UserRowMapper;
 import com.stripe.Stripe;
 import com.stripe.exception.APIConnectionException;
 import com.stripe.exception.APIException;
@@ -28,6 +29,8 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 /**
@@ -37,49 +40,92 @@ import org.springframework.stereotype.Service;
  * @author jaycaves
  */
 @Service
+@Scope("session")
 public class StripeService {
 
-    private String secretKey = "sk_test_RuQWeP6fRFKs0DbXl8tSkCEi";
+    private final String secretKey = "sk_test_RuQWeP6fRFKs0DbXl8tSkCEi";
+    private boolean firstPayment;
+    private User user;
     
-    @Autowired 
-    UserService user; 
+    @Autowired
+    private JdbcTemplate jdbcTemplate ;
 
     @PostConstruct
     public void init() {
         Stripe.apiKey = secretKey;
+        
+        
     }
 
     protected Charge charge(ChargeRequest chargeRequest)
             throws AuthenticationException, InvalidRequestException,
             APIConnectionException, CardException, APIException {
 
-        Map<String, Object> customerParams = new HashMap<String, Object>();
-        customerParams.put("email", chargeRequest.getUser());
-        customerParams.put("description", "User : " + chargeRequest.getUser() + " paid with email: " + chargeRequest.getStripeEmail());
-        customerParams.put("source", chargeRequest.getStripeToken());
-        Customer customer = Customer.create(customerParams);
+        user = (User) jdbcTemplate.queryForObject("SELECT * FROM users WHERE email=?", new Object[]{chargeRequest.getUser()}, new UserRowMapper());
+        System.out.println(user.toString());
+        Customer customer = customerInit(chargeRequest);
+
+        if (firstPayment) // MUST REGISTER IN DB //
+        {
+            stripeInit(customer.getId());
+        }
+
         Map<String, Object> chargeParams = new HashMap<>();
         chargeParams.put("amount", chargeRequest.getAmount());
         chargeParams.put("currency", "usd");
-        chargeParams.put("description", chargeRequest.getDescription());
+        chargeParams.put("description", "User : " + chargeRequest.getUser() + " paid typing email: " + chargeRequest.getStripeEmail());
         chargeParams.put("customer", customer.getId());
 
         return Charge.create(chargeParams);
     }
+ 
+    
+    private Customer customerInit(ChargeRequest chargeRequest) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 
-    protected void customerBalanceUpdate(Charge charge) {
-            
+        if (user.getStripeId().equals("none")) {
+
+            // FIRST PAYMENT FOR THE CURRENT USER, MUST REGISTER HIM AS CUSTOMER //
+            Map<String, Object> customerParams = new HashMap<String, Object>();
+            customerParams.put("email", chargeRequest.getUser());
+            customerParams.put("description", "Travlendar User with id: #" + user.getId());
+            customerParams.put("source", chargeRequest.getStripeToken());
+            firstPayment = true;
+            return Customer.create(customerParams);
+        }
+        
+        firstPayment = false;
+        return Customer.retrieve(user.getStripeId());
+
+    }
+    
+     /**
+     *  Writes the Stripe unique Customer code in the DB.
+     * @param customerId 
+     */
+    public void stripeInit(String customerId) {
+
+        jdbcTemplate.update("UPDATE users SET stripeId = ? WHERE email= ?",
+                customerId, user.getEmail());
+
+        user.setStripeId(customerId);
+
     }
 
-    private Customer customerCheck(ChargeRequest chargeRequest) {
+    
+    
+    /**
+     * Writes the new balance in the DB.
+     * @param newBalance 
+     */
+    public void updateBalance(Long newBalance) {
 
-        //query per salvare customer.id, use your
-        return null;
+        jdbcTemplate.update("UPDATE users SET balance = ? WHERE email= ?",
+                newBalance, user.getEmail());
+
+        user.setBalance(newBalance);
+        
     }
 
-    private void customerDbSave() {
-        //wait for query
-
-    }
+    
 
 }

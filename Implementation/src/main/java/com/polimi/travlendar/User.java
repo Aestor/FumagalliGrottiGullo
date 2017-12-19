@@ -127,9 +127,15 @@ public class User {
     public void setStripeId(String stripeId) {
         this.stripeId = stripeId;
     }
-    
+
     public Schedule getSchedule() {
-    	return schedule;
+        return schedule;
+    }
+
+    @Override
+    public String toString() {
+        return "User{ " + "id= " + id + ", email= " + email + ", balance= " + balance + ", stripeId= " + stripeId
+                + " }";
     }
 
 }

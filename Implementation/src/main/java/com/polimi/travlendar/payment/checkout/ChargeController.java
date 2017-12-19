@@ -21,8 +21,10 @@ import com.stripe.model.Charge;
 import com.vaadin.navigator.View;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,42 +34,52 @@ import org.springframework.web.bind.annotation.RestController;
  * @author jaycaves
  */
 @RestController
+@Scope("session")
 public class ChargeController extends VerticalLayout implements View {
 
     @Autowired
     private StripeService paymentsService;
 
-    private String htmlResponse = "<html xmlns='http://www.w3.org/1999/xhtml' xmlns:th='http://www.thymeleaf.org'>\n"
-            + "    <head>\n"
-            + "        <title>Result</title>\n"
-            + "    </head>\n"
-            + "    <body>\n"
-            + "        <h3 th:if='${error}' th:text='${error}' style='color: red;'></h3>\n"
-            + "        <div th:unless='${error}'>\n"
-            + "            <h3 style='color: green;'>Success!</h3>\n"
-            + "            <div>Id.: <span th:text='${id}' /></div>\n"
-            + "            <div>Status: <span th:text='${status}' /></div>\n"
-            + "            <div>Charge id.: <span th:text='${chargeId}' /></div>\n"
-            + "            <div>Balance transaction id.: <span th:text='${balance_transaction}' /></div>\n"
-            + "        </div>\n"
-            + "        <a href='/#!" + BalancePage.NAME + "'>Checkout again</a>\n"
-            + "    </body>\n"
-            + "</html>";
-
     @RequestMapping("/charge")
-    public String charge(ChargeRequest chargeRequest)
+    public String charge(ChargeRequest chargeRequest, Model model)
             throws StripeException {
-        chargeRequest.setDescription("Charge");
+        
         Charge charge = paymentsService.charge(chargeRequest);
-        paymentsService.customerBalanceUpdate(charge);
-        return htmlResponse;
+        paymentsService.updateBalance(charge.getAmount()/100);
+        return "<html xmlns='http://www.w3.org/1999/xhtml' xmlns:th='http://www.thymeleaf.org'>\n"
+                + "    <head>\n"
+                + "        <title>Result</title>\n"
+                + "    </head>\n"
+                + "    <body>\n"
+                + "        <div >\n"
+                + "            <h3 style='color: green;'>Success!</h3>\n"
+                + "            <div>User: " + chargeRequest.getUser() + "</div>\n"
+                + "            <div>Status: " + charge.getStatus() + "</div>\n"
+                + "            <div>Charge id.: " + charge.getId() + "</div>\n"
+                + "            <div>Balance transaction id.: " + charge.getBalanceTransaction() + "</div>\n"
+                + "        </div>\n"
+                + "         <br><br>"
+                + "        <a href='/#!" + BalancePage.NAME + "'>Go back to the app </a>\n"
+                + "    </body>\n"
+                + "</html>";
     }
 
     @ExceptionHandler(StripeException.class)
     public String handleError(Model model, StripeException ex) {
         model.addAttribute("error", ex.getMessage());
-        System.err.println(ex.getMessage());
-        return htmlResponse;
+        return "<html xmlns='http://www.w3.org/1999/xhtml' xmlns:th='http://www.thymeleaf.org'>\n"
+                + "    <head>\n"
+                + "        <title>Result</title>\n"
+                + "    </head>\n"
+                + "    <body>\n"
+                + "        <div >\n"
+                + "            <h3 style='color: red;'>Failure</h3>\n"
+                + "         <div>The following error occurred: <br> " + ex.getMessage() + "</div>\n"
+                + "        </div>\n"
+                + "         <br><br>"
+                + "        <a href='/#!" + BalancePage.NAME + "'>Checkout again</a>\n"
+                + "    </body>\n"
+                + "</html>";
     }
 
 }

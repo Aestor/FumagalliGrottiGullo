@@ -53,6 +53,7 @@ public class TravlendarUI extends UI {
     @Autowired
     SpringNavigator navigator;
     
+    
     private User currentUser;
 
     public User getCurrentUser() {
