@@ -41,6 +41,20 @@ Alternately, create manually a new schema with MySQL Command Line:<br>
 -> CREATE SCHEMA travlendar;<br>
 -> USE travlendar;<br>
 -> CREATE TABLE users(id SERIAL, email VARCHAR(255), password VARCHAR(255), first_name VARCHAR(255), last_name VARCHAR(255));
+->CREATE TABLE EVENTS(<br>
+id	BIGINT	references users(id),<br>
+eventid SERIAL,<br>
+location varchar(255),<br>
+nam varchar(255),<br>
+details varchar(255),<br>
+d DATE,<br>
+timeb TIME,<br>
+timee TIME,<br>
+state varchar(255),<br>
+preflevel varchar(255),<br>
+primary key (id, eventid)<br>
+);
+
 
 ## Stripe Verification
 
