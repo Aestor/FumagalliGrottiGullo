@@ -40,7 +40,7 @@ To import the database in your PC:
 Alternately, create manually a new schema with MySQL Command Line:<br>
 -> CREATE SCHEMA travlendar;<br>
 -> USE travlendar;<br>
--> CREATE TABLE users(id SERIAL, email VARCHAR(255), password VARCHAR(255), first_name VARCHAR(255), last_name VARCHAR(255));
+-> CREATE TABLE users(id SERIAL, email VARCHAR(255), password VARCHAR(255), first_name VARCHAR(255), last_name VARCHAR(255));<br>
 ->CREATE TABLE EVENTS(<br>
 id	BIGINT	references users(id),<br>
 eventid SERIAL,<br>
