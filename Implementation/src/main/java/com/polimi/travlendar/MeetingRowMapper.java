@@ -16,8 +16,15 @@
 package com.polimi.travlendar;
 
 import com.polimi.travlendar.components.Meeting;
+import com.polimi.travlendar.components.Meeting.State;
+import com.polimi.travlendar.user.PreferenceLevel;
+import com.vaadin.server.VaadinSession;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import org.springframework.jdbc.core.RowMapper;
 
 /**
@@ -29,13 +36,47 @@ public class MeetingRowMapper implements RowMapper<Meeting> {
     @Override
     public Meeting mapRow(ResultSet rs, int rowNum) throws SQLException {
         Meeting meeting = new Meeting(false);
+        meeting.setUser((User)VaadinSession.getCurrent().getAttribute("user"));
         meeting.setName(rs.getString("nam"));
         meeting.setDetails(rs.getString("details"));
         meeting.setLocation(rs.getString("location"));
-        
-        
-        
-        return null;
+        meeting.setStart(convertDateTime(rs.getTime("timeb"), rs.getDate("d")));
+        meeting.setEnd(convertDateTime(rs.getTime("timee"), rs.getDate("d")));
+        meeting.setPreferenceLevel(convertPref(rs.getString("preflevel")));
+        meeting.setState(convertState(rs.getString("state")));
+
+        return meeting;
     }
 
+    private ZonedDateTime convertDateTime(Time t, Date d) {
+        return ZonedDateTime.of(d.toLocalDate(), t.toLocalTime(), ZoneId.systemDefault());
+
+    }
+    
+    private PreferenceLevel convertPref(String e) {
+        switch(e) {
+            case "HIGH":
+                return PreferenceLevel.HIGH;
+            case "MEDIUM":
+                return PreferenceLevel.MEDIUM;
+            case "LOW":
+                return PreferenceLevel.LOW;
+            default:
+                    return null;
+        }
+        
+    }
+    
+    private State convertState(String s) {
+        switch(s) {
+            case "planned":
+                return State.planned;
+            case "started":
+                return State.started;
+            case "ended":
+                return State.ended;
+            default:
+                return null;
+        }
+    }
 }

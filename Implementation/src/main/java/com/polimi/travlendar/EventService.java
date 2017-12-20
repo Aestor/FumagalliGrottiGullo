@@ -16,8 +16,13 @@
 package com.polimi.travlendar;
 
 import com.polimi.travlendar.components.Meeting;
+import com.polimi.travlendar.components.Meeting.State;
+import com.polimi.travlendar.user.PreferenceLevel;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.VaadinSessionScope;
+import java.sql.Date;
+import java.sql.Time;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,22 +43,60 @@ public class EventService {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    
+    @Autowired
+    User user;
 
     public void addMeeting(Meeting meeting) {
-        jdbcTemplate.update("INSERT INTO events (id, location, nam, details, d, timeb, timee, preflevel) VALUES (?,?,?,?,?,?,?)",
-                meeting.getUser().getId(), meeting.getLocation(), meeting.getName(), meeting.getDetails(), meeting.getStart().toLocalDate(), meeting.getStart().toLocalTime(), meeting.getEnd().toLocalTime(), meeting.getPreferenceLevel());
+        
+        jdbcTemplate.update("INSERT INTO events (id, location, nam, details, d, timeb, timee, preflevel, state) VALUES (?,?,?,?,?,?,?,?,?)",
+                meeting.getUser().getId(), meeting.getLocation(), meeting.getName(), meeting.getDetails(), convertDate(meeting.getStart()), convertTime(meeting.getStart()), convertTime(meeting.getEnd()), convertPref(meeting.getPreferenceLevel()), convertState(meeting.getState()));
     }
 
     public List<Meeting> getMeetings(User user) throws EmptyResultDataAccessException {
         List<Meeting> m = new ArrayList<>();
         long i = user.getId();
         try {
-         //  m = jdbcTemplate.queryForList("SELECT * FROM events WHERE id =?", Meeting);
-         // m = jdbcTemplate.queryForList("SELECT * FROM events WHERE id=?", i, Meeting.class);
-        } catch ( EmptyResultDataAccessException e) {
+            m = jdbcTemplate.query("SELECT * FROM events WHERE id=?", new Object[]{user.getId()}, new MeetingRowMapper());
+        } catch (EmptyResultDataAccessException e) {
             throw e;
         }
         return m;
-        
+
+    }
+
+    private Time convertTime(ZonedDateTime t) {
+        return Time.valueOf(t.toLocalTime());
+    }
+
+    private Date convertDate(ZonedDateTime t) {
+        return Date.valueOf(t.toLocalDate());
+    }
+
+    private String convertPref(PreferenceLevel p) {
+        switch (p) {
+            case HIGH:
+                return "HIGH";
+            case MEDIUM:
+                return "MEDIUM";
+            case LOW:
+                return "LOW";
+            default:
+                return null;
+        }
+
+    }
+
+    private String convertState(State s) {
+        switch (s) {
+            case planned:
+                return "planned";
+            case started:
+                return "started";
+            case ended:
+                return "ended";
+            default:
+                return null;
+        }
     }
 }

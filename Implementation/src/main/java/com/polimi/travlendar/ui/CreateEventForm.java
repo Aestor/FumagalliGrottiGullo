@@ -1,5 +1,7 @@
 package com.polimi.travlendar.ui;
 
+import com.polimi.travlendar.EventService;
+import com.polimi.travlendar.User;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
@@ -13,21 +15,32 @@ import com.polimi.travlendar.components.Schedule;
 import com.polimi.travlendar.components.TimeSelectorComponent;
 import com.polimi.travlendar.user.PreferenceLevel;
 import com.vaadin.event.ShortcutAction.KeyCode;
+import com.vaadin.server.VaadinSession;
+import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 
 @SuppressWarnings("serial")
+@SpringComponent
+@Scope("prototype")
 public class CreateEventForm extends FormLayout {
+    
+    @Autowired
+    private EventService service;
 
+    
     private TextField location = new TextField("Location");
     private TextField name = new TextField("Event");
     private TextField description = new TextField("Description");
@@ -44,8 +57,7 @@ public class CreateEventForm extends FormLayout {
     protected boolean eventOk = true;
     protected boolean wait = false;
 
-    public CreateEventForm(Schedule schedule) {
-        this.schedule = schedule;
+    public CreateEventForm() {
         setSizeUndefined();
         date.setDateFormat("dd-MM-yyyy");
         date.setPlaceholder("dd-mm-yyyy");
@@ -78,13 +90,14 @@ public class CreateEventForm extends FormLayout {
             convertEnd();
 
             Meeting meeting = new Meeting(false);
-
+            meeting.setUser(schedule.getUser());
             meeting.setStart(begin);
             meeting.setEnd(end);
 
             meeting.setName(name.getValue());
             meeting.setLocation(location.getValue());
             meeting.setDetails(description.getValue());
+            meeting.setPreferenceLevel(preference.getValue());
             meeting.setState(State.planned);
             CreateEventRecap recap = new CreateEventRecap(meeting);
             UI.getCurrent().addWindow(recap);
@@ -113,6 +126,10 @@ public class CreateEventForm extends FormLayout {
         startingTime.clear();
         endingTime.clear();
 
+    }
+    
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
     }
 
     private void convertBegin() {
@@ -182,6 +199,7 @@ public class CreateEventForm extends FormLayout {
             Button ok = new Button("OK", e -> {
                 schedule.onSubmitEvent(form);
                 Notification.show("Event created successfully");
+                saveEvent(form);
                 close();
             });
             Button no = new Button("NO", e -> {
@@ -206,6 +224,17 @@ public class CreateEventForm extends FormLayout {
             return eventOk;
         }
 
+    }
+    
+    public void saveEvent(Meeting meeting) {
+        try {
+            service.addMeeting(meeting);
+        } catch (EmptyResultDataAccessException e) {
+            Notification.show("Internal error!", Type.ERROR_MESSAGE);
+        }
+      /*  catch (NullPointerException e) {
+            Notification.show("NON FUNZIONA 'NA MAZZA", Type.ERROR_MESSAGE);
+        }*/
     }
 
 }

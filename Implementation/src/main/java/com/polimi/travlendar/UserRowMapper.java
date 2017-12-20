@@ -22,5 +22,7 @@ public class UserRowMapper implements RowMapper<User> {
 		user.setLast_name(rs.getString("last_name"));
 		return user;
 	}
+        
+        
 
 }
