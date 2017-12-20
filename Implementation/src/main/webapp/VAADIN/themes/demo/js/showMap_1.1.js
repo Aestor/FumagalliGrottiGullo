@@ -1,7 +1,7 @@
 /**
  * 
  */
-window.com_polimi_travlendar_gmaps_Map = function() { //Put correct package name
+window.com_polimi_travlendar_gmaps_JavaScriptMap = function() { //Put correct package name
 
       this.myfunction = function(latitude, longitude) {     //Accept the parameters
          var map;

@@ -6,6 +6,7 @@ import com.polimi.travlendar.components.Schedule;
 import com.polimi.travlendar.user.UserSettings;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.VaadinSessionScope;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * This object can be injected in a user session to store the information about
@@ -19,6 +20,9 @@ import com.vaadin.spring.annotation.VaadinSessionScope;
 @VaadinSessionScope
 @Scope("session")
 public class User {
+    
+    @Autowired
+    UserService service;
 
     private Long id;
     private String email, password, first_name, last_name;
@@ -127,9 +131,15 @@ public class User {
     public void setStripeId(String stripeId) {
         this.stripeId = stripeId;
     }
-    
+
     public Schedule getSchedule() {
-    	return schedule;
+        return schedule;
+    }
+
+    @Override
+    public String toString() {
+        return "User{ " + "id= " + id + ", email= " + email + ", balance= " + balance + ", stripeId= " + stripeId
+                + " }";
     }
 
 }

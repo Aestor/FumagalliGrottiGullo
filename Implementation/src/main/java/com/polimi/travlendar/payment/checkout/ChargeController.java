@@ -15,50 +15,71 @@
  */
 package com.polimi.travlendar.payment.checkout;
 
-import com.polimi.travlendar.ui.pages.PersonalHomePage;
+import com.polimi.travlendar.ui.pages.BalancePage;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
 import com.vaadin.navigator.View;
-import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Here Checkout's response is handled and transaction is started.
+ *
  * @author jaycaves
  */
-
 @RestController
-public class ChargeController extends VerticalLayout implements View{
-    
+@Scope("session")
+public class ChargeController extends VerticalLayout implements View {
+
     @Autowired
     private StripeService paymentsService;
-    
-    //what if I autowire the navigator?
- 
+
     @RequestMapping("/charge")
-    public void charge(ChargeRequest chargeRequest, Model model)
-      throws StripeException {
-        chargeRequest.setDescription("Charge");
-        System.out.println(chargeRequest.getStripeToken());
+    public String charge(ChargeRequest chargeRequest, Model model)
+            throws StripeException {
+        
         Charge charge = paymentsService.charge(chargeRequest);
-        model.addAttribute("id", charge.getId());
-        model.addAttribute("status", charge.getStatus());
-        model.addAttribute("chargeId", charge.getId());
-        model.addAttribute("balance_transaction", charge.getBalanceTransaction());
-        //getUI().getNavigator().navigateTo(PersonalHomePage.NAME);
+        paymentsService.updateBalance(charge.getAmount()/100);
+        return "<html xmlns='http://www.w3.org/1999/xhtml' xmlns:th='http://www.thymeleaf.org'>\n"
+                + "    <head>\n"
+                + "        <title>Result</title>\n"
+                + "    </head>\n"
+                + "    <body>\n"
+                + "        <div >\n"
+                + "            <h3 style='color: green;'>Success!</h3>\n"
+                + "            <div>User: " + chargeRequest.getUser() + "</div>\n"
+                + "            <div>Status: " + charge.getStatus() + "</div>\n"
+                + "            <div>Charge id.: " + charge.getId() + "</div>\n"
+                + "            <div>Balance transaction id.: " + charge.getBalanceTransaction() + "</div>\n"
+                + "        </div>\n"
+                + "         <br><br>"
+                + "        <a href='/#!" + BalancePage.NAME + "'>Go back to the app </a>\n"
+                + "    </body>\n"
+                + "</html>";
     }
- 
+
     @ExceptionHandler(StripeException.class)
     public String handleError(Model model, StripeException ex) {
         model.addAttribute("error", ex.getMessage());
-        System.err.println(ex.getMessage());
-        return "Ciaone";
+        return "<html xmlns='http://www.w3.org/1999/xhtml' xmlns:th='http://www.thymeleaf.org'>\n"
+                + "    <head>\n"
+                + "        <title>Result</title>\n"
+                + "    </head>\n"
+                + "    <body>\n"
+                + "        <div >\n"
+                + "            <h3 style='color: red;'>Failure</h3>\n"
+                + "         <div>The following error occurred: <br> " + ex.getMessage() + "</div>\n"
+                + "        </div>\n"
+                + "         <br><br>"
+                + "        <a href='/#!" + BalancePage.NAME + "'>Checkout again</a>\n"
+                + "    </body>\n"
+                + "</html>";
     }
-    
-    
+
 }

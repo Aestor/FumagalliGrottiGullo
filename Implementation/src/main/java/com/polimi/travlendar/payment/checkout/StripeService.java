@@ -15,7 +15,8 @@
  */
 package com.polimi.travlendar.payment.checkout;
 
-import com.github.appreciated.app.layout.annotations.MenuIcon;
+import com.polimi.travlendar.User;
+import com.polimi.travlendar.UserRowMapper;
 import com.stripe.Stripe;
 import com.stripe.exception.APIConnectionException;
 import com.stripe.exception.APIException;
@@ -24,56 +25,107 @@ import com.stripe.exception.CardException;
 import com.stripe.exception.InvalidRequestException;
 import com.stripe.model.Charge;
 import com.stripe.model.Customer;
-import com.vaadin.icons.VaadinIcons;
-import com.vaadin.server.VaadinSession;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 /**
- * Spring Service which interacts with Stripe's server to validate payments and store data into our personal cloud space.
+ * Spring Service which interacts with Stripe's server to validate payments and
+ * store data into our personal cloud space.
+ *
  * @author jaycaves
  */
 @Service
+@Scope("session")
 public class StripeService {
 
-    //@Value("${STRIPE_SECRET_KEY}")
-    private String secretKey = "sk_test_RuQWeP6fRFKs0DbXl8tSkCEi";
+    private final String secretKey = "sk_test_RuQWeP6fRFKs0DbXl8tSkCEi";
+    private boolean firstPayment;
+    private User user;
+    
+    @Autowired
+    private JdbcTemplate jdbcTemplate ;
 
     @PostConstruct
     public void init() {
         Stripe.apiKey = secretKey;
+        
+        
     }
 
-    public Charge charge(ChargeRequest chargeRequest)
+    protected Charge charge(ChargeRequest chargeRequest)
             throws AuthenticationException, InvalidRequestException,
             APIConnectionException, CardException, APIException {
 
-        Map<String, Object> customerParams = new HashMap<String, Object>();
-        customerParams.put("email", chargeRequest.getStripeEmail());
-        customerParams.put("description", "Customer: " + chargeRequest.getStripeEmail());
-        customerParams.put("source", chargeRequest.getStripeToken());
-        Customer customer = Customer.create(customerParams);
+        user = (User) jdbcTemplate.queryForObject("SELECT * FROM users WHERE email=?", new Object[]{chargeRequest.getUser()}, new UserRowMapper());
+        System.out.println(user.toString());
+        Customer customer = customerInit(chargeRequest);
+
+        if (firstPayment) // MUST REGISTER IN DB //
+        {
+            stripeInit(customer.getId());
+        }
+
         Map<String, Object> chargeParams = new HashMap<>();
         chargeParams.put("amount", chargeRequest.getAmount());
         chargeParams.put("currency", "usd");
-        chargeParams.put("description", chargeRequest.getDescription());
+        chargeParams.put("description", "User : " + chargeRequest.getUser() + " paid typing email: " + chargeRequest.getStripeEmail());
         chargeParams.put("customer", customer.getId());
 
         return Charge.create(chargeParams);
     }
+ 
+    
+    private Customer customerInit(ChargeRequest chargeRequest) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 
-    private Customer customerCheck(ChargeRequest chargeRequest) {
+        if (user.getStripeId().equals("none")) {
 
-        //query per salvare customer.id, use your
-        return null;
+            // FIRST PAYMENT FOR THE CURRENT USER, MUST REGISTER HIM AS CUSTOMER //
+            Map<String, Object> customerParams = new HashMap<String, Object>();
+            customerParams.put("email", chargeRequest.getUser());
+            customerParams.put("description", "Travlendar User with id: #" + user.getId());
+            customerParams.put("source", chargeRequest.getStripeToken());
+            firstPayment = true;
+            return Customer.create(customerParams);
+        }
+        
+        firstPayment = false;
+        return Customer.retrieve(user.getStripeId());
+
     }
     
-    private void customerDbSave(){
-        //wait for query
+     /**
+     *  Writes the Stripe unique Customer code in the DB.
+     * @param customerId 
+     */
+    public void stripeInit(String customerId) {
+
+        jdbcTemplate.update("UPDATE users SET stripeId = ? WHERE email= ?",
+                customerId, user.getEmail());
+
+        user.setStripeId(customerId);
+
+    }
+
+    
+    
+    /**
+     * Writes the new balance in the DB.
+     * @param newBalance 
+     */
+    public void updateBalance(Long newBalance) {
+
+        jdbcTemplate.update("UPDATE users SET balance = ? WHERE email= ?",
+                newBalance, user.getEmail());
+
+        user.setBalance(newBalance);
         
     }
+
+    
+
 }

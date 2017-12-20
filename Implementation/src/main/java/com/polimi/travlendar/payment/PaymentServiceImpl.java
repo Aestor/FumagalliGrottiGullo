@@ -92,7 +92,7 @@ public class PaymentServiceImpl implements PaymentService {
         chargeParams.put("description", "Monthly Charges");
         //chargeParams.put("customer", user.getStripeId());
       //  chargeParams.put("amount", chargeRequest.getAmount());
-        chargeParams.put("description", chargeRequest.getDescription());
+        
         chargeParams.put("source", chargeRequest.getStripeToken());
 
         try {

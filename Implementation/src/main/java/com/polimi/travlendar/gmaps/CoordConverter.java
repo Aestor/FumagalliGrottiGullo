@@ -13,22 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.polimi.travlendar.payment.checkout;
+package com.polimi.travlendar.gmaps;
 
-import lombok.Data;
+import com.google.maps.model.LatLng;
+import com.vaadin.tapio.googlemaps.client.LatLon;
 
 /**
- * Simple POJO that contains charge data
  *
- * @author jaycaves
+ * @author Marco
  */
-@Data
-public class ChargeRequest {
-
+public class CoordConverter {
     
-    private String amount;
-    private String stripeEmail;
-    private String stripeToken;
-    private String user;
-
+    public static LatLng conver(LatLon coord){
+        return new LatLng(coord.getLat(), coord.getLon()); 
+    }
+    
 }

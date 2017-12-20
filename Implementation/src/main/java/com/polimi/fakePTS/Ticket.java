@@ -13,22 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.polimi.travlendar.payment.checkout;
+package com.polimi.fakePTS;
 
-import lombok.Data;
+import java.util.Date;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
- * Simple POJO that contains charge data
- *
+ * Single Public Transportation System's ticket.
  * @author jaycaves
  */
-@Data
-public class ChargeRequest {
-
+@Getter 
+@Setter
+public class Ticket {
     
-    private String amount;
-    private String stripeEmail;
-    private String stripeToken;
-    private String user;
-
+    private String id;
+    private String name;
+    private String lastname;
+    private String city;
+    private Date date;
+    
+    
 }

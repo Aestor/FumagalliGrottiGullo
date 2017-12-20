@@ -1,7 +1,7 @@
 package com.polimi.travlendar.ui.pages.gmaps;
 
 import com.github.appreciated.app.layout.annotations.MenuIcon;
-import com.polimi.travlendar.gmaps.Map;
+import com.polimi.travlendar.gmaps.JavaScriptMap;
 import com.vaadin.annotations.Theme;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
@@ -25,7 +25,7 @@ public class MapsPage extends VerticalLayout implements View {
 
 	@Override
 	public void enter(ViewChangeListener.ViewChangeEvent event) {
-		Map mapobject = new Map(new Float(45.4782167), new Float(9.2250863));
+		JavaScriptMap mapobject = new JavaScriptMap(new Float(45.4782167), new Float(9.2250863));
         mapobject.setId("mapob");
         this.addComponents(new Label("Google Maps with Javascript"), mapobject);
 	}
