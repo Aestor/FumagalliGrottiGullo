@@ -53,18 +53,34 @@ public class VaadinMap extends VerticalLayout {
             Double lat = new Double(0);
             Double lon = new Double(0);
             int nullCounter = 0;
+            LatLon ne = new LatLon(new Double(0), new Double(0));
+            LatLon sw = new LatLon(new Double(0), new Double(0));
             for (Place p : places) {
                 if (p!=null) {
                     map.addMarker(p.getName(), new LatLon(p.getLatitude(), p.getLongitude()), false, null);
                     lat += p.getLatitude();
                     lon += p.getLongitude();
+                    if(ne==null && sw==null){
+                        ne = new LatLon(p.getLatitude(), p.getLongitude());
+                    } else {
+                        if(p.getLatitude()>ne.getLat())
+                            ne.setLat(p.getLatitude());
+                        if(p.getLatitude()<sw.getLat())
+                            sw.setLat(p.getLatitude());
+                        if(p.getLongitude()>ne.getLon())
+                            ne.setLon(p.getLongitude());
+                        if(p.getLongitude()<sw.getLon())
+                            ne.setLon(p.getLongitude());
+                    }
                 } else
                     nullCounter++;
             }
             lat = lat / (places.length - nullCounter);
             lon = lon / (places.length - nullCounter);
             map.setCenter(new LatLon(lat, lon));
-            map.setZoom(16); // Provvisorio
+            map.setZoom(4); // Provvisorio
+            map.setCenterBoundLimits(ne, sw);
+            map.setCenterBoundLimitsEnabled(true);
         } else {
             System.err.println("Exceded places[] array in VaadinMap object.");
         }

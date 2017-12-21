@@ -17,36 +17,58 @@ package com.polimi.travlendar.gmaps;
 
 import com.google.maps.DirectionsApi;
 import com.google.maps.DirectionsApiRequest;
-import com.google.maps.GaeRequestHandler;
 import com.google.maps.GeoApiContext;
+import com.google.maps.model.DirectionsLeg;
 import com.google.maps.model.DirectionsResult;
-import com.vaadin.tapio.googlemaps.client.LatLon;
+import com.google.maps.model.DirectionsRoute;
+import com.google.maps.model.LatLng;
+import se.walkercrou.places.Place;
 
 /**
  *
  * @author Marco
  */
 public class MapsDirections {
-    
+
     private static final String KEY = "AIzaSyD6IaaO4KPZcEWmYzKRS9wtCvYnt2WyfrA";
-    
+
     private GeoApiContext context;
-    
-    public MapsDirections(){
-        context = new GeoApiContext.Builder(new GaeRequestHandler.Builder()).apiKey(KEY).build();
+
+    public MapsDirections() {
+        context = new GeoApiContext.Builder().apiKey(KEY).build();
     }
-    
-    public DirectionsResult calculateDirections(LatLon start, LatLon end){
+
+    public DirectionsResult calculateDirections(Place start, Place end) {
         DirectionsApiRequest request = DirectionsApi.newRequest(context);
-        // set start and end...
+        request.origin(new LatLng(start.getLatitude(), start.getLongitude()));
+        request.destination(new LatLng(end.getLatitude(), end.getLongitude()));
         DirectionsResult result;
-        try{
+        try {
             result = request.await();
             return result;
-        } catch (Exception e){
+        } catch (Exception e) {
             // Do something...
         }
         return null;
     }
-    
+
+    public String directionsDescription(DirectionsResult dir) {
+        String result = "Routes:\n\n";
+        int i = 1;
+        for (DirectionsRoute r : dir.routes) {
+            result += "Route " + i + ".\n";
+            result += "Summary: " + r.summary + "\n";
+            int j = 1;
+            String space = "    ";
+            for (DirectionsLeg l : r.legs) {
+                result += space + "Leg " + j + ":\n";
+                result += space + "Start address: " + l.startAddress + ".\n";
+                result += space + "End address: " + l.endAddress + ".\n";
+                result += space + "Distance: " + l.distance.humanReadable + ".\n";
+                result += space + "Duration: " + l.duration.humanReadable + ".\n";
+            }
+        }
+        return result;
+    }
+
 }

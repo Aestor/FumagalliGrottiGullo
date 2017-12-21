@@ -176,18 +176,6 @@
             <type>jar</type>
         </dependency>  
 
-        <!-- Vaadin server push -->
-        <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-push</artifactId>
-            <version>${vaadin.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>4.3.13.RELEASE</version>
-            <type>jar</type>
-        </dependency>
     </dependencies>
 
 
