@@ -15,7 +15,8 @@
  */
 package com.polimi.fakePTS;
 
-import java.util.HashMap;
+import com.polimi.travlendar.user.Ticket;
+import java.util.Date;
 
    /**
  * Here we simulate RPC calls to a PTS API. Since no PTS service in our country grants access to their purchase system, 
@@ -27,23 +28,17 @@ import java.util.HashMap;
 
 public class PtsRequest {
 
-    private static HashMap<String, String> ticketsGrid;
-
-  
-    public static Ticket askForTicket(String id) {
-        return null;
-    }
-
-  
-    public static boolean activateTicket(String id) {
+    
+    public static void activateTicket(Ticket ticket) {
         
-        return false;
+       ticket.setActivated(true);
+       
     }
 
 
-    public static Ticket buyTicket() {
+    public static Ticket buyTicket(String name, String lastname, Date date, String city, int validity) {
          
-        return null;
+        return new Ticket(name, lastname,city, date, validity);
     }
     
  

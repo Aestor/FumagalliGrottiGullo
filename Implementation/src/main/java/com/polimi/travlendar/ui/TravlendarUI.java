@@ -22,6 +22,7 @@ import com.polimi.travlendar.ui.pages.ErrorView;
 import com.polimi.travlendar.ui.pages.SchedulePage;
 import com.polimi.travlendar.ui.pages.SettingsPage;
 import com.polimi.travlendar.ui.pages.TestingPage;
+import com.polimi.travlendar.ui.pages.TicketsPage;
 import com.polimi.travlendar.ui.pages.gmaps.MapsAddOnPage;
 import com.polimi.travlendar.ui.pages.gmaps.PlaceSearchPage;
 import com.vaadin.annotations.Theme;
@@ -111,6 +112,7 @@ public class TravlendarUI extends UI {
                 .add(CreateEventPage.class)
                 .add(SettingsPage.class)
                 .add(BalancePage.class)
+                .add(TicketsPage.class)
                 .add(AuthenticationPage.class, Position.FOOTER)
                 .withNavigatorProducer(components -> {
                     navigator.init(this, components);
