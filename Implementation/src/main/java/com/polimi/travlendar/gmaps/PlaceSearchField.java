@@ -15,70 +15,71 @@
  */
 package com.polimi.travlendar.gmaps;
 
-import com.vaadin.event.ShortcutAction.KeyCode;
+import com.google.maps.model.PlacesSearchResult;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.UserError;
+import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
-import java.util.List;
-import se.walkercrou.places.GooglePlaces;
-import se.walkercrou.places.Place;
-import se.walkercrou.places.exception.GooglePlacesException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 
 /**
  *
  * @author Marco
  */
+@SpringComponent
+@Scope("prototype")
 public class PlaceSearchField extends VerticalLayout{
-    
-    private static final String KEY = "AIzaSyDGsAnfiLGU5WG2Yh7_glDJrRYvDnkGsSg";
-    
-    private Label place;
-    private TextField searchTextField;
-    private Button searchButton;
-    
-    public PlaceSearchField(){
+
+    @Autowired
+    GoogleMapsService service;
+
+    private final Label place;
+    private final TextField searchTextField;
+    private final Button searchButton;
+
+    public PlaceSearchField() {
         place = new Label("No place searched.");
-        
+
         searchTextField = new TextField();
         searchTextField.setPlaceholder("Search...");
-        
+
         searchButton = new Button(VaadinIcons.SEARCH);
-        
+
         HorizontalLayout searchBar = new HorizontalLayout();
         searchBar.addComponents(searchTextField, searchButton);
         searchBar.setSpacing(false);
-        
+
         this.addComponents(place, searchBar);
     }
-    
-    public Place searchPlace() throws GooglePlacesException{
+
+    public PlacesSearchResult searchPlace() throws ResultNotFoundException {
         String text = searchTextField.getValue();
         if (text == null || text.equals("")) {
             searchTextField.setComponentError(new UserError("This field cannot be empty"));
         } else {
             try {
-                List<Place> results;
-                GooglePlaces client = new GooglePlaces(KEY);
-                results = client.getPlacesByQuery(text, GooglePlaces.MAXIMUM_RESULTS);
-                place.setValue(results.get(0).getName());
-                return results.get(0);
-            } catch (GooglePlacesException e) {
-                throw e;
+                return service.searchPlace(text);
+            } catch (ResultNotFoundException re) {
+                throw re;
+            } catch (Exception e) {
+                searchTextField.setValue("Internal error.");
+                e.printStackTrace();
             }
         }
         return null;
     }
-    
-    public void setPlaceHolder(String text){
+
+    public void setPlaceHolder(String text) {
         searchTextField.setPlaceholder(text);
     }
-    
-    public void setClickListener(Button.ClickListener listener){
+
+    public void setClickListener(Button.ClickListener listener) {
         searchButton.addClickListener(listener);
     }
-    
+
 }

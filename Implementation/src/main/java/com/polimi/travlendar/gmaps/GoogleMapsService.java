@@ -18,38 +18,53 @@ package com.polimi.travlendar.gmaps;
 import com.google.maps.DirectionsApi;
 import com.google.maps.DirectionsApiRequest;
 import com.google.maps.GeoApiContext;
+import com.google.maps.TextSearchRequest;
+import com.google.maps.errors.ApiException;
 import com.google.maps.model.DirectionsLeg;
 import com.google.maps.model.DirectionsResult;
 import com.google.maps.model.DirectionsRoute;
 import com.google.maps.model.LatLng;
-import se.walkercrou.places.Place;
+import com.google.maps.model.PlacesSearchResponse;
+import com.google.maps.model.PlacesSearchResult;
+import com.vaadin.spring.annotation.SpringComponent;
+import java.io.IOException;
+import org.springframework.context.annotation.Scope;
 
 /**
  *
  * @author Marco
  */
-public class MapsDirections {
+@SpringComponent
+@Scope("prototype")
+public class GoogleMapsService {
 
     private static final String KEY = "AIzaSyD6IaaO4KPZcEWmYzKRS9wtCvYnt2WyfrA";
 
-    private GeoApiContext context;
+    private static GeoApiContext context;
 
-    public MapsDirections() {
-        context = new GeoApiContext.Builder().apiKey(KEY).build();
+    public GoogleMapsService() {
+        if (context == null) {
+            context = new GeoApiContext.Builder().apiKey(KEY).build();
+        }
     }
 
-    public DirectionsResult calculateDirections(Place start, Place end) {
+    public DirectionsResult calculateDirections(PlacesSearchResult start, PlacesSearchResult end) throws Exception {
         DirectionsApiRequest request = DirectionsApi.newRequest(context);
-        request.origin(new LatLng(start.getLatitude(), start.getLongitude()));
-        request.destination(new LatLng(end.getLatitude(), end.getLongitude()));
+        request.origin(start.geometry.location);
+        request.destination(end.geometry.location);
+        //System.out.println("Searching directions\nfrom: " + start.geometry.location.toString() + "\nto:   " + start.geometry.location.toString());
         DirectionsResult result;
         try {
             result = request.await();
+            if(result.routes.length == 0){
+                throw new ResultNotFoundException();
+            }
             return result;
-        } catch (Exception e) {
-            // Do something...
+        } catch (ApiException | IOException | InterruptedException e) {
+            e.printStackTrace();
+            throw e;
         }
-        return null;
+
     }
 
     public String directionsDescription(DirectionsResult dir) {
@@ -69,6 +84,23 @@ public class MapsDirections {
             }
         }
         return result;
+    }
+
+    public PlacesSearchResult searchPlace(String query) throws Exception {
+        TextSearchRequest request = new TextSearchRequest(context);
+        request.query(query);
+        PlacesSearchResponse response = null;
+        try {
+            response = request.await();
+        } catch (ApiException | IOException | InterruptedException e) {
+            throw e;
+        }
+        PlacesSearchResult[] results = response.results;
+        if (results.length > 0) {
+            return results[0];
+        } else {
+            throw new ResultNotFoundException();
+        }
     }
 
 }

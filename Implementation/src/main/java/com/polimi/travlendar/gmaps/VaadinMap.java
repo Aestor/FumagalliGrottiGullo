@@ -15,10 +15,15 @@
  */
 package com.polimi.travlendar.gmaps;
 
+import com.google.maps.model.DirectionsResult;
+import com.google.maps.model.LatLng;
+import com.google.maps.model.PlacesSearchResult;
 import com.vaadin.tapio.googlemaps.GoogleMap;
 import com.vaadin.tapio.googlemaps.client.LatLon;
+import com.vaadin.tapio.googlemaps.client.overlays.GoogleMapPolyline;
 import com.vaadin.ui.VerticalLayout;
-import se.walkercrou.places.Place;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -27,62 +32,116 @@ import se.walkercrou.places.Place;
 public class VaadinMap extends VerticalLayout {
 
     private static final String KEY = "AIzaSyDGsAnfiLGU5WG2Yh7_glDJrRYvDnkGsSg";
-
+    private int MAX_ZOOM = 20;
+    private int MIN_ZOOM = 0;
+    private int DEFAULT_ZOOM = 16;
+    private Integer HEIGHT = 500;
+    
     private GoogleMap map;
 
-    private Place[] places;
+    private PlacesSearchResult[] places;
+
+    private GoogleMapPolyline[] polylines;
 
     public VaadinMap() {
         map = new GoogleMap(KEY, null, null);
         map.setSizeFull();
         map.setZoom(4);
-        map.setMinZoom(4);
-        map.setMaxZoom(20);
+        map.setMinZoom(MIN_ZOOM);
+        map.setMaxZoom(MAX_ZOOM);
 
         this.addComponent(map);
         this.setExpandRatio(map, 1.0f);
-        this.setHeight("500px");
+        this.setHeight(HEIGHT.toString() + "px");
 
-        places = new Place[2];
+        places = new PlacesSearchResult[2];
+        polylines = new GoogleMapPolyline[1];
     }
 
-    public void setMarker(Place place, int i) {
+    public VaadinMap(int placesNumber) {
+        this();
+        places = new PlacesSearchResult[placesNumber];
+    }
+    
+    public VaadinMap(int placesNumber, int polylinesNumber){
+        this(placesNumber);
+        polylines = new GoogleMapPolyline[polylinesNumber];
+    }
+
+    public void setMarker(PlacesSearchResult place, int i) {
         if (places.length >= i) {
             places[i - 1] = place;
             map.clearMarkers();
-            Double lat = new Double(0);
-            Double lon = new Double(0);
             int nullCounter = 0;
-            LatLon ne = new LatLon(new Double(0), new Double(0));
-            LatLon sw = new LatLon(new Double(0), new Double(0));
-            for (Place p : places) {
-                if (p!=null) {
-                    map.addMarker(p.getName(), new LatLon(p.getLatitude(), p.getLongitude()), false, null);
-                    lat += p.getLatitude();
-                    lon += p.getLongitude();
-                    if(ne==null && sw==null){
-                        ne = new LatLon(p.getLatitude(), p.getLongitude());
-                    } else {
-                        if(p.getLatitude()>ne.getLat())
-                            ne.setLat(p.getLatitude());
-                        if(p.getLatitude()<sw.getLat())
-                            sw.setLat(p.getLatitude());
-                        if(p.getLongitude()>ne.getLon())
-                            ne.setLon(p.getLongitude());
-                        if(p.getLongitude()<sw.getLon())
-                            ne.setLon(p.getLongitude());
-                    }
-                } else
+            LatLon center = new LatLon(new Double(0), new Double(0));
+            Double minLat=null, maxLat=null, minLon=null, maxLon=null;
+            for (PlacesSearchResult p : places) {
+                if (p == null) {
                     nullCounter++;
+                } else {
+                    Double latitude = p.geometry.location.lat;
+                    Double longitude = p.geometry.location.lng;
+                    map.addMarker(p.name, convert(p.geometry.location), false, null);
+                    center.setLat(center.getLat() + latitude);
+                    center.setLon(center.getLon() + longitude);
+                    if(minLat == null){
+                        minLat = latitude;
+                        maxLat = latitude;
+                        minLon = longitude;
+                        maxLon = longitude;
+                    } else {
+                        if(latitude < minLat){
+                            minLat = latitude;
+                        }
+                        if(latitude > maxLat){
+                            maxLat = latitude;
+                        }
+                        if(longitude < minLon){
+                            minLon = longitude;
+                        }
+                        if(longitude > maxLon){
+                            maxLon = longitude;
+                        }
+                    }
+                }
             }
-            lat = lat / (places.length - nullCounter);
-            lon = lon / (places.length - nullCounter);
-            map.setCenter(new LatLon(lat, lon));
-            map.setZoom(4); // Provvisorio
-            map.setCenterBoundLimits(ne, sw);
-            map.setCenterBoundLimitsEnabled(true);
+            
+            center.setLat(center.getLat() / (places.length - nullCounter));
+            center.setLon(center.getLon() / (places.length - nullCounter));
+            map.setCenter(center);
+            
+            Double distance = Double.max(maxLat-minLat, maxLon-minLon);
+            int zoomLevel = DEFAULT_ZOOM;
+            while(Math.pow(new Double(2), new Double(zoomLevel))*distance > HEIGHT*0.8){
+                zoomLevel--;
+            }
+            map.setZoom(zoomLevel);
         } else {
-            System.err.println("Exceded places[] array in VaadinMap object.");
+            System.err.println("Error in VaadinMap.setMarker request: integer exceedes places[] array length.");
         }
+    }
+
+    private LatLon convert(LatLng source) {
+        return new LatLon(source.lat, source.lng);
+    }
+
+    private List<LatLon> convert(List<LatLng> source) {
+        List<LatLon> result = new ArrayList<LatLon>();
+        for (LatLng s : source) {
+            result.add(new LatLon(s.lat, s.lng));
+        }
+        return result;
+    }
+
+    public void addPolyline(DirectionsResult directions, int i) {
+        if (polylines[i-1] != null) {
+            map.removePolyline(polylines[i-1]);
+        }
+        polylines[i-1] = new GoogleMapPolyline(convert(directions.routes[0].overviewPolyline.decodePath()));
+        map.addPolyline(polylines[i-1]);
+    }
+    
+    public void addPolyline(DirectionsResult directions) {
+        addPolyline(directions, 1);
     }
 }
