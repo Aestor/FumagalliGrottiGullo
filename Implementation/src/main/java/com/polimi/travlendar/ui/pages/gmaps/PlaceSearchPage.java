@@ -2,12 +2,15 @@ package com.polimi.travlendar.ui.pages.gmaps;
 
 import com.github.appreciated.app.layout.annotations.MenuCaption;
 import com.github.appreciated.app.layout.annotations.MenuIcon;
+import com.google.maps.model.AutocompletePrediction;
 import com.google.maps.model.DirectionsResult;
 import com.google.maps.model.PlacesSearchResult;
 import com.polimi.travlendar.gmaps.GoogleMapsService;
 import com.polimi.travlendar.gmaps.PlaceSearchField;
 import com.polimi.travlendar.gmaps.ResultNotFoundException;
 import com.polimi.travlendar.gmaps.VaadinMap;
+import com.vaadin.data.HasValue;
+import com.vaadin.data.HasValue.ValueChangeListener;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;

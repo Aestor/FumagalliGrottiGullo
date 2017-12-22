@@ -18,12 +18,15 @@ package com.polimi.travlendar.gmaps;
 import com.google.maps.DirectionsApi;
 import com.google.maps.DirectionsApiRequest;
 import com.google.maps.GeoApiContext;
+import com.google.maps.PendingResult;
+import com.google.maps.PlaceAutocompleteRequest;
+import com.google.maps.PlacesApi;
 import com.google.maps.TextSearchRequest;
 import com.google.maps.errors.ApiException;
+import com.google.maps.model.AutocompletePrediction;
 import com.google.maps.model.DirectionsLeg;
 import com.google.maps.model.DirectionsResult;
 import com.google.maps.model.DirectionsRoute;
-import com.google.maps.model.LatLng;
 import com.google.maps.model.PlacesSearchResponse;
 import com.google.maps.model.PlacesSearchResult;
 import com.vaadin.spring.annotation.SpringComponent;
@@ -101,6 +104,23 @@ public class GoogleMapsService {
         } else {
             throw new ResultNotFoundException();
         }
+    }
+    
+    public void predict(AutocompleteClient client, String text){
+        System.out.println("Service: predicting...");
+        PlaceAutocompleteRequest request = PlacesApi.placeAutocomplete(context, text);
+        request.setCallback(new PendingResult.Callback<AutocompletePrediction[]>() {
+            @Override
+            public void onResult(AutocompletePrediction[] t) {
+                client.deliverPredictions(t);
+            }
+
+            @Override
+            public void onFailure(Throwable thrwbl) {
+                client.predictionError();
+            }
+            
+        });
     }
 
 }

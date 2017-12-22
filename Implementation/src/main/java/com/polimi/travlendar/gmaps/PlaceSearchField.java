@@ -15,15 +15,19 @@
  */
 package com.polimi.travlendar.gmaps;
 
+import com.google.maps.model.AutocompletePrediction;
 import com.google.maps.model.PlacesSearchResult;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.UserError;
+import com.vaadin.shared.ui.ValueChangeMode;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 
@@ -33,7 +37,7 @@ import org.springframework.context.annotation.Scope;
  */
 @SpringComponent
 @Scope("prototype")
-public class PlaceSearchField extends VerticalLayout{
+public class PlaceSearchField extends VerticalLayout implements AutocompleteClient {
 
     @Autowired
     GoogleMapsService service;
@@ -41,6 +45,9 @@ public class PlaceSearchField extends VerticalLayout{
     private final Label place;
     private final TextField searchTextField;
     private final Button searchButton;
+
+    private List<AutocompletePrediction> predictions;
+    private DynamicList predictionsList;
 
     public PlaceSearchField() {
         place = new Label("No place searched.");
@@ -53,6 +60,15 @@ public class PlaceSearchField extends VerticalLayout{
         HorizontalLayout searchBar = new HorizontalLayout();
         searchBar.addComponents(searchTextField, searchButton);
         searchBar.setSpacing(false);
+        
+        predictions = new ArrayList<AutocompletePrediction>();
+        
+        predictionsList = new DynamicList(5, new PredictionCaptionGenerator());
+        
+        searchTextField.setValueChangeMode(ValueChangeMode.LAZY);
+        searchTextField.addValueChangeListener(e -> {
+            service.predict(this, searchTextField.getValue());
+        });
 
         this.addComponents(place, searchBar);
     }
@@ -63,7 +79,9 @@ public class PlaceSearchField extends VerticalLayout{
             searchTextField.setComponentError(new UserError("This field cannot be empty"));
         } else {
             try {
-                return service.searchPlace(text);
+                PlacesSearchResult result = service.searchPlace(text);
+                place.setValue(result.name);
+                return result;
             } catch (ResultNotFoundException re) {
                 throw re;
             } catch (Exception e) {
@@ -74,12 +92,45 @@ public class PlaceSearchField extends VerticalLayout{
         return null;
     }
 
+    public PlacesSearchResult searchPlace(AutocompletePrediction prediction) throws ResultNotFoundException {
+        try {
+            PlacesSearchResult result = service.searchPlace(prediction.description);
+            place.setValue(result.name);
+            return result;
+        } catch (ResultNotFoundException re) {
+            throw re;
+        } catch (Exception e) {
+            searchTextField.setValue("Internal error.");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public void setPlaceHolder(String text) {
         searchTextField.setPlaceholder(text);
     }
 
     public void setClickListener(Button.ClickListener listener) {
         searchButton.addClickListener(listener);
+    }
+
+    public void setSelectionListener(Listener listener) {
+        predictionsList.addListener(listener);
+    }
+
+    @Override
+    public void deliverPredictions(AutocompletePrediction[] predictions) {
+        System.out.println("Place search field: updating predictions...");
+        this.predictions.clear();
+        for (AutocompletePrediction p : predictions) {
+            this.predictions.add(p);
+        }        
+        
+    }
+
+    @Override
+    public void predictionError() {
+        
     }
 
 }
