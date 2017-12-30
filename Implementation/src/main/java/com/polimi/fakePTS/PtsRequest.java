@@ -15,8 +15,20 @@
  */
 package com.polimi.fakePTS;
 
-import com.polimi.travlendar.user.Ticket;
+import com.polimi.fakePTS.exceptions.InvalidFieldsException;
+import com.polimi.fakePTS.exceptions.InvalidTicketException;
+import com.polimi.fakePTS.tickets.Ticket;
+import com.polimi.fakePTS.tickets.TicketType;
+import com.polimi.fakePTS.tickets.TrainTicket;
+import com.polimi.fakePTS.tickets.UrbanTicket;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
    /**
  * Here we simulate RPC calls to a PTS API. Since no PTS service in our country grants access to their purchase system, 
@@ -29,17 +41,69 @@ import java.util.Date;
 public class PtsRequest {
 
     
-    public static void activateTicket(Ticket ticket) {
+    public static void activateTicket(Ticket ticket) throws InvalidTicketException{
         
+      //checks if already validated or expired
        ticket.setActivated(true);
+       ticket.setValidationTime(ZonedDateTime.now());
        
     }
 
 
-    public static Ticket buyTicket(String name, String lastname, Date date, String city, int validity) {
-         
-        return new Ticket(name, lastname,city, date, validity);
+    public static UrbanTicket buyUrbanTicket(int price, TicketType type, int validity, String city) throws InvalidFieldsException {
+        
+         if(price>0){
+         UrbanTicket temp = 
+         new UrbanTicket(price, type, validity,city);
+         return temp;
+        }
+        else throw new InvalidFieldsException("error");
+        
     }
     
- 
+    public static TrainTicket buyTrainTicket(int price, String start, String arrival, int validity, TicketType type, LocalDate date) throws InvalidFieldsException {
+        
+        if(price>0){
+         TrainTicket temp = 
+         new TrainTicket(start, arrival, price, type, validity);
+         temp.setValidationTime(ZonedDateTime.of(date.atTime(LocalTime.MIN), ZoneId.systemDefault()));
+         return temp;
+        }
+        else throw new InvalidFieldsException("error");
+    }
+    
+    /**
+     * Returns a list of available Train Stations in tickets' purchases.
+     * @return 
+     */
+    public static List<String> getAvailableTrainStations(){
+        List<String> temp = new ArrayList<>();
+        temp.add("Milano");
+        temp.add("Bergamo");
+        temp.add("Genova");
+        temp.add("Orio");
+        temp.add("Brescia");
+        temp.add("Lecco");
+        return temp;
+    }
+    
+    public static int getUrbanPrice(TicketType type){
+        
+        switch (type.name){
+            case "single": 
+                return 2;
+            case "weekpass":
+                return 20;
+            case "onemonthpass":
+                return 35;
+            case "yearpass":
+                return 250;
+            default:
+                return 1000000000;
+          }
+    }
+    
+    public static int getTrainPrice(String departure, String arrival){
+        return ThreadLocalRandom.current().nextInt(0, 100);
+    }
 }
