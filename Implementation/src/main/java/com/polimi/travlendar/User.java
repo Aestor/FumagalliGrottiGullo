@@ -3,9 +3,11 @@ package com.polimi.travlendar;
 import org.springframework.context.annotation.Scope;
 
 import com.polimi.travlendar.components.Schedule;
+import com.polimi.fakePTS.tickets.Ticket;
 import com.polimi.travlendar.user.UserSettings;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.VaadinSessionScope;
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -30,6 +32,7 @@ public class User {
     private Long balance;
     private String stripeId;
     private Schedule schedule;
+    
 
     public User(Long id, String email, String password, String first_name, String last_name) {
         this.id = id;
@@ -37,6 +40,7 @@ public class User {
         this.password = password;
         this.first_name = first_name;
         this.last_name = last_name;
+        this.balance= new Long(0);
     }
 
     public User(String email, String password, String first_name, String last_name) {
@@ -45,6 +49,8 @@ public class User {
         this.password = password;
         this.first_name = first_name;
         this.last_name = last_name;
+        this.balance= new Long(0);
+        this.stripeId = "";
     }
 
     public User(String email, String password) {
@@ -53,6 +59,8 @@ public class User {
         this.password = password;
         this.first_name = "";
         this.last_name = "";
+        this.balance= new Long(0);
+        this.stripeId = "";
     }
 
     public User() {
@@ -61,6 +69,8 @@ public class User {
         this.password = "";
         this.first_name = "";
         this.last_name = "";
+        this.balance= new Long(0);
+        this.stripeId = "";
     }
 
     /**
@@ -74,6 +84,8 @@ public class User {
         this.password = other.password;
         this.first_name = other.first_name;
         this.last_name = other.last_name;
+        this.balance= other.balance;
+        this.stripeId= other.stripeId;
     }
 
     public Long getId() {
@@ -136,10 +148,12 @@ public class User {
         return schedule;
     }
 
+    
     @Override
     public String toString() {
-        return "User{ " + "id= " + id + ", email= " + email + ", balance= " + balance + ", stripeId= " + stripeId
-                + " }";
+        return "User{" + "id=" + id + ", email=" + email + ", password=" + password + ", first_name=" + first_name + ", last_name=" + last_name + ", balance=" + balance + ", stripeId=" + stripeId + '}';
     }
+
+   
 
 }

@@ -30,9 +30,11 @@ public class LoginForm extends FormLayout {
 	@Autowired
 	private UserService service;
 	
-	@Autowired User user;
+	@Autowired 
+                User user;
 	
-	@Autowired Schedule schedule;
+	@Autowired 
+                Schedule schedule;
 	
 	private TextField email = new TextField("Email");
 	private PasswordField password = new PasswordField("Password");

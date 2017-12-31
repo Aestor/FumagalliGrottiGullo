@@ -88,7 +88,7 @@
             <artifactId>calendar-component</artifactId>
         </dependency>
 
-        <!-- Google Maps Java API -->
+        <!-- Google Maps Services Java -->
         <dependency>
             <groupId>com.google.maps</groupId>
             <artifactId>google-maps-services</artifactId>
@@ -96,7 +96,25 @@
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-nop</artifactId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.5</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.1.8</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>1.1.8</version>
+        </dependency>
+        
+        <!-- Google Maps Vaadin Addon -->
+        <dependency>
+            <groupId>com.vaadin.tapio</groupId>
+            <artifactId>googlemaps</artifactId>
+            <version>2.1.0</version>
         </dependency>
 
         <!-- Vaadin archetype dependencies -->
@@ -116,20 +134,6 @@
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-themes</artifactId>
-        </dependency>
-
-        <!-- Google Maps Vaadin Addon -->
-        <dependency>
-            <groupId>com.vaadin.tapio</groupId>
-            <artifactId>googlemaps</artifactId>
-            <version>2.1.0</version>
-        </dependency>
-
-        <!-- windy1 library for Google Maps API -->
-        <dependency>
-            <groupId>se.walkercrou</groupId>
-            <artifactId>google-places-api-java</artifactId>
-            <version>2.1.2</version>
         </dependency>
         
         <dependency>
@@ -175,17 +179,20 @@
             <version>1.16.18</version>
             <type>jar</type>
         </dependency>  
-
-        <!-- Vaadin server push -->
+        
+        <!-- Testing -->
+        
         <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-push</artifactId>
-            <version>${vaadin.version}</version>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>4.3.13.RELEASE</version>
+            <groupId>org.evosuite</groupId>
+            <artifactId>evosuite-standalone-runtime</artifactId>
+            <version>1.0.5</version>
+            <scope>test</scope>
             <type>jar</type>
         </dependency>
     </dependencies>
@@ -258,8 +265,12 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.evosuite.plugins</groupId>
+                <artifactId>evosuite-maven-plugin</artifactId>
+                <version>1.0.3</version>
+            </plugin>
         </plugins>
-
     </build>
     <repositories>
         <repository>
@@ -309,6 +320,14 @@
             </pluginRepositories>
         </profile>
     </profiles>
+    
+    <pluginRepositories>
+        <pluginRepository>
+            <id>EvoSuite</id>
+            <name>EvoSuite Repository</name>
+            <url>http://www.evosuite.org/m2</url>
+        </pluginRepository>
+    </pluginRepositories>
 
 
 </project>

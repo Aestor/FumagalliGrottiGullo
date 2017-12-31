@@ -17,6 +17,7 @@ package com.polimi.travlendar.ui.pages;
 
 import com.github.appreciated.app.layout.annotations.MenuCaption;
 import com.github.appreciated.app.layout.annotations.MenuIcon;
+import com.polimi.travlendar.User;
 import com.polimi.travlendar.ui.CheckoutForm;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
@@ -51,29 +52,35 @@ public class BalancePage extends VerticalLayout implements View {
 
     @Autowired
     private CheckoutForm cf;
+    
+    @Autowired
+    User user;
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
 
-        this.addComponent(new BalanceSection());
+        this.addComponent(new Balance());
 
         this.addComponent(cf);
 
     }
 
-    private class BalanceSection extends HorizontalLayout {
+    /**
+     *
+     * @author jaycaves
+     */
+    private class Balance extends HorizontalLayout {
 
-        public BalanceSection() {
+        public Balance() {
 
             Label title = new Label("MY BALANCE: \n");
 
             current_balance = (Long) jdbcTemplate.queryForObject("SELECT balance FROM users WHERE email = ?",
-                    new Object[]{VaadinSession.getCurrent().getAttribute("user")}, Long.class); 
-            Component b = new Panel (current_balance.toString()+ " $$");
-            
+                    new Object[]{user.getEmail()}, Long.class);
+            Component b = new Panel(current_balance.toString() + " $$");
+
             addComponents(title, b);
-            
-            
+
         }
 
     }

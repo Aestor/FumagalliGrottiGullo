@@ -15,10 +15,7 @@ $al-drawer-submenu-background-color: transparent;
 
 .demo {
 
-    
-    
-
-
+@include mytheme;
 @include valo;
 @include addons;
 }

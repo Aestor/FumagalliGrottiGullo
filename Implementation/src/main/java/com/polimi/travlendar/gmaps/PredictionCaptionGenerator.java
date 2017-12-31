@@ -15,17 +15,19 @@
  */
 package com.polimi.travlendar.gmaps;
 
-import com.google.maps.model.LatLng;
-import com.vaadin.tapio.googlemaps.client.LatLon;
+import com.google.maps.model.AutocompletePrediction;
+import com.vaadin.ui.ItemCaptionGenerator;
 
 /**
  *
  * @author Marco
  */
-public class CoordConverter {
-    
-    public static LatLng conver(LatLon coord){
-        return new LatLng(coord.getLat(), coord.getLon()); 
+public class PredictionCaptionGenerator implements ItemCaptionGenerator {
+
+    @Override
+    public String apply(Object item) {
+        AutocompletePrediction prediction = (AutocompletePrediction) item;
+        return prediction.description;
     }
-    
+
 }

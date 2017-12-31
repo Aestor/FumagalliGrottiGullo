@@ -13,25 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.polimi.fakePTS;
+package com.polimi.travlendar.gmaps;
 
-import java.util.Date;
-import lombok.Getter;
-import lombok.Setter;
+import com.vaadin.ui.ItemCaptionGenerator;
 
 /**
- * Single Public Transportation System's ticket.
- * @author jaycaves
+ *
+ * @author Marco
  */
-@Getter 
-@Setter
-public class Ticket {
-    
-    private String id;
-    private String name;
-    private String lastname;
-    private String city;
-    private Date date;
-    
-    
-}
+public class DefaultCaptionGenerator implements ItemCaptionGenerator {
+        @Override
+        public String apply(Object item){
+            return item.toString();
+        }
+    }
