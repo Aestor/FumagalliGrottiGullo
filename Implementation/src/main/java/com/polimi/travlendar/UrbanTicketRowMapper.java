@@ -37,14 +37,14 @@ public class UrbanTicketRowMapper implements RowMapper<UrbanTicket> {
     public UrbanTicket mapRow(ResultSet rs, int rowNum) throws SQLException {
 
         UrbanTicket ticket = new UrbanTicket(0, TicketType.SINGLE, 0, ""); //default value, will be overwritten
-        ticket.setId(rs.getString("id"));
+        ticket.setId(rs.getString("ticketsid"));
         ticket.setPrice(rs.getInt("price"));
         ticket.setActivated(rs.getBoolean("activated"));
         ticket.setValidity(rs.getInt("validity"));
         ticket.setType(TicketType.valueOf(rs.getString("ticket_type").toUpperCase()));
         ticket.setCity(rs.getString("city"));
         ticket.setPurchase(convertDateTime(rs.getTime("purchase_time"), rs.getDate("purchase_date")));
-
+        ticket.setLenght(rs.getString("lenght"));
         if (rs.getBoolean("activated")) {
 
             ticket.setValidationTime(convertDateTime(rs.getTime("validation_time"), rs.getDate("validation_date")));

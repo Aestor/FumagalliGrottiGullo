@@ -76,6 +76,8 @@ public class Ticket {
         }
     }
     
-    
+    public void setLenght(String lenght){
+        this.lenght= lenght;
+    }
 
 }

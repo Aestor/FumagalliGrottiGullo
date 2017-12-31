@@ -30,53 +30,86 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-   /**
- * Here we simulate RPC calls to a PTS API. Since no PTS service in our country grants access to their purchase system, 
- * but we assumed it possible in our RASD and DD, we decided to fake all the calls through this interface. 
- * Its implementation, PtsRequest allows the user to virtually buy and activate tickets. 
- * 
+/**
+ * Here we simulate RPC calls to a PTS API. Since no PTS service in our country
+ * grants access to their purchase system, but we assumed it possible in our
+ * RASD and DD, we decided to fake all the calls through this interface. Its
+ * implementation, PtsRequest allows the user to virtually buy and activate
+ * tickets.
+ *
  * @author jaycaves
  */
-
 public class PtsRequest {
 
-    
-    public static void activateTicket(Ticket ticket) throws InvalidTicketException{
-        
-      //checks if already validated or expired
-       ticket.setActivated(true);
-       ticket.setValidationTime(ZonedDateTime.now());
-       
+    /**
+     * Allows purchased tickets' activation
+     * @param ticket
+     * @throws InvalidTicketException 
+     */
+    public static void activateTicket(Ticket ticket) throws InvalidTicketException {
+
+        if (ticket.isActivated()) {
+            throw new InvalidTicketException("Error: Ticket is already validated");
+        } else {
+            if ((ticket.getValidationTime() != null) && (!ticket.getValidationTime().toLocalDate().equals(LocalDate.now(ticket.getValidationTime().getZone())))) {
+                throw new InvalidTicketException("Could not activate ticket: today does not correspond with the prefixed day ");
+            } else {
+                ticket.setActivated(true);
+                ticket.setValidationTime(ZonedDateTime.now());
+            }
+        }
     }
 
-
+    /**
+     * Allows Urban Tickets purchases.
+     * @param price
+     * @param type
+     * @param validity
+     * @param city
+     * @return
+     * @throws InvalidFieldsException 
+     */
     public static UrbanTicket buyUrbanTicket(int price, TicketType type, int validity, String city) throws InvalidFieldsException {
-        
-         if(price>0){
-         UrbanTicket temp = 
-         new UrbanTicket(price, type, validity,city);
-         return temp;
+
+        if (price > 0) {
+            UrbanTicket temp
+                    = new UrbanTicket(price, type, validity, city);
+            return temp;
+        } else {
+            throw new InvalidFieldsException("error");
         }
-        else throw new InvalidFieldsException("error");
-        
+
     }
-    
+
+    /**
+     * Allows Train Tickets purchases.
+     * @param price
+     * @param start
+     * @param arrival
+     * @param validity
+     * @param type
+     * @param date
+     * @return
+     * @throws InvalidFieldsException 
+     */
     public static TrainTicket buyTrainTicket(int price, String start, String arrival, int validity, TicketType type, LocalDate date) throws InvalidFieldsException {
-        
-        if(price>0){
-         TrainTicket temp = 
-         new TrainTicket(start, arrival, price, type, validity);
-         temp.setValidationTime(ZonedDateTime.of(date.atTime(LocalTime.MIN), ZoneId.systemDefault()));
-         return temp;
+
+        if (price > 0) {
+            TrainTicket temp
+                    = new TrainTicket(start, arrival, price, type, validity);
+            temp.setValidationTime(ZonedDateTime.of(date.atTime(LocalTime.MIN), ZoneId.systemDefault()));
+            return temp;
+        } else {
+            throw new InvalidFieldsException("error");
         }
-        else throw new InvalidFieldsException("error");
     }
-    
+
     /**
      * Returns a list of available Train Stations in tickets' purchases.
-     * @return 
+     *
+     * @return
      */
-    public static List<String> getAvailableTrainStations(){
+    public static List<String> getAvailableTrainStations() {
         List<String> temp = new ArrayList<>();
         temp.add("Milano");
         temp.add("Bergamo");
@@ -86,11 +119,31 @@ public class PtsRequest {
         temp.add("Lecco");
         return temp;
     }
-    
-    public static int getUrbanPrice(TicketType type){
-        
-        switch (type.name){
-            case "single": 
+
+    /**
+     * Returns the cities Travlendar can sell tickets of.
+     * @return 
+     */
+    public static List<String> getAvailableCities() {
+        List<String> temp = new ArrayList<>();
+        temp.add("Milano");
+        temp.add("Bergamo");
+        temp.add("Genova");
+        temp.add("Orio");
+        temp.add("Belluno");
+        temp.add("Trieste");
+        return temp;
+    }
+
+    /**
+     * Return the tickets' prices according to a-priori value agreed.
+     * @param type
+     * @return 
+     */
+    public static int getUrbanPrice(TicketType type) {
+
+        switch (type.name) {
+            case "single":
                 return 2;
             case "weekpass":
                 return 20;
@@ -100,10 +153,16 @@ public class PtsRequest {
                 return 250;
             default:
                 return 1000000000;
-          }
+        }
     }
-    
-    public static int getTrainPrice(String departure, String arrival){
+
+   /**
+    * Returns a price for a certain train. For now this price is generated randomly.
+    * @param departure
+    * @param arrival
+    * @return 
+    */
+    public static int getTrainPrice(String departure, String arrival) {
         return ThreadLocalRandom.current().nextInt(0, 100);
     }
 }

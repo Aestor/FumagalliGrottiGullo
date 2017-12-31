@@ -19,7 +19,7 @@ package com.polimi.fakePTS.exceptions;
  *
  * @author jaycaves
  */
-public class InvalidTicketException extends IllegalArgumentException {
+public class InvalidTicketException extends Exception {
 
     public InvalidTicketException(String s) {
         super(s);

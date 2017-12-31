@@ -89,7 +89,7 @@ public class TestingPage extends VerticalLayout implements View {
         this.addComponent(managerTesting);
 
         // Payment form
-        this.addComponent(cardForm);
+        //this.addComponent(cardForm);
 
         // JavaScript map
         Window mapWindow = new Window("JavaScript map");

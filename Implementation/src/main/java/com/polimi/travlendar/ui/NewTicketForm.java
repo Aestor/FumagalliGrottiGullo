@@ -24,6 +24,7 @@ import com.polimi.fakePTS.tickets.TrainTicket;
 import com.polimi.fakePTS.tickets.UrbanTicket;
 import com.polimi.travlendar.ui.pages.TicketsPage;
 import com.vaadin.spring.annotation.SpringComponent;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.FormLayout;
@@ -39,6 +40,7 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -70,10 +72,13 @@ public class NewTicketForm extends FormLayout {
     HashMap<String, String> details; // form data are collected in here
 
     public NewTicketForm() {
-
+        setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+        this.addComponent(new Label("PURCHASE TICKETS:"));
+        this.setResponsive(true);
         selection = new RadioButtonGroup<String>("Choose Ticket type:");
         selection.setItems("TRAIN", "URBAN");
         subform = new FormLayout();
+        subform.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
         selection.addValueChangeListener(e -> {
             setFormContent(subform);
         });
@@ -83,6 +88,7 @@ public class NewTicketForm extends FormLayout {
 
     /**
      * Dynamically fills page with entry fields for the chosen ticket type.
+     *
      * @param ssubformubform
      */
     private void setFormContent(FormLayout subform) {
@@ -97,40 +103,70 @@ public class NewTicketForm extends FormLayout {
                 NativeSelect<String> end = new NativeSelect<>("Arriving at: ");
                 start.setItems(PtsRequest.getAvailableTrainStations());
                 end.setItems(PtsRequest.getAvailableTrainStations());
+                start.setEmptySelectionAllowed(false);
+                end.setEmptySelectionAllowed(false);
 
                 /*FOR FUTURE DEVELOPMENT: 
                 Allow different passes in Train ticket's purchase, such as weekly, monthly, etc...
                  */
+                date.setDateFormat("dd-MM-yyyy");
+                date.setRangeStart(LocalDate.now());
                 Button ok = new Button("Purchase!");
                 ok.addClickListener(e -> {
-                    //use fake ticket to temporarly store input data (validity not established here)
-                    int price = PtsRequest.getTrainPrice(start.getValue(), end.getValue());
-                    tempTicket = new TrainTicket(start.getValue(), end.getValue(), price,
-                            TicketType.SINGLE, 300);
-                    tempTicket.setValidationTime(ZonedDateTime.of(date.getValue().atTime(LocalTime.MIN), ZoneId.systemDefault()));
-                    UI.getCurrent().addWindow(new TicketPurchaseRecap());
+
+                    if ((!start.isEmpty()) && (!end.isEmpty()) && (!start.getValue().equals(end.getValue()))) {
+
+                        if (!date.isEmpty()) {
+                            //use fake ticket to temporarly store input data (validity not established here)
+                            int price = PtsRequest.getTrainPrice(start.getValue(), end.getValue());
+                            tempTicket = new TrainTicket(start.getValue(), end.getValue(), price,
+                                    TicketType.SINGLE, 300);
+                            tempTicket.setValidationTime(ZonedDateTime.of(date.getValue().atTime(LocalTime.MIN), ZoneId.systemDefault()));
+                            UI.getCurrent().addWindow(new TicketPurchaseRecap());
+
+                        } else {
+
+                            Notification.show("Please insert valid date", Notification.Type.ERROR_MESSAGE);
+
+                        }
+                    } else {
+
+                        Notification.show("Please insert valid locations", Notification.Type.ERROR_MESSAGE);
+
+                    }
 
                 });
 
                 subform.addComponents(date, start, end, ok);
                 break;
+
             }
             case "URBAN": {
-                TextField city = new TextField("City: ");
+
+                NativeSelect<String> city = new NativeSelect<>("City: ");
                 NativeSelect<String> type = new NativeSelect<>("Choose ticket type:");
                 type.setItems(TicketType.getValues());
+                city.setItems(PtsRequest.getAvailableCities());
+                type.setEmptySelectionAllowed(false);
+                city.setEmptySelectionAllowed(false);
+
                 Button ok = new Button("Purchase!");
                 ok.addClickListener(e -> {
-                    //use fake ticket to temporarly store input data (validity not established here)
-                    int price = PtsRequest.getUrbanPrice(TicketType.valueOf(type.getValue().toUpperCase()));
-                    tempTicket = new UrbanTicket(price,
-                            TicketType.valueOf(type.getValue().toUpperCase()), 100, city.getValue());
-                    UI.getCurrent().addWindow(new TicketPurchaseRecap());
 
+                    if ((!city.isEmpty()) && (!type.isEmpty())) {
+                        //use fake ticket to temporarly store input data (validity not established here)
+                        int price = PtsRequest.getUrbanPrice(TicketType.valueOf(type.getValue().toUpperCase()));
+                        tempTicket = new UrbanTicket(price,
+                                TicketType.valueOf(type.getValue().toUpperCase()), 100, city.getValue());
+                        UI.getCurrent().addWindow(new TicketPurchaseRecap());
+                    } else {
+
+                        Notification.show("Please insert valid fields", Notification.Type.ERROR_MESSAGE);
+
+                    }
                 });
 
                 subform.addComponents(city, type, ok);
-
                 break;
             }
             default: {
@@ -176,9 +212,10 @@ public class NewTicketForm extends FormLayout {
     }
 
     /**
-     * Verifies if user has enough balance to proceed, if so sends a payment request to external PTS API. 
-     * Response is a complete ticket or an exception to alarm purchase process did not succeed.
-     *  Distinguishes two cases: train or urban tickets. 
+     * Verifies if user has enough balance to proceed, if so sends a payment
+     * request to external PTS API. Response is a complete ticket or an
+     * exception to alarm purchase process did not succeed. Distinguishes two
+     * cases: train or urban tickets.
      */
     private void purchase() {
 
@@ -273,18 +310,20 @@ public class NewTicketForm extends FormLayout {
     }
 
     /**
-     * converts ZoneDateTime into Time to write data in database.
+     * Converts ZoneDateTime into Time to write data in database.
+     *
      * @param t
-     * @return 
+     * @return
      */
     private Time convertTime(ZonedDateTime t) {
         return Time.valueOf(t.toLocalTime());
     }
 
     /**
-     * converts ZoneDateTime into Date to write data in database.
+     * Converts ZoneDateTime into Date to write data in database.
+     *
      * @param t
-     * @return 
+     * @return
      */
     private Date convertDate(ZonedDateTime t) {
         return Date.valueOf(t.toLocalDate());

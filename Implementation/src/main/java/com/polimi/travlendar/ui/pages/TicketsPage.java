@@ -17,6 +17,8 @@ package com.polimi.travlendar.ui.pages;
 
 import com.github.appreciated.app.layout.annotations.MenuCaption;
 import com.github.appreciated.app.layout.annotations.MenuIcon;
+import com.polimi.fakePTS.PtsRequest;
+import com.polimi.fakePTS.exceptions.InvalidTicketException;
 import com.polimi.travlendar.TrainTicketRowMapper;
 import com.polimi.travlendar.UrbanTicketRowMapper;
 import com.polimi.travlendar.User;
@@ -26,15 +28,19 @@ import com.polimi.fakePTS.tickets.UrbanTicket;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.server.Resource;
-import com.vaadin.server.ThemeResource;
 import com.vaadin.spring.annotation.SpringView;
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -55,11 +61,11 @@ public class TicketsPage extends VerticalLayout implements View {
     private List<UrbanTicket> urbans;
 
     @Autowired
-     JdbcTemplate jdbcTemplate;
+    JdbcTemplate jdbcTemplate;
 
     @Autowired
     User user;
-    
+
     @Autowired
     NewTicketForm form;
 
@@ -70,7 +76,9 @@ public class TicketsPage extends VerticalLayout implements View {
         initMyTickets();
 
         //init new ticket purchase section
-        addComponents(new Label("PURCHASE TICKETS:\n"), form);
+        addComponent(form);
+        form.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+        
 
     }
 
@@ -89,22 +97,43 @@ public class TicketsPage extends VerticalLayout implements View {
         if ((trains.size() > 0) || (urbans.size() > 0)) {
 
             //init my tickets section
-            addComponents(new Label("MY TICKETS:\n"), new TicketDisplayer());
+            addComponents(new Label("MY TICKETS:\n"), new TicketDisplayer(trains, urbans));
 
             //init activated tickets section
-            addComponent(new Label("MY ACTIVATED TICKETS:\n"));
-            Resource res = new ThemeResource("qr.png");
-            Image image = new Image("QR:", res);
-
-            trains.stream().filter((t) -> (t.isActivated())).forEachOrdered((t) -> {
-                addComponents(new Panel("Ticket with id: " + t.getId(), new Panel("Departure: " + t.getDepartureLocation(),
-                        new Panel("Arrival: " + t.getArrivalLocation(), new Panel("Validity: " + t.getValidity() + " "+ t.getLenght())))));
-            });
-            urbans.stream().filter((t) -> (t.isActivated())).forEachOrdered((t) -> {
-                addComponents(new Panel("Ticket with id: " + t.getId(), new Panel("City: " + t.getCity(),
-                        new Panel("Validity: " + t.getValidity() + "", image))));
-            });
+            addComponents(new Label("MY ACTIVATED TICKETS:\n"),
+                    new TicketDisplayer(
+                            trains.stream().filter(u -> u.isActivated()).collect(Collectors.toList()),
+                            urbans.stream().filter(u -> u.isActivated()).collect(Collectors.toList())));
         }
+    }
+
+    /**
+     * Saves in the DB that a certain train ticket has been activated.
+     * @param t 
+     */
+    private void registerTrainActivation(TrainTicket t) {
+
+        jdbcTemplate.update("UPDATE train_tickets SET activated= true WHERE id= ? and ticketsid =?",
+                user.getId(), t.getId());
+        jdbcTemplate.update("UPDATE train_tickets SET validation_date= ? WHERE id= ? and ticketsid =?",
+                Date.valueOf(t.getValidationTime().toLocalDate()), user.getId(), t.getId());
+        jdbcTemplate.update("UPDATE train_tickets SET validation_time= ? WHERE id= ? and ticketsid =?",
+                Time.valueOf(t.getValidationTime().toLocalTime()), user.getId(), t.getId());
+
+    }
+/**
+ * Saves in the DB that a certain urban ticket has been activated.
+ * @param t 
+ */
+    private void registerUrbanActivation(UrbanTicket t) {
+
+        jdbcTemplate.update("UPDATE urban_tickets SET activated= true WHERE id= ? and ticketsid=? ",
+                user.getId(), t.getId());
+        jdbcTemplate.update("UPDATE urban_tickets SET validation_date= ? WHERE id= ? and ticketsid =?",
+                Date.valueOf(t.getValidationTime().toLocalDate()), user.getId(), t.getId());
+        jdbcTemplate.update("UPDATE urban_tickets SET validation_time= ? WHERE id= ? and ticketsid =?",
+                Time.valueOf(t.getValidationTime().toLocalTime()), user.getId(), t.getId());
+
     }
 
     /**
@@ -112,21 +141,76 @@ public class TicketsPage extends VerticalLayout implements View {
      */
     private class TicketDisplayer extends HorizontalLayout {
 
-        public TicketDisplayer() {
-
-            Resource res = new ThemeResource("qr.png");
-            Image image = new Image("QR:", res);
-
+        public TicketDisplayer(List<TrainTicket> trains, List<UrbanTicket> urbans) {
+            
+            this.setResponsive(true);
+            //Resource res = new ThemeResource("qr.png");
+            //Image image = new Image("QR:", res);
             trains.forEach((t) -> {
-                addComponents(new Panel("Train Ticket with id: " + t.getId(), new Panel("Departure: " + t.getDepartureLocation(),
-                        new Panel("Arrival: " + t.getArrivalLocation(), new Panel("Validity: " + t.getValidity() + " "+ t.getLenght())))));
+                this.addComponent(drawTrainTicket(t));
             });
 
             urbans.forEach((t) -> {
-                addComponents(new Panel("Urban Ticket with id: " + t.getId(), new Panel("City: " + t.getCity(),
-                        new Panel("Validity: " + t.getValidity() + "", image))));
+                this.addComponent(drawUrbanTicket(t));
+
             });
+
         }
 
+        private Panel drawTrainTicket(TrainTicket t) {
+            Panel head = new Panel("Train Ticket with id: " + t.getId());
+            head.setIcon(VaadinIcons.TRAIN);
+             head.setSizeUndefined();
+             head.setResponsive(true);
+            VerticalLayout content = new VerticalLayout(new Label("Departure: " + t.getDepartureLocation()),
+                    new Label("Arrival: " + t.getArrivalLocation()), new Label("Validity: " + t.getValidity() + " " + t.getLenght()));
+           content.setResponsive(true);
+            Button activate = new Button("Activate");
+                content.addComponent(activate);
+            if (!t.isActivated()) { 
+                activate.addClickListener(e -> {
+                    try {
+                        PtsRequest.activateTicket(t);
+                        registerTrainActivation(t);
+                        Notification.show("Ticket Activated!");
+                    } catch (InvalidTicketException er) {
+                        Notification.show(er.getMessage(), Notification.Type.ERROR_MESSAGE);
+                    }
+                });
+            } else {
+                activate.setEnabled(false);
+                
+            }
+            head.setContent(content);
+            return head;
+        }
+
+        private Panel drawUrbanTicket(UrbanTicket t) {
+            Panel head = new Panel("Urban Ticket with id: " + t.getId());
+            head.setIcon(VaadinIcons.INVOICE);
+            head.setResponsive(true);
+            head.setSizeUndefined();
+            VerticalLayout content = new VerticalLayout(new Label("City: " + t.getCity()),
+                    new Label("Type: " + t.getType()), new Label("Validity: " + t.getValidity() + " " + t.getLenght()));
+            content.setResponsive(true);
+            Button activate = new Button("Activate");
+                content.addComponent(activate);
+            if (!t.isActivated()) { 
+                activate.addClickListener(e -> {
+                    try {
+                        PtsRequest.activateTicket(t);
+                        registerUrbanActivation(t);
+                        Notification.show("Ticket Activated!");
+                    } catch (InvalidTicketException er) {
+                        Notification.show(er.getMessage(), Notification.Type.ERROR_MESSAGE);
+                    }
+                });
+            } else {
+                activate.setEnabled(false);
+                
+            }
+            head.setContent(content);
+            return head;
+        }
     }
 }
