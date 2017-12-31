@@ -51,8 +51,15 @@ d DATE,<br>
 timeb TIME,<br>
 timee TIME,<br>
 state varchar(255),<br>
-preflevel varchar(255),<br>
+preflevel varchar(255)<br>
 );
+->CREATE TABLE train_tickets(
+id BIGINT references users(id),ticketsid varchar(255),ticket_type varchar(255),
+departure_location varchar(255),arrival_location varchar(255),price int,validity int,purchase_date DATE,purchase_time TIME,validation_date DATE,validation_time TIME,activated boolean,
+lenght varchar(255),primary key (ticketsid, id)
+); <br>
+->CREATE TABLE urban_tickets(
+id BIGINT references users(id),ticketsid varchar(255),ticket_type varchar(255),city varchar(255),price int,validity int,purchase_date DATE,purchase_time TIME,validation_date DATE,validation_time TIME,activated boolean,lenght varchar(255),primary key (ticketsid, id)); <br>
 
 
 ## Stripe Verification
