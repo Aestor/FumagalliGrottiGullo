@@ -36,7 +36,7 @@ public class MeetingRowMapper implements RowMapper<Meeting> {
     @Override
     public Meeting mapRow(ResultSet rs, int rowNum) throws SQLException {
         Meeting meeting = new Meeting(false);
-        meeting.setUser((User)VaadinSession.getCurrent().getAttribute("user"));
+        meeting.setUser(rs.getLong("id"));
         meeting.setName(rs.getString("nam"));
         meeting.setDetails(rs.getString("details"));
         meeting.setLocation(rs.getString("location"));
@@ -44,6 +44,7 @@ public class MeetingRowMapper implements RowMapper<Meeting> {
         meeting.setEnd(convertDateTime(rs.getTime("timee"), rs.getDate("d")));
         meeting.setPreferenceLevel(convertPref(rs.getString("preflevel")));
         meeting.setState(convertState(rs.getString("state")));
+        meeting.setId(rs.getLong("eventid"));
 
         return meeting;
     }

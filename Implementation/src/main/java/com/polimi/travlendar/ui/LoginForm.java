@@ -1,11 +1,13 @@
 package com.polimi.travlendar.ui;
 
+import com.polimi.travlendar.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.dao.EmptyResultDataAccessException;
 
 import com.polimi.travlendar.User;
 import com.polimi.travlendar.UserService;
+import com.polimi.travlendar.components.Meeting;
 import com.polimi.travlendar.components.Schedule;
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.server.VaadinSession;
@@ -16,9 +18,11 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
+import java.util.List;
 
 /**
  * Vaadin form to login.
+ *
  * @author Emmeggi95
  *
  */
@@ -27,56 +31,70 @@ import com.vaadin.ui.TextField;
 @Scope("prototype")
 public class LoginForm extends FormLayout {
 
-	@Autowired
-	private UserService service;
-	
-	@Autowired 
-                User user;
-	
-	@Autowired 
-                Schedule schedule;
-	
-	private TextField email = new TextField("Email");
-	private PasswordField password = new PasswordField("Password");
-	private Button submit = new Button("Submit");
+    @Autowired
+    private EventService eService;
 
-	private User input;
+    @Autowired
+    private UserService service;
 
-	public LoginForm() {
+    @Autowired
+    User user;
 
-		setSizeUndefined();
-		addComponents(email, password, submit);
+    @Autowired
+    Schedule schedule;
 
-		submit.setClickShortcut(KeyCode.ENTER);
+    private TextField email = new TextField("Email");
+    private PasswordField password = new PasswordField("Password");
+    private Button submit = new Button("Submit");
 
-		submit.addClickListener(e -> this.submit());
-	}
+    private User input;
 
-	/**
-	 * Checks if the information entered is correct through the {@link UserService} class.
-	 */
-	public void submit() {
-		input = new User(email.getValue(), password.getValue());
-		Boolean authenticated;
-		try {
-			authenticated = service.authenticate(input);
-		} catch (EmptyResultDataAccessException e) {
-			Notification.show("This email was not registered", Notification.Type.ERROR_MESSAGE);
-			return;
-		}
-		if (authenticated) {
-			try {
-				user.setUser(service.getUser(input.getEmail(), input.getPassword()));
-				VaadinSession.getCurrent().setAttribute("user", input.getEmail());
-				((TravlendarUI) getUI()).setMenuBar();
-				VaadinSession.getCurrent().setAttribute("schedule", new Schedule(user));
-			} catch (EmptyResultDataAccessException e) {
-				e.printStackTrace();
-				Notification.show("Internal error!", Type.ERROR_MESSAGE);
-			}
+    public LoginForm() {
 
-		} else {
-			Notification.show("Invalid credentials", Notification.Type.ERROR_MESSAGE);
-		}
-	}
+        setSizeUndefined();
+        addComponents(email, password, submit);
+
+        submit.setClickShortcut(KeyCode.ENTER);
+
+        submit.addClickListener(e -> this.submit());
+    }
+
+    /**
+     * Checks if the information entered is correct through the
+     * {@link UserService} class.
+     */
+    public void submit() {
+        input = new User(email.getValue(), password.getValue());
+        Boolean authenticated;
+        try {
+            authenticated = service.authenticate(input);
+        } catch (EmptyResultDataAccessException e) {
+            Notification.show("This email was not registered", Notification.Type.ERROR_MESSAGE);
+            return;
+        }
+        if (authenticated) {
+            try {
+                user.setUser(service.getUser(input.getEmail(), input.getPassword()));
+                VaadinSession.getCurrent().setAttribute("user", input.getEmail());
+                ((TravlendarUI) getUI()).setMenuBar();
+                loadEvents();
+
+            } catch (EmptyResultDataAccessException e) {
+                e.printStackTrace();
+                Notification.show("Internal error!", Type.ERROR_MESSAGE);
+            }
+
+        } else {
+            Notification.show("Invalid credentials", Notification.Type.ERROR_MESSAGE);
+        }
+    }
+    
+    private void loadEvents() {
+        VaadinSession.getCurrent().setAttribute("schedule", new Schedule(user));
+        schedule.removeAll();
+        List<Meeting> meetings = eService.getMeetings(user);
+        meetings.forEach((m) -> {
+            schedule.onSubmitEvent(m);
+        });
+    }
 }

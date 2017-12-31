@@ -20,31 +20,32 @@ import com.vaadin.ui.VerticalLayout;
 @SpringView(name = SchedulePage.NAME)
 @MenuIcon(VaadinIcons.CALENDAR)
 public class SchedulePage extends VerticalLayout implements View {
+    
+    private Schedule schedule;
 
-	private Schedule schedule;
+    public static final String NAME = "SchedulePage";
 
-	public static final String NAME = "SchedulePage";
+    @Override
+    public void enter(ViewChangeListener.ViewChangeEvent event) {
+        schedule = (Schedule)VaadinSession.getCurrent().getAttribute("schedule");
+        ComboBox<Month> months = new ComboBox<>();
+        months.setItems(Month.values());
+        months.setItemCaptionGenerator(
+                month -> month.getDisplayName(TextStyle.FULL, schedule.getCalendar().getLocale()));
+        months.setEmptySelectionAllowed(false);
+        months.addValueChangeListener(me -> schedule.switchToMonth(me.getValue()));
+        Button today = new Button("today",
+                (Button.ClickEvent clickEvent) -> schedule.getCalendar().withDay(ZonedDateTime.now()));
+        Button week = new Button("week",
+                (Button.ClickEvent clickEvent) -> schedule.getCalendar().withWeek(ZonedDateTime.now()));
+        Button month = new Button("month",
+                (Button.ClickEvent clickEvent) -> schedule.getCalendar().withMonth(ZonedDateTime.now().getMonth()));
+        HorizontalLayout nav = new HorizontalLayout(months, today, week, month);
+        this.addComponents(nav);
+        this.addComponent(schedule);
 
-	@Override
-	public void enter(ViewChangeListener.ViewChangeEvent event) {
-		
-		schedule = (Schedule)VaadinSession.getCurrent().getAttribute("schedule");
-		ComboBox<Month> months = new ComboBox<>();
-		months.setItems(Month.values());
-		months.setItemCaptionGenerator(
-				month -> month.getDisplayName(TextStyle.FULL, schedule.getCalendar().getLocale()));
-		months.setEmptySelectionAllowed(false);
-		months.addValueChangeListener(me -> schedule.switchToMonth(me.getValue()));
-		Button today = new Button("today",
-				(Button.ClickEvent clickEvent) -> schedule.getCalendar().withDay(ZonedDateTime.now()));
-		Button week = new Button("week",
-				(Button.ClickEvent clickEvent) -> schedule.getCalendar().withWeek(ZonedDateTime.now()));
-		Button month = new Button("month",
-				(Button.ClickEvent clickEvent) -> schedule.getCalendar().withMonth(ZonedDateTime.now().getMonth()));
-		HorizontalLayout nav = new HorizontalLayout(months, today, week, month);
-		this.addComponents(nav);
-		this.addComponent(schedule);
-
-	}
+    }
+    
+    
 
 }

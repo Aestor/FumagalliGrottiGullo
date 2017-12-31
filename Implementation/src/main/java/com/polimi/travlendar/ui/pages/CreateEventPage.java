@@ -8,7 +8,7 @@ package com.polimi.travlendar.ui.pages;
 import com.github.appreciated.app.layout.annotations.MenuIcon;
 import com.polimi.travlendar.EventService;
 import com.polimi.travlendar.components.Schedule;
-import com.polimi.travlendar.ui.CreateEventForm;
+import com.polimi.travlendar.ui.EventForm;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
@@ -28,7 +28,7 @@ public class CreateEventPage extends VerticalLayout implements View {
 
     public static final String NAME = "CreateEventPage";
     @Autowired
-    private CreateEventForm createEvent;
+    private EventForm createEvent;
     @Autowired
     private EventService service;
 

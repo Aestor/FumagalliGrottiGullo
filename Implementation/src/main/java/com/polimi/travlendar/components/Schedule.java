@@ -1,13 +1,8 @@
 package com.polimi.travlendar.components;
 
-import static java.time.temporal.ChronoUnit.DAYS;
-
 import java.time.Month;
 import java.time.ZonedDateTime;
 import java.util.GregorianCalendar;
-import java.util.Random;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.vaadin.addon.calendar.Calendar;
 import org.vaadin.addon.calendar.handler.BasicDateClickHandler;
@@ -15,11 +10,10 @@ import org.vaadin.addon.calendar.item.BasicItemProvider;
 import org.vaadin.addon.calendar.ui.CalendarComponentEvents;
 
 import com.polimi.travlendar.User;
-import com.polimi.travlendar.components.Meeting.State;
-import com.vaadin.server.VaadinSession;
 import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.VaadinSessionScope;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
@@ -27,6 +21,7 @@ import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 
 @SpringComponent
 @VaadinSessionScope
@@ -41,6 +36,7 @@ public class Schedule extends CustomComponent {
     public Panel panel;
 
     private User user;
+    
 
     public Schedule(User user) {
         setId("schedule");
@@ -67,17 +63,6 @@ public class Schedule extends CustomComponent {
 
     public Calendar<MeetingItem> getCalendar() {
         return calendar;
-    }
-
-    private void onCalendarRangeSelect(CalendarComponentEvents.RangeSelectEvent event) {
-        Meeting meeting = new Meeting(!event.getStart().truncatedTo(DAYS).equals(event.getEnd().truncatedTo(DAYS)));
-
-        meeting.setStart(event.getStart());
-        meeting.setEnd(event.getEnd());
-
-        meeting.setName("A Name");
-        meeting.setDetails("A Detail with HTML");
-        meeting.setState(State.planned);
     }
 
     private void onCalendarClick(CalendarComponentEvents.ItemClickEvent event) {
@@ -147,7 +132,6 @@ public class Schedule extends CustomComponent {
     private void addCalendarEventListeners() {
         calendar.setHandler(new BasicDateClickHandler(true));
         calendar.setHandler(this::onCalendarClick);
-        calendar.setHandler(this::onCalendarRangeSelect);
     }
 
     private final class MeetingDataProvider extends BasicItemProvider<MeetingItem> {
@@ -156,14 +140,23 @@ public class Schedule extends CustomComponent {
             this.itemList.clear();
             fireItemSetChanged();
         }
+
+        void removeEvent(Meeting meeting) {
+            this.removeEvent(meeting);
+        }
     }
 
     public void onSubmitEvent(Meeting meeting) {
         eventProvider.addItem(new MeetingItem(meeting));
     }
-    
+
     public User getUser() {
         return user;
     }
+    
+    public void removeAll() {
+        eventProvider.removeAllEvents();
+    }
 
+ 
 }

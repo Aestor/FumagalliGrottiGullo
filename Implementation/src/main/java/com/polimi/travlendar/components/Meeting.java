@@ -6,7 +6,7 @@ import java.time.ZonedDateTime;
 
 public class Meeting {
 
-    private User user;
+    private long user;
     private ZonedDateTime start;
     private ZonedDateTime end;
     private String location;
@@ -14,6 +14,7 @@ public class Meeting {
     private String details;
     private State state;
     private PreferenceLevel level;
+    private long id;
 
     public State getState() {
         return state;
@@ -21,6 +22,14 @@ public class Meeting {
 
     public void setState(State state) {
         this.state = state;
+    }
+    
+    public long getId() {
+        return id;
+    }
+    
+    public void setId(long id) {
+        this.id=id;
     }
 
     public boolean isLongTime() {
@@ -57,11 +66,11 @@ public class Meeting {
         this.start = start;
     }
 
-    public User getUser() {
+    public long getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(long user) {
         this.user = user;
     }
 

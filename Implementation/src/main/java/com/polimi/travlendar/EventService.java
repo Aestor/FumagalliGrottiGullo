@@ -43,19 +43,23 @@ public class EventService {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    
+
     @Autowired
     User user;
 
-    public void addMeeting(Meeting meeting) {
-        
+    public long addMeeting(Meeting meeting) {
+
         jdbcTemplate.update("INSERT INTO events (id, location, nam, details, d, timeb, timee, preflevel, state) VALUES (?,?,?,?,?,?,?,?,?)",
-                meeting.getUser().getId(), meeting.getLocation(), meeting.getName(), meeting.getDetails(), convertDate(meeting.getStart()), convertTime(meeting.getStart()), convertTime(meeting.getEnd()), convertPref(meeting.getPreferenceLevel()), convertState(meeting.getState()));
+                meeting.getUser(), meeting.getLocation(), meeting.getName(), meeting.getDetails(), convertDate(meeting.getStart()), convertTime(meeting.getStart()), convertTime(meeting.getEnd()), convertPref(meeting.getPreferenceLevel()), convertState(meeting.getState()));
+        return jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", long.class);
+    }
+
+    public void editMeeting(Meeting meeting) {
+        jdbcTemplate.update("UPDATE events SET location = ?, nam = ?, details = ?, d = ?, timeb = ?, timee = ?, preflevel = ? WHERE id = ? AND eventid = ?", meeting.getLocation(), meeting.getName(), meeting.getDetails(), convertDate(meeting.getStart()), convertTime(meeting.getStart()), convertTime(meeting.getEnd()), meeting.getPreferenceLevel(), meeting.getUser(), meeting.getId());
     }
 
     public List<Meeting> getMeetings(User user) throws EmptyResultDataAccessException {
         List<Meeting> m = new ArrayList<>();
-        long i = user.getId();
         try {
             m = jdbcTemplate.query("SELECT * FROM events WHERE id=?", new Object[]{user.getId()}, new MeetingRowMapper());
         } catch (EmptyResultDataAccessException e) {
