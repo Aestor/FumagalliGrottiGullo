@@ -15,16 +15,15 @@
  */
 package com.polimi.travlendar.gmaps;
 
-import com.google.maps.model.PlacesSearchResult;
+import com.vaadin.ui.ItemCaptionGenerator;
 
 /**
  *
  * @author Marco
  */
-public interface PlaceSearchFieldClient {
-    
-    public void deliverPlace(PlaceSearchField caller, PlacesSearchResult result);
-    
-    public void resultNotFoundError();
-    
-}
+public class DefaultCaptionGenerator implements ItemCaptionGenerator {
+        @Override
+        public String apply(Object item){
+            return item.toString();
+        }
+    }

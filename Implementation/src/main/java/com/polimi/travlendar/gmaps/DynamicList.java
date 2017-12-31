@@ -17,6 +17,7 @@ package com.polimi.travlendar.gmaps;
 
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ItemCaptionGenerator;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,32 +28,27 @@ import java.util.List;
  */
 public class DynamicList extends VerticalLayout {
     
+    private SelectionListener listener;
+    
     private List<Object> list;   
-    private List<Button> buttons;    
-    private Object selection;
+    private List<Button> buttons;
     
     int dimension;
     
     private ItemCaptionGenerator captionGenerator;
     
-    public DynamicList(int dimension) {
-        list = new ArrayList<Object>();
-        this.setSpacing(false);
-        this.setWidth("300px");
-        this.dimension = dimension;
-        captionGenerator = new DefaultCaptionGenerator();
-    }
-    
-    public DynamicList(int dimension, ItemCaptionGenerator captionGenerator){
+    public DynamicList(SelectionListener listener, int dimension, ItemCaptionGenerator captionGenerator){
+        this.listener = listener;
         list = new ArrayList<Object>();
         this.setSpacing(false);
         this.setWidth("300px");
         this.dimension = dimension;
         this.captionGenerator = captionGenerator;
+        this.addComponent(new Label("Predictions list"));
     }
     
-    public Object getSelection(){
-        return selection;
+    public DynamicList(SelectionListener listener, int dimension) {
+        this(listener, dimension, new DefaultCaptionGenerator());
     }
     
     public void setList(List<Object> newList){
@@ -64,17 +60,12 @@ public class DynamicList extends VerticalLayout {
         this.removeAllComponents();
         for(Object o : list){
             Button b = new Button(captionGenerator.apply(o));
+            b.setWidth("300px");
             b.addClickListener(e -> {
-               selection = o;
-               this.fireComponentEvent();
+               listener.listen(o);
             });
+            this.addComponent(b);
         }
     }
-    
-    private class DefaultCaptionGenerator implements ItemCaptionGenerator {
-        @Override
-        public String apply(Object item){
-            return item.toString();
-        }
-    }
+
 }

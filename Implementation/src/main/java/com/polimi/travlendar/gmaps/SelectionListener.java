@@ -15,16 +15,12 @@
  */
 package com.polimi.travlendar.gmaps;
 
-import com.google.maps.model.PlacesSearchResult;
-
 /**
  *
  * @author Marco
  */
-public interface PlaceSearchFieldClient {
+public interface SelectionListener {
     
-    public void deliverPlace(PlaceSearchField caller, PlacesSearchResult result);
-    
-    public void resultNotFoundError();
+    public void listen(Object selection);
     
 }

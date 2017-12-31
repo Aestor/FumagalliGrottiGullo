@@ -2,15 +2,13 @@ package com.polimi.travlendar.ui.pages.gmaps;
 
 import com.github.appreciated.app.layout.annotations.MenuCaption;
 import com.github.appreciated.app.layout.annotations.MenuIcon;
-import com.google.maps.model.AutocompletePrediction;
 import com.google.maps.model.DirectionsResult;
 import com.google.maps.model.PlacesSearchResult;
 import com.polimi.travlendar.gmaps.GoogleMapsService;
 import com.polimi.travlendar.gmaps.PlaceSearchField;
+import com.polimi.travlendar.gmaps.PlaceSearchFieldClient;
 import com.polimi.travlendar.gmaps.ResultNotFoundException;
 import com.polimi.travlendar.gmaps.VaadinMap;
-import com.vaadin.data.HasValue;
-import com.vaadin.data.HasValue.ValueChangeListener;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
@@ -29,7 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @SpringView(name = PlaceSearchPage.NAME)
 @MenuCaption("Search place")
 @MenuIcon(VaadinIcons.SEARCH)
-public class PlaceSearchPage extends CssLayout implements View {
+public class PlaceSearchPage extends CssLayout implements View, PlaceSearchFieldClient {
 
     public static final String NAME = "place-search";
 
@@ -55,38 +53,9 @@ public class PlaceSearchPage extends CssLayout implements View {
         Label searchTitle = new Label("Place search");
 
         startPlaceField.setPlaceHolder("Search starting place...");
-        startPlaceField.setClickListener(new Button.ClickListener() {
-            @Override
-            public void buttonClick(Button.ClickEvent event) {
-                try {
-                    PlacesSearchResult result = startPlaceField.searchPlace();
-                    if (result != null) {
-                        startPlace = result;
-                        map.setMarker(startPlace, 1);
-                        getDirections();
-                    }
-                } catch (ResultNotFoundException e) {
-                    Notification.show(e.placesMessage, Type.WARNING_MESSAGE);
-                }
-            }
-        });
-
+        startPlaceField.registerClient(this);
         endPlaceField.setPlaceHolder("Search ending place...");
-        endPlaceField.setClickListener(new Button.ClickListener() {
-            @Override
-            public void buttonClick(Button.ClickEvent event) {
-                try {
-                    PlacesSearchResult result = endPlaceField.searchPlace();
-                    if (result != null) {
-                        endPlace = result;
-                        map.setMarker(endPlace, 2);
-                        getDirections();
-                    }
-                } catch (ResultNotFoundException e) {
-                    Notification.show(e.placesMessage, Type.WARNING_MESSAGE);
-                }
-            }
-        });
+        endPlaceField.registerClient(this);
 
         HorizontalLayout searchFieldComponents = new HorizontalLayout(startPlaceField, endPlaceField);
 
@@ -129,6 +98,23 @@ public class PlaceSearchPage extends CssLayout implements View {
                 }
             }
         }
+    }
+
+    @Override
+    public void deliverPlace(PlaceSearchField caller, PlacesSearchResult result) {
+        if (caller == startPlaceField){
+            startPlace = result;
+            map.setMarker(startPlace, 1);
+        } else {
+            endPlace = result;
+            map.setMarker(endPlace, 2);
+        }
+        getDirections();
+    }
+
+    @Override
+    public void resultNotFoundError() {
+        Notification.show("Result not found!", Type.WARNING_MESSAGE);
     }
 
 }
