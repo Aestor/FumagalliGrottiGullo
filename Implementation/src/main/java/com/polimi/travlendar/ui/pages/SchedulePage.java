@@ -1,6 +1,9 @@
 package com.polimi.travlendar.ui.pages;
 
 import com.github.appreciated.app.layout.annotations.MenuIcon;
+import com.polimi.travlendar.EventService;
+import com.polimi.travlendar.User;
+import com.polimi.travlendar.components.Meeting;
 import java.time.Month;
 import java.time.ZonedDateTime;
 import java.time.format.TextStyle;
@@ -15,12 +18,17 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @SuppressWarnings("serial")
 @SpringView(name = SchedulePage.NAME)
 @MenuIcon(VaadinIcons.CALENDAR)
 public class SchedulePage extends VerticalLayout implements View {
-    
+    @Autowired
+    User user;
+    @Autowired
+    private EventService eService;
     private Schedule schedule;
 
     public static final String NAME = "SchedulePage";
@@ -41,9 +49,19 @@ public class SchedulePage extends VerticalLayout implements View {
         Button month = new Button("month",
                 (Button.ClickEvent clickEvent) -> schedule.getCalendar().withMonth(ZonedDateTime.now().getMonth()));
         HorizontalLayout nav = new HorizontalLayout(months, today, week, month);
+                loadEvents();
         this.addComponents(nav);
         this.addComponent(schedule);
 
+
+    }
+    
+    private void loadEvents() {
+           schedule.removeAll();
+        List<Meeting> meetings = eService.getMeetings(user);
+        meetings.forEach((m) -> {
+            schedule.onSubmitEvent(m);
+        });
     }
     
     
