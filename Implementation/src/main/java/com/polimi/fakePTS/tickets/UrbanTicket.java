@@ -28,8 +28,8 @@ public class UrbanTicket extends Ticket {
 
     private String city;
 
-    public UrbanTicket(int price, TicketType type, int validity, String city) {
-        super(price, type, validity);
+    public UrbanTicket(int price, TicketType type, String city) {
+        super(price, type);
         this.city = city;
         
     }

@@ -30,11 +30,11 @@ public class TrainTicket extends Ticket{
     private String departureLocation;
     private String arrivalLocation;
 
-    public TrainTicket(String startLocation, String arrivalLocation, int price, TicketType type, int validity) {
-        super(price, type, validity);
+    public TrainTicket(String startLocation, String arrivalLocation, int price, TicketType type) {
+        super(price, type);
         this.departureLocation = startLocation;
         this.arrivalLocation = arrivalLocation;
-        
+       
     }
 
     @Override

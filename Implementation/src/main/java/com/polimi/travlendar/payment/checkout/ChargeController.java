@@ -15,7 +15,8 @@
  */
 package com.polimi.travlendar.payment.checkout;
 
-import com.polimi.travlendar.ui.pages.BalancePage;
+import com.polimi.travlendar.backend.beans.StripeService;
+import com.polimi.travlendar.frontend.ui.pages.BalancePage;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
 import com.vaadin.navigator.View;
@@ -24,7 +25,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

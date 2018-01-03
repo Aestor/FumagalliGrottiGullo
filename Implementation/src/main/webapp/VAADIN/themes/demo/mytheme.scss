@@ -5,8 +5,33 @@
 
 @mixin mytheme {
 
+.v-label-mytitle {
+    font-size: 24px;
+    line-height: bold;
+    font-weight: bold;
+    
+}
 
+.v-label-originalcaption {
+    font: italic normal bold 50px/2 "Trebuchet MS", Helvetica, sans-serif;
+     color: rgb(128, 0, 0);
+  -o-text-overflow: clip;
+  text-overflow: clip;
+  white-space: nowrap;
+  word-spacing: 5px;
+  
+}
 
+.v-select-optiongroup-tickets {
+    font-size: 24px;
+    line-height: bold;
+}
+
+.v.label-balance{
+    font-size: 30px;
+    font-weight: bold;
+    
+}
 .meetings {
 
     .v-calendar-event-month:hover {
@@ -110,4 +135,6 @@ background: none;
     }
 
 }
+
+
 }

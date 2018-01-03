@@ -38,14 +38,13 @@ public class Ticket {
     protected ZonedDateTime purchase;
     protected String lenght; //used to describe validity time interval
 
-    public Ticket(int price, TicketType type, int validity) {
+    public Ticket(int price, TicketType type) {
         id = new RandomTicketId(16).nextString();
         this.price = price;
         this.type = type;
-        this.validity = validity;
         this.activated = false;
         purchase = ZonedDateTime.now();
-        lenght= setLenght(type);
+        setLenghtAndValidity(type);
 
     }
 
@@ -54,24 +53,33 @@ public class Ticket {
      * @param type
      * @return 
      */
-    private String setLenght(TicketType type) {
+    private void setLenghtAndValidity(TicketType type) {
 
         switch (type.name) {
 
             case "single": {
-                return "minutes";
+                setLenght( "minutes");
+                setValidity(300);
+                break;
             }
             case "weekpass": {
-                return "days";
+                setLenght("days");
+                setValidity(7);
+                break;
             }
             case "onemonthpass": {
-                return "days";
+                setLenght("days");
+                setValidity(30);
+                break;
             }
             case "yearpass": {
-                return "weeks";
+                setLenght("months");
+                setValidity(12);
+                break;
             }
             default: {
-                return "error";
+                setLenght("error");
+                setValidity(0);
             }
         }
     }

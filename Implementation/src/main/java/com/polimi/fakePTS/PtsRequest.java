@@ -69,11 +69,11 @@ public class PtsRequest {
      * @return
      * @throws InvalidFieldsException 
      */
-    public static UrbanTicket buyUrbanTicket(int price, TicketType type, int validity, String city) throws InvalidFieldsException {
+    public static UrbanTicket buyUrbanTicket(int price, TicketType type, String city) throws InvalidFieldsException {
 
         if (price > 0) {
             UrbanTicket temp
-                    = new UrbanTicket(price, type, validity, city);
+                    = new UrbanTicket(price, type, city);
             return temp;
         } else {
             throw new InvalidFieldsException("error");
@@ -92,11 +92,11 @@ public class PtsRequest {
      * @return
      * @throws InvalidFieldsException 
      */
-    public static TrainTicket buyTrainTicket(int price, String start, String arrival, int validity, TicketType type, LocalDate date) throws InvalidFieldsException {
+    public static TrainTicket buyTrainTicket(int price, String start, String arrival, TicketType type, LocalDate date) throws InvalidFieldsException {
 
         if (price > 0) {
             TrainTicket temp
-                    = new TrainTicket(start, arrival, price, type, validity);
+                    = new TrainTicket(start, arrival, price, type);
             temp.setValidationTime(ZonedDateTime.of(date.atTime(LocalTime.MIN), ZoneId.systemDefault()));
             return temp;
         } else {
