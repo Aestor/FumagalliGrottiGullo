@@ -1,0 +1,2 @@
+[MASTER] 12:21:44.994 [pool-2-thread-1] WARN  TestSuiteSerialization - Cannot load tests because file does not exist: /home/jaycaves/Desktop/FumagalliGrottiGullo/Implementation/.evosuite/evosuite-seeds/com.polimi.travlendar.frontend.ui.forms.LoginForm.seed
+[MASTER] 12:21:45.050 [pool-2-thread-1] WARN  TimeController - Phase INITIALIZATION lasted too long, 4 seconds more than allowed.

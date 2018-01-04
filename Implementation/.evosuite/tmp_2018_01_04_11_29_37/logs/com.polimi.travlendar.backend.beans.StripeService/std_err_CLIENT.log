@@ -1,0 +1,9 @@
+[MASTER] 12:13:08.459 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize org.springframework.jdbc.core.JdbcTemplate: org/springframework/jdbc/core/ResultSetSupportingSqlParameter
+[MASTER] 12:13:08.482 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize com.stripe.model.Charge: com/google/gson/GsonBuilder
+[MASTER] 12:13:08.485 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize com.stripe.net.APIResource: Could not initialize class com.stripe.net.APIResource
+[MASTER] 12:13:08.491 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize com.stripe.model.Customer: com.stripe.net.APIResource
+[MASTER] 12:13:08.503 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize com.stripe.model.StripeObject: Could not initialize class com.stripe.model.StripeObject
+[MASTER] 12:13:08.946 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize org.springframework.jdbc.core.JdbcTemplate: org/springframework/jdbc/core/SqlReturnResultSet
+[MASTER] 12:13:08.947 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize com.stripe.model.Charge: Could not initialize class com.stripe.model.Charge
+[MASTER] 12:13:09.370 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize org.springframework.jdbc.core.JdbcTemplate: org/springframework/jdbc/core/SqlOutParameter
+[MASTER] 12:13:09.788 [pool-2-thread-1] ERROR JUnitAnalyzer - Ran out of time while checking tests

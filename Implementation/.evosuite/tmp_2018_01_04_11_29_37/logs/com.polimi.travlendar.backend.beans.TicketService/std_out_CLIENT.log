@@ -1,0 +1,42 @@
+[MASTER] 11:53:45.850 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletRequest was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 11:53:45.851 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortlet$VaadinHttpAndPortletRequest was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 11:53:45.852 [pool-2-thread-1] WARN  InheritanceTree - Class not in inheritance graph: com.vaadin.server.VaadinPortlet$VaadinHttpAndPortletRequest
+[MASTER] 11:53:45.852 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletRequest was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 11:53:45.853 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletRequest was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 11:53:45.853 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletRequest was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 11:53:45.853 [pool-2-thread-1] WARN  InheritanceTree - Class not in inheritance graph: com.vaadin.server.VaadinPortletRequest
+[MASTER] 11:53:45.853 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletRequest was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 11:53:45.854 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletRequest was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 11:53:45.854 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletRequest was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 11:53:45.854 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletRequest was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 11:53:45.857 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletRequest was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 11:53:45.857 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletRequest was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 11:53:45.861 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletResponse was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 11:53:45.861 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletResponse was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 11:53:46.672 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletService was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 11:53:46.672 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletService was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 11:53:46.673 [pool-2-thread-1] WARN  InheritanceTree - Class not in inheritance graph: com.vaadin.server.VaadinPortletService
+[MASTER] 11:53:46.673 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletService was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 11:53:46.674 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletService was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 11:53:46.976 [pool-2-thread-1] WARN  CheapPurityAnalyzer - org.jboss.servlet.http.HttpEvent was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 11:53:46.976 [pool-2-thread-1] WARN  InheritanceTree - Class not in inheritance graph: org.jboss.servlet.http.HttpEvent
+[MASTER] 11:53:46.992 [pool-2-thread-1] WARN  CheapPurityAnalyzer - org.mortbay.util.ajax.ContinuationSupport was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 11:53:46.993 [pool-2-thread-1] WARN  InheritanceTree - Class not in inheritance graph: org.mortbay.util.ajax.ContinuationSupport
+[MASTER] 11:53:47.046 [pool-2-thread-1] WARN  CheapPurityAnalyzer - org.apache.catalina.websocket.WsOutbound was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 11:53:47.046 [pool-2-thread-1] WARN  InheritanceTree - Class not in inheritance graph: org.apache.catalina.websocket.WsOutbound
+[MASTER] 11:53:47.049 [pool-2-thread-1] WARN  CheapPurityAnalyzer - org.glassfish.grizzly.websockets.WebSocket was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 11:53:47.049 [pool-2-thread-1] WARN  InheritanceTree - Class not in inheritance graph: org.glassfish.grizzly.websockets.WebSocket
+[MASTER] 11:53:47.050 [pool-2-thread-1] WARN  CheapPurityAnalyzer - org.glassfish.grizzly.websockets.WebSocket was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 11:53:47.051 [pool-2-thread-1] WARN  CheapPurityAnalyzer - org.glassfish.grizzly.websockets.WebSocket was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 11:53:47.075 [pool-2-thread-1] WARN  CheapPurityAnalyzer - org.eclipse.jetty.websocket.WebSocket$Connection was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 11:53:47.075 [pool-2-thread-1] WARN  InheritanceTree - Class not in inheritance graph: org.eclipse.jetty.websocket.WebSocket$Connection
+[MASTER] 11:53:47.076 [pool-2-thread-1] WARN  CheapPurityAnalyzer - org.eclipse.jetty.websocket.WebSocket$Connection was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 11:53:47.079 [pool-2-thread-1] WARN  CheapPurityAnalyzer - org.eclipse.jetty.websocket.api.Session was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 11:53:47.079 [pool-2-thread-1] WARN  InheritanceTree - Class not in inheritance graph: org.eclipse.jetty.websocket.api.Session
+[MASTER] 11:53:47.082 [pool-2-thread-1] WARN  CheapPurityAnalyzer - org.apache.catalina.websocket.WsOutbound was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 11:53:47.083 [pool-2-thread-1] WARN  CheapPurityAnalyzer - org.apache.catalina.websocket.WsOutbound was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 11:53:47.085 [pool-2-thread-1] WARN  CheapPurityAnalyzer - weblogic.websocket.WebSocketConnection was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 11:53:47.085 [pool-2-thread-1] WARN  InheritanceTree - Class not in inheritance graph: weblogic.websocket.WebSocketConnection
+[MASTER] 11:53:47.086 [pool-2-thread-1] WARN  CheapPurityAnalyzer - weblogic.websocket.WebSocketConnection was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 11:53:47.086 [pool-2-thread-1] WARN  CheapPurityAnalyzer - weblogic.websocket.WebSocketConnection was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 11:53:49.746 [pool-2-thread-1] WARN  TestSuiteSerialization - Cannot load tests because file does not exist: /home/jaycaves/Desktop/FumagalliGrottiGullo/Implementation/.evosuite/evosuite-seeds/com.polimi.travlendar.backend.beans.TicketService.seed

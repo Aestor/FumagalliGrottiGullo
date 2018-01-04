@@ -1,0 +1,1 @@
+[MASTER] 12:31:52.954 [pool-2-thread-1] WARN  TestSuiteSerialization - Cannot load tests because file does not exist: /home/jaycaves/Desktop/FumagalliGrottiGullo/Implementation/.evosuite/evosuite-seeds/com.polimi.travlendar.backend.model.user.Notification.seed
