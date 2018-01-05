@@ -212,7 +212,6 @@ public class Schedule extends CustomComponent {
     
     public void edit(Meeting meeting) {
         UI.getCurrent().getNavigator().navigateTo(CreateEventPage.NAME);
-        
     }
 
     public void delete(Meeting meeting) {
