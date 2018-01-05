@@ -1,5 +1,23 @@
 # TravlendarPlus
 
+## Usage
+Import in your IDE as a Maven project. <br>
+You need to execute mvn install. Some IDEs (e.g.: Eclipe JEE) automatically execute it when you run the project.<br>
+Run the class TravlendarApplication.java as a Java Application.<br>
+From your browser navigate to localhost:8080.
+
+## MySQL - Database Setup
+To import the database in your PC:
+1. Install MySQL Workbench
+2. In the program: Server -> Data Import
+3. Select "Import from Self-Contained File" and browse Dump.sql
+4. Create a new schema for the Default Target Schema and name it "travlendar" (important)
+5. Refresh schemas to see travlendar
+
+Alternately, create manually a new schema with MySQL Command Line:<br>
+copy and paste the text from the file "sql_entries". <br>
+The database or the database server must have a jdbc Connector for port 3306.
+
 ## Resources and documentation
 Java JDK 1.8.0<br>
 Apache Maven 3.5.2<br>
@@ -16,23 +34,3 @@ https://vaadin.com/docs/v8/framework/application/application-overview.html
 https://www.w3schools.com/sql/default.asp
 ##### Vaadin login
 https://examples.javacodegeeks.com/enterprise-java/vaadin/vaadin-login-example/
-
-
-## Usage
-Import in your IDE as a Maven project. <br>
-You need to execute mvn install. Some IDEs (e.g.: Eclipe JEE) automatically execute it when you run the project.<br>
-Run the class TravlendarApplication.java as a Java Application.<br>
-From your browser navigate to localhost:8080.
-
-## MySQL
-To import the database in your PC:
-1. Install MySQL Workbench
-2. In the program: Server -> Data Import
-3. Select "Import from Self-Contained File" and browse Dump.sql
-4. Create a new schema for the Default Target Schema and name it "travlendar" (important)
-5. Refresh schemas to see travlendar
-
-Alternately, create manually a new schema with MySQL Command Line:<br>
--> CREATE SCHEMA travlendar;<br>
--> USE travlendar;<br>
--> CREATE TABLE users(id SERIAL, email VARCHAR(255), password VARCHAR(255), first_name VARCHAR(255), last_name VARCHAR(255));
