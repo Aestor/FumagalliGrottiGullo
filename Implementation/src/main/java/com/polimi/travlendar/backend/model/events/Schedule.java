@@ -1,5 +1,6 @@
 package com.polimi.travlendar.backend.model.events;
 
+import com.polimi.travlendar.backend.beans.EventService;
 import java.time.Month;
 import java.time.ZonedDateTime;
 import java.util.GregorianCalendar;
@@ -10,18 +11,18 @@ import org.vaadin.addon.calendar.item.BasicItemProvider;
 import org.vaadin.addon.calendar.ui.CalendarComponentEvents;
 
 import com.polimi.travlendar.backend.model.user.User;
+import com.polimi.travlendar.frontend.ui.forms.EventForm;
+import com.polimi.travlendar.frontend.ui.pages.CreateEventPage;
 import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.VaadinSessionScope;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CustomComponent;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.Notification;
-import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @SpringComponent
 @VaadinSessionScope
@@ -35,13 +36,17 @@ public class Schedule extends CustomComponent {
 
     public Panel panel;
 
+    @Autowired
     private User user;
     
+    /*@Autowired
+    private EventForm createEvent;*/
+    @Autowired
+    private EventService eService;
 
-    public Schedule(User user) {
+    public Schedule() {
         setId("schedule");
         setSizeFull();
-        this.user = user;
         initCalendar();
 
         VerticalLayout layout = new VerticalLayout();
@@ -51,7 +56,7 @@ public class Schedule extends CustomComponent {
 
         panel = new Panel(calendar);
         panel.setHeight(100, Unit.PERCENTAGE);
-        layout.addComponent(new Label("Calendar of: " + this.user.getFirst_name() + " " + this.user.getLast_name()));
+        //layout.addComponent(new Label("Calendar of: " + user.getFirst_name() + " " + user.getLast_name()));
         layout.addComponent(panel);
 
         setCompositionRoot(layout);
@@ -70,7 +75,8 @@ public class Schedule extends CustomComponent {
 
         final Meeting meeting = item.getMeeting();
 
-        Notification.show(meeting.getName() + "\n" + meeting.getLocation(), meeting.getDetails(), Type.HUMANIZED_MESSAGE);
+        Edit edit = new Edit(meeting, this);
+        UI.getCurrent().addWindow(edit);
     }
 
     private void initCalendar() {
@@ -142,8 +148,9 @@ public class Schedule extends CustomComponent {
         }
 
         void removeEvent(Meeting meeting) {
-            this.removeEvent(meeting);
+            this.removeItem(new MeetingItem(meeting));
         }
+
     }
 
     public void onSubmitEvent(Meeting meeting) {
@@ -153,10 +160,62 @@ public class Schedule extends CustomComponent {
     public User getUser() {
         return user;
     }
-    
+
     public void removeAll() {
         eventProvider.removeAllEvents();
     }
 
- 
+    public void removeEvent(Meeting meeting) {
+        eventProvider.removeEvent(meeting);
+    }
+
+    private class Edit extends Window {
+
+        @Autowired
+        EventService service;
+        Schedule schedule;
+
+        public Edit(Meeting meeting, Schedule schedule) {
+            super("Edit");
+            this.schedule = schedule;
+            Button edit = new Button("Edit");
+            Button delete = new Button("Delete");
+            setModal(true);
+            center();
+            setClosable(true);
+            edit.addClickListener(e -> {
+                edit(meeting);
+                close();
+                    });
+            delete.addClickListener(e -> {
+                delete(meeting);
+                close();
+            });
+            VerticalLayout layout = new VerticalLayout();
+            layout.addComponents(edit, delete);
+            setContent(layout);
+
+        }
+
+    }
+    
+    private class EditPage extends Window {
+        
+        public EditPage(Meeting meeting) {
+            super("EditEvent");
+            VerticalLayout layout = new VerticalLayout();
+            layout.addComponent(new EventForm(meeting));
+            setContent(layout);
+            
+        }
+    }
+    
+    public void edit(Meeting meeting) {
+        UI.getCurrent().getNavigator().navigateTo(CreateEventPage.NAME);
+    }
+
+    public void delete(Meeting meeting) {
+        eService.deleteMeeting(meeting);
+        removeEvent(meeting);
+    }
 }

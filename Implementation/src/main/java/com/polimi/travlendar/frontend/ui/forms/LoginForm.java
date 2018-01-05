@@ -35,8 +35,6 @@ import java.util.List;
 @Scope("prototype")
 public class LoginForm extends FormLayout {
 
-    @Autowired
-    private EventService eService;
 
     @Autowired
     private UserService service;
@@ -44,8 +42,6 @@ public class LoginForm extends FormLayout {
     @Autowired
     User user;
 
-    @Autowired
-    Schedule schedule;
 
     private TextField email = new TextField("Email");
     private PasswordField password = new PasswordField("Password");
@@ -81,7 +77,6 @@ public class LoginForm extends FormLayout {
                 user.setUser(service.getUser(input.getEmail(), input.getPassword()));
                 VaadinSession.getCurrent().setAttribute("user", input.getEmail());
                 ((TravlendarUI) getUI()).setMenuBar();
-                loadEvents();
 
             } catch (EmptyResultDataAccessException e) {
                 e.printStackTrace();
@@ -93,12 +88,4 @@ public class LoginForm extends FormLayout {
         }
     }
 
-    private void loadEvents() {
-        VaadinSession.getCurrent().setAttribute("schedule", new Schedule(user));
-        schedule.removeAll();
-        List<Meeting> meetings = eService.getMeetings(user);
-        meetings.forEach((m) -> {
-            schedule.onSubmitEvent(m);
-        });
-    }
 }

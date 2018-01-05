@@ -29,13 +29,13 @@ public class SchedulePage extends VerticalLayout implements View {
     User user;
     @Autowired
     private EventService eService;
+    @Autowired
     private Schedule schedule;
 
     public static final String NAME = "SchedulePage";
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
-        schedule = (Schedule)VaadinSession.getCurrent().getAttribute("schedule");
         ComboBox<Month> months = new ComboBox<>();
         months.setItems(Month.values());
         months.setItemCaptionGenerator(

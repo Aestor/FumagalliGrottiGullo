@@ -7,6 +7,7 @@ package com.polimi.travlendar.frontend.ui.pages;
 
 import com.github.appreciated.app.layout.annotations.MenuIcon;
 import com.polimi.travlendar.backend.beans.EventService;
+import com.polimi.travlendar.backend.model.events.Meeting;
 import com.polimi.travlendar.backend.model.events.Schedule;
 import com.polimi.travlendar.frontend.ui.forms.EventForm;
 import com.vaadin.icons.VaadinIcons;
@@ -31,13 +32,14 @@ public class CreateEventPage extends VerticalLayout implements View {
     private EventForm createEvent;
     @Autowired
     private EventService service;
+    @Autowired
+    private Schedule schedule;
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
-
-        createEvent.setSchedule((Schedule) VaadinSession.getCurrent().getAttribute("schedule"));
+        
+        createEvent.setSchedule(schedule);
         addComponent(createEvent);
 
     }
-
 }

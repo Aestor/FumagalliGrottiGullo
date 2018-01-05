@@ -18,11 +18,9 @@ package com.polimi.travlendar.backend.database;
 import com.polimi.travlendar.backend.model.events.Meeting;
 import com.polimi.travlendar.backend.model.events.Meeting.State;
 import com.polimi.travlendar.backend.model.user.PreferenceLevel;
-import com.vaadin.server.VaadinSession;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import org.springframework.jdbc.core.RowMapper;
@@ -40,19 +38,18 @@ public class MeetingRowMapper implements RowMapper<Meeting> {
         meeting.setName(rs.getString("nam"));
         meeting.setDetails(rs.getString("details"));
         meeting.setLocation(rs.getString("location"));
-        meeting.setStart(convertDateTime(rs.getTime("timeb"), rs.getDate("d")));
-        meeting.setEnd(convertDateTime(rs.getTime("timee"), rs.getDate("d")));
+        meeting.setStart(convertDateTime(rs.getTimestamp("timeb")));
+        meeting.setEnd(convertDateTime(rs.getTimestamp("timee")));
         meeting.setPreferenceLevel(convertPref(rs.getString("preflevel")));
         meeting.setState(convertState(rs.getString("state")));
         meeting.setId(rs.getLong("eventid"));
-
         return meeting;
     }
 
-    private ZonedDateTime convertDateTime(Time t, Date d) {
-        return ZonedDateTime.of(d.toLocalDate(), t.toLocalTime(), ZoneId.systemDefault());
-
+    private ZonedDateTime convertDateTime(Timestamp t) {
+        return ZonedDateTime.of(t.toLocalDateTime(), ZoneId.systemDefault());
     }
+    
     
     private PreferenceLevel convertPref(String e) {
         switch(e) {

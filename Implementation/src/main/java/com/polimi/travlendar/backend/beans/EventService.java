@@ -27,6 +27,7 @@ import java.sql.Time;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Timestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -40,7 +41,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
  */
 @SpringComponent
 @VaadinSessionScope
-@Scope("prototype")
+@Scope("session")
 public class EventService {
 
     @Autowired
@@ -51,13 +52,13 @@ public class EventService {
 
     public long addMeeting(Meeting meeting) {
 
-        jdbcTemplate.update("INSERT INTO events (id, location, nam, details, d, timeb, timee, preflevel, state) VALUES (?,?,?,?,?,?,?,?,?)",
-                meeting.getUser(), meeting.getLocation(), meeting.getName(), meeting.getDetails(), convertDate(meeting.getStart()), convertTime(meeting.getStart()), convertTime(meeting.getEnd()), convertPref(meeting.getPreferenceLevel()), convertState(meeting.getState()));
+        jdbcTemplate.update("INSERT INTO events (id, location, nam, details, timeb, timee, preflevel, state) VALUES (?,?,?,?,?,?,?,?)",
+                meeting.getUser(), meeting.getLocation(), meeting.getName(), meeting.getDetails(), convertDateTime(meeting.getStart()), convertDateTime(meeting.getEnd()), convertPref(meeting.getPreferenceLevel()), convertState(meeting.getState()));
         return jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", long.class);
     }
 
     public void editMeeting(Meeting meeting) {
-        jdbcTemplate.update("UPDATE events SET location = ?, nam = ?, details = ?, d = ?, timeb = ?, timee = ?, preflevel = ? WHERE id = ? AND eventid = ?", meeting.getLocation(), meeting.getName(), meeting.getDetails(), convertDate(meeting.getStart()), convertTime(meeting.getStart()), convertTime(meeting.getEnd()), meeting.getPreferenceLevel(), meeting.getUser(), meeting.getId());
+        jdbcTemplate.update("UPDATE events SET location = ?, nam = ?, details = ?, timeb = ?, timee = ?, preflevel = ? WHERE id = ? AND eventid = ?", meeting.getLocation(), meeting.getName(), meeting.getDetails(), convertDateTime(meeting.getStart()), convertDateTime(meeting.getEnd()), meeting.getPreferenceLevel(), meeting.getUser(), meeting.getId());
     }
 
     public List<Meeting> getMeetings(User user) throws EmptyResultDataAccessException {
@@ -70,13 +71,13 @@ public class EventService {
         return m;
 
     }
-
-    private Time convertTime(ZonedDateTime t) {
-        return Time.valueOf(t.toLocalTime());
+    
+    public void deleteMeeting(Meeting meeting) {
+        jdbcTemplate.execute("DELETE FROM events WHERE eventid="+meeting.getId()+";");
     }
 
-    private Date convertDate(ZonedDateTime t) {
-        return Date.valueOf(t.toLocalDate());
+    private Timestamp convertDateTime(ZonedDateTime t) {
+        return Timestamp.valueOf(t.toLocalDateTime());
     }
 
     private String convertPref(PreferenceLevel p) {

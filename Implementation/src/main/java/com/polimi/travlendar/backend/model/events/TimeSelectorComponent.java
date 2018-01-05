@@ -144,6 +144,12 @@ public class TimeSelectorComponent extends CustomComponent {
         minutes.clear();
     }
 
+    @Override
+    public void setEnabled(boolean enabled) {
+        hours.setEnabled(enabled);
+        minutes.setEnabled(enabled);
+    }
+
     public void setHour(int hour) {
         try {
             if (hour > 9) {
@@ -161,10 +167,25 @@ public class TimeSelectorComponent extends CustomComponent {
             if (minute > 9) {
                 minutes.setValue(String.valueOf(minute));
             } else {
-                minutes.setValue("0"+String.valueOf(minute));
+                minutes.setValue("0" + String.valueOf(minute));
             }
         } catch (NullPointerException e) {
             Notification.show("Internal error", Notification.Type.ERROR_MESSAGE);
+        }
+    }
+
+    public boolean before(TimeSelectorComponent other) {
+        if (Integer.parseInt(other.hours.getValue()) > Integer.parseInt(this.hours.getValue())) {
+            return true;
+
+        } else if (Integer.parseInt(other.hours.getValue()) == Integer.parseInt(this.hours.getValue())) {
+            if (Integer.parseInt(other.minutes.getValue()) > Integer.parseInt(this.minutes.getValue())) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
         }
     }
 

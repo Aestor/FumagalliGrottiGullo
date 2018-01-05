@@ -38,14 +38,17 @@ public class EventForm extends FormLayout {
 
     @Autowired
     private EventService service;
+    @Autowired
     private Schedule schedule;
-    
+
     private TextField location = new TextField("Location");
     private TextField name = new TextField("Event");
     private TextField description = new TextField("Description");
-    private DateField date = new DateField("Date");
+    private DateField dateStart = new DateField("Start");
+    private DateField dateEnd = new DateField("End");
     private Button submit = new Button("Submit");
     private Button reset = new Button("Reset");
+    private long id;
 
     private VerticalLayout content;
     private TimeSelectorComponent startingTime = new TimeSelectorComponent("Starting time");
@@ -56,19 +59,31 @@ public class EventForm extends FormLayout {
     protected boolean eventOk = true;
     protected boolean wait = false;
 
+    private HorizontalLayout submitReset = new HorizontalLayout();
+
     /**
      * Constructor to create a new event.
      */
     public EventForm() {
         setSizeUndefined();
-        schedule = (Schedule)VaadinSession.getCurrent().getAttribute("schedule");
-        date.setDateFormat("dd-MM-yyyy");
-        date.setPlaceholder("dd-mm-yyyy");
-        date.setRangeStart(LocalDate.now());
+        schedule = (Schedule) VaadinSession.getCurrent().getAttribute("schedule");
+        dateStart.setDateFormat("dd-MM-yyyy");
+        dateStart.setPlaceholder("dd-mm-yyyy");
+        dateStart.setRangeStart(LocalDate.now());
+        dateEnd.setDateFormat("dd-MM-yyyy");
+        dateEnd.setPlaceholder("dd-mm-yyyy");
+        dateEnd.setEnabled(false);
+        endingTime.setEnabled(false);
+        dateStart.addValueChangeListener(e -> {
+            dateEnd.setEnabled(true);
+            dateEnd.setRangeStart(dateStart.getValue());
+            endingTime.setEnabled(true);
+        });
+        
         setComboBox();
         HorizontalLayout submitReset = new HorizontalLayout();
         submitReset.addComponents(submit, reset);
-        addComponents(location, name, description, date, startingTime.getLayout(), endingTime.getLayout(), preference, submitReset);
+        addComponents(location, name, description, dateStart, startingTime.getLayout(), dateEnd, endingTime.getLayout(), preference, submitReset);
         content = new VerticalLayout();
         submit.setClickShortcut(KeyCode.ENTER);
         submit.addClickListener(e -> this.submit());
@@ -82,12 +97,12 @@ public class EventForm extends FormLayout {
      * @param meeting the event to edit.
      */
     public EventForm(Meeting meeting) {
-        date.setDateFormat("dd-MM-yyyy");
-        date.setRangeStart(LocalDate.now());
+        dateStart.setDateFormat("dd-MM-yyyy");
+        dateStart.setRangeStart(LocalDate.now());
         location.setValue(meeting.getLocation());
         name.setValue(meeting.getName());
         description.setValue(meeting.getDetails());
-        date.setValue(meeting.getStart().toLocalDate());
+        dateStart.setValue(meeting.getStart().toLocalDate());
         startingTime.setHour(meeting.getStart().toLocalTime().getHour());
         startingTime.setMinute(meeting.getStart().toLocalTime().getMinute());
         endingTime.setHour(meeting.getEnd().toLocalTime().getHour());
@@ -96,35 +111,67 @@ public class EventForm extends FormLayout {
         reset = new Button("Cancel");
         setComboBox();
         preference.setValue(meeting.getPreferenceLevel());
-        HorizontalLayout submitReset = new HorizontalLayout();
         submitReset.addComponents(submit, reset);
-        addComponents(location, name, description, date, startingTime.getLayout(), endingTime.getLayout(), preference, submitReset);
+        addComponents(location, name, description, dateStart, startingTime.getLayout(), endingTime.getLayout(), preference, submitReset);
         content = new VerticalLayout();
         submit.setClickShortcut(KeyCode.ENTER);
-        submit.addClickListener(e -> this.edit());
+        
+        //submit.addClickListener(e -> this.edit());
         reset.addClickListener(e -> this.cancel());
 
     }
 
-    public void cancel() {
+    public void setEdit(Meeting meeting) {
+        dateStart.setDateFormat("dd-MM-yyyy");
+        dateStart.setRangeStart(LocalDate.now());
+        location.setValue(meeting.getLocation());
+        name.setValue(meeting.getName());
+        description.setValue(meeting.getDetails());
+        dateStart.setValue(meeting.getStart().toLocalDate());
+        startingTime.setHour(meeting.getStart().toLocalTime().getHour());
+        startingTime.setMinute(meeting.getStart().toLocalTime().getMinute());
+        endingTime.setHour(meeting.getEnd().toLocalTime().getHour());
+        endingTime.setMinute(meeting.getEnd().toLocalTime().getMinute());
+        preference.setValue(meeting.getPreferenceLevel());
+        submitReset.setVisible(false);
+        HorizontalLayout editCancel = new HorizontalLayout();
+        Button edit = new Button("Edit");
+        Button cancel = new Button("Cancel");
+        editCancel.addComponents(edit, cancel);
+        addComponent(editCancel);
+        Meeting m = new Meeting(false);
+         convertBegin();
+            convertEnd();
+            m.setUser(schedule.getUser().getId());
+            m.setStart(begin);
+            m.setEnd(end);
+            m.setName(name.getValue());
+            m.setLocation(location.getValue());
+            m.setDetails(description.getValue());
+            m.setPreferenceLevel(preference.getValue());
+            m.setState(State.planned);
+            m.setId(meeting.getId());
+        edit.addClickListener( e-> this.edit(m));
+        cancel.addClickListener( e-> this.cancel());        
+        
 
     }
 
-    public void edit() {
-        try {
-            convertBegin();
-            convertEnd();
+    public void cancel() {
+        UI.getCurrent().getNavigator().navigateTo("");
+        
+    }
 
-        } catch (NullPointerException e) {
-
-        }
-
+    public void edit(Meeting meeting) {
+        service.editMeeting(meeting);
+        
     }
 
     private void setComboBox() {
         preference = new ComboBox<>("Event Priority");
         preference.setItems(PreferenceLevel.values());
         preference.setEmptySelectionAllowed(false);
+        preference.setPlaceholder("HIGH");
     }
 
     public VerticalLayout getLayout() {
@@ -132,8 +179,9 @@ public class EventForm extends FormLayout {
     }
 
     public void submit() {
-
+        
         try {
+            
             convertBegin();
             convertEnd();
             Meeting meeting = new Meeting(false);
@@ -145,19 +193,20 @@ public class EventForm extends FormLayout {
             meeting.setDetails(description.getValue());
             meeting.setPreferenceLevel(preference.getValue());
             meeting.setState(State.planned);
+            if (begin.isBefore(end)) {
             CreateEventRecap recap = new CreateEventRecap(meeting);
             UI.getCurrent().addWindow(recap);
+            }
+            else {
+                Notification.show("Select a valid time");
+            }
 
-        } catch (NullPointerException e) {
-            // TODO Auto-generated catch block
-            Notification.show(error());
-        } catch (DateTimeParseException e) {
-            Notification.show(error());
-
-        } catch (EmptyResultDataAccessException e) {
+        } catch (NullPointerException | DateTimeParseException | EmptyResultDataAccessException e) {
             // TODO Auto-generated catch block
             Notification.show(error());
         }
+        // TODO Auto-generated catch block
+        
     }
 
     public void createEvent() {
@@ -168,7 +217,7 @@ public class EventForm extends FormLayout {
         location.clear();
         name.clear();
         description.clear();
-        date.clear();
+        dateStart.clear();
         startingTime.clear();
         endingTime.clear();
 
@@ -180,18 +229,13 @@ public class EventForm extends FormLayout {
 
     private void convertBegin() {
         LocalTime time = LocalTime.parse(startingTime.getHour() + ":" + startingTime.getMinute());
-        begin = ZonedDateTime.of(date.getValue(), time, ZonedDateTime.now().getZone());
+        begin = ZonedDateTime.of(dateStart.getValue(), time, ZonedDateTime.now().getZone());
 
     }
 
     private void convertEnd() {
         LocalTime time = LocalTime.parse(endingTime.getHour() + ":" + endingTime.getMinute());
-        if (time.isBefore(begin.toLocalTime())) {
-            end = ZonedDateTime.of(date.getValue().plusDays(1), time, ZonedDateTime.now().getZone());
-        } else {
-            end = ZonedDateTime.of(date.getValue(), time, ZonedDateTime.now().getZone());
-        }
-
+        end = ZonedDateTime.of(dateEnd.getValue(), time, ZonedDateTime.now().getZone());
     }
 
     public String getLocation() {
@@ -245,7 +289,6 @@ public class EventForm extends FormLayout {
             Button ok = new Button("OK", e -> {
 
                 Notification.show("Event created successfully");
-                
                 schedule.onSubmitEvent(form);
                 saveEvent(form);
                 close();
