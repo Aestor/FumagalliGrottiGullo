@@ -1,0 +1,21 @@
+[MASTER] 23:22:43.982 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet$VaadinGateInRequest: javax/portlet/filter/PortletRequestWrapper
+[MASTER] 23:22:43.989 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet$VaadinHttpAndPortletRequest: javax/portlet/filter/PortletRequestWrapper
+[MASTER] 23:22:43.994 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortletRequest: javax/portlet/filter/PortletRequestWrapper
+[MASTER] 23:22:44.002 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet$VaadinHttpAndPortletRequest: javax/portlet/filter/PortletRequestWrapper
+[MASTER] 23:22:44.008 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortletRequest: javax/portlet/filter/PortletRequestWrapper
+[MASTER] 23:22:44.014 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet$VaadinLiferayRequest: javax/portlet/filter/PortletRequestWrapper
+[MASTER] 23:22:44.017 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet$VaadinHttpAndPortletRequest: javax/portlet/filter/PortletRequestWrapper
+[MASTER] 23:22:44.022 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortletRequest: javax/portlet/filter/PortletRequestWrapper
+[MASTER] 23:22:44.027 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet$VaadinWebLogicPortalRequest: javax/portlet/filter/PortletRequestWrapper
+[MASTER] 23:22:44.030 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet$VaadinHttpAndPortletRequest: javax/portlet/filter/PortletRequestWrapper
+[MASTER] 23:22:44.035 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortletRequest: javax/portlet/filter/PortletRequestWrapper
+[MASTER] 23:22:44.042 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet$VaadinWebSpherePortalRequest: javax/portlet/filter/PortletRequestWrapper
+[MASTER] 23:22:44.045 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet$VaadinHttpAndPortletRequest: javax/portlet/filter/PortletRequestWrapper
+[MASTER] 23:22:44.050 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortletRequest: javax/portlet/filter/PortletRequestWrapper
+[MASTER] 23:22:44.058 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortletRequest: javax/portlet/filter/PortletRequestWrapper
+[MASTER] 23:22:44.116 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortletResponse: Ljavax/portlet/PortletResponse;
+[MASTER] 23:22:44.580 [pool-2-thread-1] WARN  TestSuiteSerialization - Cannot load tests because file does not exist: /home/jaycaves/Desktop/FumagalliGrottiGullo/Implementation/.evosuite/evosuite-seeds/com.polimi.travlendar.frontend.ui.pages.gmaps.EditEventPage.seed
+[MASTER] 23:22:44.634 [pool-2-thread-1] WARN  TimeController - Phase INITIALIZATION lasted too long, 1 seconds more than allowed.
+[MASTER] 23:22:46.764 [TEST_EXECUTION_THREAD_0] WARN  TestUsageChecker - class com.vaadin.event.EventRouter$$Lambda$32/603544988 looks like an anonymous class, ignoring it (although reflection says false) EventRouter$$Lambda$32/603544988
+[MASTER] 23:22:47.754 [TEST_EXECUTION_THREAD_0] WARN  TestUsageChecker - class com.vaadin.ui.AbstractComponent$$Lambda$33/2117057432 looks like an anonymous class, ignoring it (although reflection says false) AbstractComponent$$Lambda$33/2117057432
+[MASTER] 23:22:55.443 [pool-2-thread-1] WARN  TestFactory - Bounded variable issue when calling createVariable()

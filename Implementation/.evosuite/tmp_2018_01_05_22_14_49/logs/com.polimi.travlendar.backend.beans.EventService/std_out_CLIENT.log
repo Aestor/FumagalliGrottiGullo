@@ -1,0 +1,138 @@
+[MASTER] 22:42:49.205 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet$VaadinGateInRequest: javax/portlet/filter/PortletRequestWrapper
+[MASTER] 22:42:49.210 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet$VaadinHttpAndPortletRequest: javax/portlet/filter/PortletRequestWrapper
+[MASTER] 22:42:49.215 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortletRequest: javax/portlet/filter/PortletRequestWrapper
+[MASTER] 22:42:49.221 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet$VaadinHttpAndPortletRequest: javax/portlet/filter/PortletRequestWrapper
+[MASTER] 22:42:49.225 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortletRequest: javax/portlet/filter/PortletRequestWrapper
+[MASTER] 22:42:49.231 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet$VaadinLiferayRequest: javax/portlet/filter/PortletRequestWrapper
+[MASTER] 22:42:49.234 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet$VaadinHttpAndPortletRequest: javax/portlet/filter/PortletRequestWrapper
+[MASTER] 22:42:49.238 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortletRequest: javax/portlet/filter/PortletRequestWrapper
+[MASTER] 22:42:49.243 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet$VaadinWebLogicPortalRequest: javax/portlet/filter/PortletRequestWrapper
+[MASTER] 22:42:49.246 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet$VaadinHttpAndPortletRequest: javax/portlet/filter/PortletRequestWrapper
+[MASTER] 22:42:49.251 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortletRequest: javax/portlet/filter/PortletRequestWrapper
+[MASTER] 22:42:49.256 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet$VaadinWebSpherePortalRequest: javax/portlet/filter/PortletRequestWrapper
+[MASTER] 22:42:49.259 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet$VaadinHttpAndPortletRequest: javax/portlet/filter/PortletRequestWrapper
+[MASTER] 22:42:49.263 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortletRequest: javax/portlet/filter/PortletRequestWrapper
+[MASTER] 22:42:49.269 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortletRequest: javax/portlet/filter/PortletRequestWrapper
+[MASTER] 22:42:49.316 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortletResponse: Ljavax/portlet/PortletResponse;
+[MASTER] 22:42:50.625 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletRequest was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 22:42:50.626 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletRequest was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 22:42:50.626 [pool-2-thread-1] WARN  InheritanceTree - Class not in inheritance graph: com.vaadin.server.VaadinPortletRequest
+[MASTER] 22:42:50.627 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletRequest was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 22:42:50.628 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletRequest was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 22:42:50.628 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletRequest was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 22:42:50.632 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletRequest was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 22:42:50.632 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletRequest was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 22:42:50.639 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortletService: javax/portlet/GenericPortlet
+[MASTER] 22:42:51.549 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/WrappedPortletSession: Ljavax/portlet/PortletSession;
+[MASTER] 22:42:51.967 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortletSession: javax/portlet/RenderResponse
+[MASTER] 22:42:51.972 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:42:51.978 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortletRequest: javax/portlet/filter/PortletRequestWrapper
+[MASTER] 22:42:51.987 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:42:52.335 [pool-2-thread-1] WARN  CheapPurityAnalyzer - org.apache.catalina.websocket.WsOutbound was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 22:42:52.335 [pool-2-thread-1] WARN  InheritanceTree - Class not in inheritance graph: org.apache.catalina.websocket.WsOutbound
+[MASTER] 22:42:52.342 [pool-2-thread-1] WARN  CheapPurityAnalyzer - org.jboss.servlet.http.HttpEvent was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 22:42:52.342 [pool-2-thread-1] WARN  InheritanceTree - Class not in inheritance graph: org.jboss.servlet.http.HttpEvent
+[MASTER] 22:42:52.424 [pool-2-thread-1] WARN  CheapPurityAnalyzer - org.mortbay.util.ajax.ContinuationSupport was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 22:42:52.424 [pool-2-thread-1] WARN  InheritanceTree - Class not in inheritance graph: org.mortbay.util.ajax.ContinuationSupport
+[MASTER] 22:42:52.452 [pool-2-thread-1] WARN  CheapPurityAnalyzer - org.apache.catalina.websocket.WsOutbound was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 22:42:52.452 [pool-2-thread-1] WARN  CheapPurityAnalyzer - org.glassfish.grizzly.websockets.WebSocket was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 22:42:52.452 [pool-2-thread-1] WARN  InheritanceTree - Class not in inheritance graph: org.glassfish.grizzly.websockets.WebSocket
+[MASTER] 22:42:52.453 [pool-2-thread-1] WARN  CheapPurityAnalyzer - org.glassfish.grizzly.websockets.WebSocket was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 22:42:52.453 [pool-2-thread-1] WARN  CheapPurityAnalyzer - org.glassfish.grizzly.websockets.WebSocket was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 22:42:52.473 [pool-2-thread-1] WARN  CheapPurityAnalyzer - org.eclipse.jetty.websocket.WebSocket$Connection was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 22:42:52.473 [pool-2-thread-1] WARN  InheritanceTree - Class not in inheritance graph: org.eclipse.jetty.websocket.WebSocket$Connection
+[MASTER] 22:42:52.474 [pool-2-thread-1] WARN  CheapPurityAnalyzer - org.eclipse.jetty.websocket.WebSocket$Connection was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 22:42:52.477 [pool-2-thread-1] WARN  CheapPurityAnalyzer - org.eclipse.jetty.websocket.api.Session was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 22:42:52.478 [pool-2-thread-1] WARN  InheritanceTree - Class not in inheritance graph: org.eclipse.jetty.websocket.api.Session
+[MASTER] 22:42:52.483 [pool-2-thread-1] WARN  CheapPurityAnalyzer - org.apache.catalina.websocket.WsOutbound was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 22:42:52.486 [pool-2-thread-1] WARN  CheapPurityAnalyzer - weblogic.websocket.WebSocketConnection was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 22:42:52.486 [pool-2-thread-1] WARN  InheritanceTree - Class not in inheritance graph: weblogic.websocket.WebSocketConnection
+[MASTER] 22:42:52.487 [pool-2-thread-1] WARN  CheapPurityAnalyzer - weblogic.websocket.WebSocketConnection was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 22:42:52.487 [pool-2-thread-1] WARN  CheapPurityAnalyzer - weblogic.websocket.WebSocketConnection was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 22:42:52.604 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:42:52.607 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:42:52.610 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:42:52.613 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:42:52.616 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:42:57.156 [pool-2-thread-1] WARN  TestSuiteSerialization - Cannot load tests because file does not exist: /home/jaycaves/Desktop/FumagalliGrottiGullo/Implementation/.evosuite/evosuite-seeds/com.polimi.travlendar.backend.beans.EventService.seed
+[MASTER] 22:42:58.391 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:42:58.396 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:01.740 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:01.744 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:03.233 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:03.239 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:04.912 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:04.916 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:05.797 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:05.801 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:06.642 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:06.647 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:07.502 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:07.507 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:08.894 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:08.901 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:10.019 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:10.024 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:11.036 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:11.041 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:18.590 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:18.595 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:19.111 [pool-2-thread-1] WARN  TestFactory - Bounded variable issue when calling createVariable()
+[MASTER] 22:43:23.422 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:23.426 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:25.324 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:25.331 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:29.160 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:29.164 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:29.988 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:29.992 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:30.896 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:30.900 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:34.217 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:34.223 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:39.231 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:39.238 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:41.013 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:41.017 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:42.155 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:42.160 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:44.397 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:44.402 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:45.311 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:45.315 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:48.273 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:48.278 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:51.766 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:51.770 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:55.609 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:55.614 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:43:56.198 [pool-2-thread-1] WARN  FunctionalMockStatement - Failed to check if can mock class com.vaadin.server.VaadinPortletResponse: javax/portlet/PortletResponse
+[MASTER] 22:44:00.622 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:44:00.626 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:44:01.631 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:44:01.635 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:44:07.804 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:44:07.811 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:44:09.896 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:44:09.900 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:44:18.768 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:44:18.772 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:44:20.818 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:44:20.824 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:44:23.326 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:44:23.331 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:44:24.682 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:44:24.688 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:44:25.689 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:44:25.693 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:44:33.655 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:44:33.659 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:44:39.527 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:44:39.531 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:44:43.185 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:44:43.189 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:44:47.298 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:44:47.303 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class com/vaadin/server/VaadinPortlet: javax/portlet/GenericPortlet
+[MASTER] 22:45:04.296 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class org/springframework/core/$Proxy78: org.springframework.core.$Proxy78
+[MASTER] 22:45:07.708 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class org/springframework/core/$Proxy83: org.springframework.core.$Proxy83
+[MASTER] 22:45:11.274 [pool-2-thread-1] WARN  MethodCallReplacementClassAdapter - Failed to add serialId to class org/springframework/core/$Proxy88: org.springframework.core.$Proxy88

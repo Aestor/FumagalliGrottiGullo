@@ -1,2 +1,0 @@
-[MASTER] 12:24:16.457 [pool-2-thread-1] WARN  TestSuiteSerialization - Cannot load tests because file does not exist: /home/jaycaves/Desktop/FumagalliGrottiGullo/Implementation/.evosuite/evosuite-seeds/com.polimi.travlendar.payment.checkout.CheckoutJsLabelState.seed
-[MASTER] 12:24:16.521 [pool-2-thread-1] WARN  TimeController - Phase INITIALIZATION lasted too long, 0 seconds more than allowed.

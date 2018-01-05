@@ -1,0 +1,7 @@
+[MASTER] 23:27:14.604 [pool-2-thread-1] WARN  TestSuiteSerialization - Cannot load tests because file does not exist: /home/jaycaves/Desktop/FumagalliGrottiGullo/Implementation/.evosuite/evosuite-seeds/com.polimi.travlendar.backend.beans.UserService.seed
+[MASTER] 23:27:22.880 [pool-2-thread-1] WARN  TestChromosome - Functional mock problem: org.evosuite.ga.ConstructionFailedException: Failed to add constructor for com.polimi.travlendar.backend.model.user.User due to org.evosuite.ga.ConstructionFailedException: Have no generator for class com.polimi.travlendar.backend.beans.UserService canUseFunctionalMocks=true, canBeMocked: false
+[MASTER] 23:27:23.202 [pool-2-thread-1] WARN  TestFactory - Bounded variable issue when calling createVariable()
+[MASTER] 23:27:23.202 [pool-2-thread-1] WARN  TestChromosome - Functional mock problem: org.evosuite.ga.ConstructionFailedException: No objects and generators for type class com.polimi.travlendar.backend.beans.UserService
+[MASTER] 23:27:24.009 [pool-2-thread-1] WARN  TestChromosome - Functional mock problem: org.evosuite.ga.ConstructionFailedException: No generators of type class java.lang.Object
+[MASTER] 23:27:52.006 [pool-2-thread-1] WARN  TestSuiteMinimizer - Minimization timeout. Roll back to original test suite
+[MASTER] 23:27:55.452 [pool-2-thread-1] WARN  SimpleMutationAssertionGenerator - Assertion minimization is taking too long (0.672% of time used, but only 6/22 tests minimized), falling back to using all assertions

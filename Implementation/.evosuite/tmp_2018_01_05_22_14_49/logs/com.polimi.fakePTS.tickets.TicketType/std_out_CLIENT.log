@@ -1,0 +1,2 @@
+[MASTER] 23:11:43.820 [pool-2-thread-1] WARN  TestSuiteSerialization - Cannot load tests because file does not exist: /home/jaycaves/Desktop/FumagalliGrottiGullo/Implementation/.evosuite/evosuite-seeds/com.polimi.fakePTS.tickets.TicketType.seed
+[MASTER] 23:11:43.876 [pool-2-thread-1] WARN  TimeController - Phase INITIALIZATION lasted too long, 1 seconds more than allowed.

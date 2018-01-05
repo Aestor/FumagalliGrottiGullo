@@ -1,0 +1,307 @@
+[MASTER] 23:14:29.848 [pool-2-thread-1] ERROR ConcreteClassAnalyzer - Problem for com.polimi.travlendar.frontend.ui.forms.CheckoutForm. Class not found: com.vaadin.server.VaadinPortlet$VaadinGateInRequest
+java.lang.ClassNotFoundException: com/vaadin/server/VaadinPortlet$VaadinHttpAndPortletRequest
+	at org.evosuite.instrumentation.InstrumentingClassLoader.instrumentClass(InstrumentingClassLoader.java:201)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.loadClass(InstrumentingClassLoader.java:168)
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:348)
+	at org.evosuite.setup.ConcreteClassAnalyzer.getConcreteClassesImpl(ConcreteClassAnalyzer.java:126)
+	at org.evosuite.setup.ConcreteClassAnalyzer.getConcreteClasses(ConcreteClassAnalyzer.java:61)
+	at org.evosuite.setup.TestClusterGenerator.addDependency(TestClusterGenerator.java:876)
+	at org.evosuite.setup.TestClusterGenerator.addDependencies(TestClusterGenerator.java:787)
+	at org.evosuite.setup.TestClusterGenerator.initializeTargetMethods(TestClusterGenerator.java:546)
+	at org.evosuite.setup.TestClusterGenerator.generateCluster(TestClusterGenerator.java:134)
+	at org.evosuite.setup.DependencyAnalysis.analyze(DependencyAnalysis.java:117)
+	at org.evosuite.setup.DependencyAnalysis.analyzeClass(DependencyAnalysis.java:131)
+	at org.evosuite.TestSuiteGenerator.initializeTargetClass(TestSuiteGenerator.java:110)
+	at org.evosuite.TestSuiteGenerator.generateTestSuite(TestSuiteGenerator.java:130)
+	at org.evosuite.rmi.service.ClientNodeImpl$1.run(ClientNodeImpl.java:145)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.lang.NoClassDefFoundError: com/vaadin/server/VaadinPortlet$VaadinHttpAndPortletRequest
+	at java.lang.ClassLoader.defineClass1(Native Method)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:763)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:642)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.instrumentClass(InstrumentingClassLoader.java:194)
+	... 19 common frames omitted
+Caused by: java.lang.ClassNotFoundException: com/vaadin/server/VaadinPortletRequest
+	at org.evosuite.instrumentation.InstrumentingClassLoader.instrumentClass(InstrumentingClassLoader.java:201)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.loadClass(InstrumentingClassLoader.java:168)
+	... 23 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: com/vaadin/server/VaadinPortletRequest
+	at java.lang.ClassLoader.defineClass1(Native Method)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:763)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:642)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.instrumentClass(InstrumentingClassLoader.java:194)
+	... 24 common frames omitted
+Caused by: java.lang.ClassNotFoundException: javax/portlet/filter/PortletRequestWrapper
+	at org.evosuite.instrumentation.InstrumentingClassLoader.instrumentClass(InstrumentingClassLoader.java:201)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.loadClass(InstrumentingClassLoader.java:168)
+	... 28 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: javax/portlet/filter/PortletRequestWrapper
+	at java.lang.ClassLoader.defineClass1(Native Method)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:763)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:642)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.instrumentClass(InstrumentingClassLoader.java:194)
+	... 29 common frames omitted
+Caused by: java.lang.ClassNotFoundException: javax.portlet.filter.PortletRequestWrapper
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:335)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.loadClass(InstrumentingClassLoader.java:159)
+	... 33 common frames omitted
+[MASTER] 23:14:29.849 [pool-2-thread-1] ERROR ConcreteClassAnalyzer - Removing class from inheritance tree
+[MASTER] 23:14:29.859 [pool-2-thread-1] ERROR ConcreteClassAnalyzer - Problem for com.polimi.travlendar.frontend.ui.forms.CheckoutForm. Class not found: com.vaadin.server.VaadinPortlet$VaadinHttpAndPortletRequest
+java.lang.ClassNotFoundException: com/vaadin/server/VaadinPortletRequest
+	at org.evosuite.instrumentation.InstrumentingClassLoader.instrumentClass(InstrumentingClassLoader.java:201)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.loadClass(InstrumentingClassLoader.java:168)
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:348)
+	at org.evosuite.setup.ConcreteClassAnalyzer.getConcreteClassesImpl(ConcreteClassAnalyzer.java:126)
+	at org.evosuite.setup.ConcreteClassAnalyzer.getConcreteClasses(ConcreteClassAnalyzer.java:61)
+	at org.evosuite.setup.TestClusterGenerator.addDependency(TestClusterGenerator.java:876)
+	at org.evosuite.setup.TestClusterGenerator.addDependencies(TestClusterGenerator.java:787)
+	at org.evosuite.setup.TestClusterGenerator.initializeTargetMethods(TestClusterGenerator.java:546)
+	at org.evosuite.setup.TestClusterGenerator.generateCluster(TestClusterGenerator.java:134)
+	at org.evosuite.setup.DependencyAnalysis.analyze(DependencyAnalysis.java:117)
+	at org.evosuite.setup.DependencyAnalysis.analyzeClass(DependencyAnalysis.java:131)
+	at org.evosuite.TestSuiteGenerator.initializeTargetClass(TestSuiteGenerator.java:110)
+	at org.evosuite.TestSuiteGenerator.generateTestSuite(TestSuiteGenerator.java:130)
+	at org.evosuite.rmi.service.ClientNodeImpl$1.run(ClientNodeImpl.java:145)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.lang.NoClassDefFoundError: com/vaadin/server/VaadinPortletRequest
+	at java.lang.ClassLoader.defineClass1(Native Method)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:763)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:642)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.instrumentClass(InstrumentingClassLoader.java:194)
+	... 19 common frames omitted
+Caused by: java.lang.ClassNotFoundException: javax/portlet/filter/PortletRequestWrapper
+	at org.evosuite.instrumentation.InstrumentingClassLoader.instrumentClass(InstrumentingClassLoader.java:201)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.loadClass(InstrumentingClassLoader.java:168)
+	... 23 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: javax/portlet/filter/PortletRequestWrapper
+	at java.lang.ClassLoader.defineClass1(Native Method)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:763)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:642)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.instrumentClass(InstrumentingClassLoader.java:194)
+	... 24 common frames omitted
+Caused by: java.lang.ClassNotFoundException: javax.portlet.filter.PortletRequestWrapper
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:335)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.loadClass(InstrumentingClassLoader.java:159)
+	... 28 common frames omitted
+[MASTER] 23:14:29.859 [pool-2-thread-1] ERROR ConcreteClassAnalyzer - Removing class from inheritance tree
+[MASTER] 23:14:29.875 [pool-2-thread-1] ERROR ConcreteClassAnalyzer - Problem for com.polimi.travlendar.frontend.ui.forms.CheckoutForm. Class not found: com.vaadin.server.VaadinPortlet$VaadinLiferayRequest
+java.lang.ClassNotFoundException: com/vaadin/server/VaadinPortlet$VaadinHttpAndPortletRequest
+	at org.evosuite.instrumentation.InstrumentingClassLoader.instrumentClass(InstrumentingClassLoader.java:201)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.loadClass(InstrumentingClassLoader.java:168)
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:348)
+	at org.evosuite.setup.ConcreteClassAnalyzer.getConcreteClassesImpl(ConcreteClassAnalyzer.java:126)
+	at org.evosuite.setup.ConcreteClassAnalyzer.getConcreteClasses(ConcreteClassAnalyzer.java:61)
+	at org.evosuite.setup.TestClusterGenerator.addDependency(TestClusterGenerator.java:876)
+	at org.evosuite.setup.TestClusterGenerator.addDependencies(TestClusterGenerator.java:787)
+	at org.evosuite.setup.TestClusterGenerator.initializeTargetMethods(TestClusterGenerator.java:546)
+	at org.evosuite.setup.TestClusterGenerator.generateCluster(TestClusterGenerator.java:134)
+	at org.evosuite.setup.DependencyAnalysis.analyze(DependencyAnalysis.java:117)
+	at org.evosuite.setup.DependencyAnalysis.analyzeClass(DependencyAnalysis.java:131)
+	at org.evosuite.TestSuiteGenerator.initializeTargetClass(TestSuiteGenerator.java:110)
+	at org.evosuite.TestSuiteGenerator.generateTestSuite(TestSuiteGenerator.java:130)
+	at org.evosuite.rmi.service.ClientNodeImpl$1.run(ClientNodeImpl.java:145)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.lang.NoClassDefFoundError: com/vaadin/server/VaadinPortlet$VaadinHttpAndPortletRequest
+	at java.lang.ClassLoader.defineClass1(Native Method)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:763)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:642)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.instrumentClass(InstrumentingClassLoader.java:194)
+	... 19 common frames omitted
+Caused by: java.lang.ClassNotFoundException: com/vaadin/server/VaadinPortletRequest
+	at org.evosuite.instrumentation.InstrumentingClassLoader.instrumentClass(InstrumentingClassLoader.java:201)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.loadClass(InstrumentingClassLoader.java:168)
+	... 23 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: com/vaadin/server/VaadinPortletRequest
+	at java.lang.ClassLoader.defineClass1(Native Method)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:763)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:642)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.instrumentClass(InstrumentingClassLoader.java:194)
+	... 24 common frames omitted
+Caused by: java.lang.ClassNotFoundException: javax/portlet/filter/PortletRequestWrapper
+	at org.evosuite.instrumentation.InstrumentingClassLoader.instrumentClass(InstrumentingClassLoader.java:201)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.loadClass(InstrumentingClassLoader.java:168)
+	... 28 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: javax/portlet/filter/PortletRequestWrapper
+	at java.lang.ClassLoader.defineClass1(Native Method)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:763)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:642)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.instrumentClass(InstrumentingClassLoader.java:194)
+	... 29 common frames omitted
+Caused by: java.lang.ClassNotFoundException: javax.portlet.filter.PortletRequestWrapper
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:335)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.loadClass(InstrumentingClassLoader.java:159)
+	... 33 common frames omitted
+[MASTER] 23:14:29.876 [pool-2-thread-1] ERROR ConcreteClassAnalyzer - Removing class from inheritance tree
+[MASTER] 23:14:29.891 [pool-2-thread-1] ERROR ConcreteClassAnalyzer - Problem for com.polimi.travlendar.frontend.ui.forms.CheckoutForm. Class not found: com.vaadin.server.VaadinPortlet$VaadinWebLogicPortalRequest
+java.lang.ClassNotFoundException: com/vaadin/server/VaadinPortlet$VaadinHttpAndPortletRequest
+	at org.evosuite.instrumentation.InstrumentingClassLoader.instrumentClass(InstrumentingClassLoader.java:201)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.loadClass(InstrumentingClassLoader.java:168)
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:348)
+	at org.evosuite.setup.ConcreteClassAnalyzer.getConcreteClassesImpl(ConcreteClassAnalyzer.java:126)
+	at org.evosuite.setup.ConcreteClassAnalyzer.getConcreteClasses(ConcreteClassAnalyzer.java:61)
+	at org.evosuite.setup.TestClusterGenerator.addDependency(TestClusterGenerator.java:876)
+	at org.evosuite.setup.TestClusterGenerator.addDependencies(TestClusterGenerator.java:787)
+	at org.evosuite.setup.TestClusterGenerator.initializeTargetMethods(TestClusterGenerator.java:546)
+	at org.evosuite.setup.TestClusterGenerator.generateCluster(TestClusterGenerator.java:134)
+	at org.evosuite.setup.DependencyAnalysis.analyze(DependencyAnalysis.java:117)
+	at org.evosuite.setup.DependencyAnalysis.analyzeClass(DependencyAnalysis.java:131)
+	at org.evosuite.TestSuiteGenerator.initializeTargetClass(TestSuiteGenerator.java:110)
+	at org.evosuite.TestSuiteGenerator.generateTestSuite(TestSuiteGenerator.java:130)
+	at org.evosuite.rmi.service.ClientNodeImpl$1.run(ClientNodeImpl.java:145)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.lang.NoClassDefFoundError: com/vaadin/server/VaadinPortlet$VaadinHttpAndPortletRequest
+	at java.lang.ClassLoader.defineClass1(Native Method)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:763)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:642)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.instrumentClass(InstrumentingClassLoader.java:194)
+	... 19 common frames omitted
+Caused by: java.lang.ClassNotFoundException: com/vaadin/server/VaadinPortletRequest
+	at org.evosuite.instrumentation.InstrumentingClassLoader.instrumentClass(InstrumentingClassLoader.java:201)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.loadClass(InstrumentingClassLoader.java:168)
+	... 23 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: com/vaadin/server/VaadinPortletRequest
+	at java.lang.ClassLoader.defineClass1(Native Method)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:763)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:642)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.instrumentClass(InstrumentingClassLoader.java:194)
+	... 24 common frames omitted
+Caused by: java.lang.ClassNotFoundException: javax/portlet/filter/PortletRequestWrapper
+	at org.evosuite.instrumentation.InstrumentingClassLoader.instrumentClass(InstrumentingClassLoader.java:201)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.loadClass(InstrumentingClassLoader.java:168)
+	... 28 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: javax/portlet/filter/PortletRequestWrapper
+	at java.lang.ClassLoader.defineClass1(Native Method)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:763)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:642)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.instrumentClass(InstrumentingClassLoader.java:194)
+	... 29 common frames omitted
+Caused by: java.lang.ClassNotFoundException: javax.portlet.filter.PortletRequestWrapper
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:335)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.loadClass(InstrumentingClassLoader.java:159)
+	... 33 common frames omitted
+[MASTER] 23:14:29.892 [pool-2-thread-1] ERROR ConcreteClassAnalyzer - Removing class from inheritance tree
+[MASTER] 23:14:29.931 [pool-2-thread-1] ERROR ConcreteClassAnalyzer - Problem for com.polimi.travlendar.frontend.ui.forms.CheckoutForm. Class not found: com.vaadin.server.VaadinPortlet$VaadinWebSpherePortalRequest
+java.lang.ClassNotFoundException: com/vaadin/server/VaadinPortlet$VaadinHttpAndPortletRequest
+	at org.evosuite.instrumentation.InstrumentingClassLoader.instrumentClass(InstrumentingClassLoader.java:201)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.loadClass(InstrumentingClassLoader.java:168)
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:348)
+	at org.evosuite.setup.ConcreteClassAnalyzer.getConcreteClassesImpl(ConcreteClassAnalyzer.java:126)
+	at org.evosuite.setup.ConcreteClassAnalyzer.getConcreteClasses(ConcreteClassAnalyzer.java:61)
+	at org.evosuite.setup.TestClusterGenerator.addDependency(TestClusterGenerator.java:876)
+	at org.evosuite.setup.TestClusterGenerator.addDependencies(TestClusterGenerator.java:787)
+	at org.evosuite.setup.TestClusterGenerator.initializeTargetMethods(TestClusterGenerator.java:546)
+	at org.evosuite.setup.TestClusterGenerator.generateCluster(TestClusterGenerator.java:134)
+	at org.evosuite.setup.DependencyAnalysis.analyze(DependencyAnalysis.java:117)
+	at org.evosuite.setup.DependencyAnalysis.analyzeClass(DependencyAnalysis.java:131)
+	at org.evosuite.TestSuiteGenerator.initializeTargetClass(TestSuiteGenerator.java:110)
+	at org.evosuite.TestSuiteGenerator.generateTestSuite(TestSuiteGenerator.java:130)
+	at org.evosuite.rmi.service.ClientNodeImpl$1.run(ClientNodeImpl.java:145)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.lang.NoClassDefFoundError: com/vaadin/server/VaadinPortlet$VaadinHttpAndPortletRequest
+	at java.lang.ClassLoader.defineClass1(Native Method)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:763)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:642)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.instrumentClass(InstrumentingClassLoader.java:194)
+	... 19 common frames omitted
+Caused by: java.lang.ClassNotFoundException: com/vaadin/server/VaadinPortletRequest
+	at org.evosuite.instrumentation.InstrumentingClassLoader.instrumentClass(InstrumentingClassLoader.java:201)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.loadClass(InstrumentingClassLoader.java:168)
+	... 23 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: com/vaadin/server/VaadinPortletRequest
+	at java.lang.ClassLoader.defineClass1(Native Method)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:763)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:642)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.instrumentClass(InstrumentingClassLoader.java:194)
+	... 24 common frames omitted
+Caused by: java.lang.ClassNotFoundException: javax/portlet/filter/PortletRequestWrapper
+	at org.evosuite.instrumentation.InstrumentingClassLoader.instrumentClass(InstrumentingClassLoader.java:201)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.loadClass(InstrumentingClassLoader.java:168)
+	... 28 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: javax/portlet/filter/PortletRequestWrapper
+	at java.lang.ClassLoader.defineClass1(Native Method)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:763)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:642)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.instrumentClass(InstrumentingClassLoader.java:194)
+	... 29 common frames omitted
+Caused by: java.lang.ClassNotFoundException: javax.portlet.filter.PortletRequestWrapper
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:335)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.loadClass(InstrumentingClassLoader.java:159)
+	... 33 common frames omitted
+[MASTER] 23:14:29.931 [pool-2-thread-1] ERROR ConcreteClassAnalyzer - Removing class from inheritance tree
+[MASTER] 23:14:29.937 [pool-2-thread-1] ERROR ConcreteClassAnalyzer - Problem for com.polimi.travlendar.frontend.ui.forms.CheckoutForm. Class not found: com.vaadin.server.VaadinPortletRequest
+java.lang.ClassNotFoundException: javax/portlet/filter/PortletRequestWrapper
+	at org.evosuite.instrumentation.InstrumentingClassLoader.instrumentClass(InstrumentingClassLoader.java:201)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.loadClass(InstrumentingClassLoader.java:168)
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:348)
+	at org.evosuite.setup.ConcreteClassAnalyzer.getConcreteClassesImpl(ConcreteClassAnalyzer.java:126)
+	at org.evosuite.setup.ConcreteClassAnalyzer.getConcreteClasses(ConcreteClassAnalyzer.java:61)
+	at org.evosuite.setup.TestClusterGenerator.addDependency(TestClusterGenerator.java:876)
+	at org.evosuite.setup.TestClusterGenerator.addDependencies(TestClusterGenerator.java:787)
+	at org.evosuite.setup.TestClusterGenerator.initializeTargetMethods(TestClusterGenerator.java:546)
+	at org.evosuite.setup.TestClusterGenerator.generateCluster(TestClusterGenerator.java:134)
+	at org.evosuite.setup.DependencyAnalysis.analyze(DependencyAnalysis.java:117)
+	at org.evosuite.setup.DependencyAnalysis.analyzeClass(DependencyAnalysis.java:131)
+	at org.evosuite.TestSuiteGenerator.initializeTargetClass(TestSuiteGenerator.java:110)
+	at org.evosuite.TestSuiteGenerator.generateTestSuite(TestSuiteGenerator.java:130)
+	at org.evosuite.rmi.service.ClientNodeImpl$1.run(ClientNodeImpl.java:145)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.lang.NoClassDefFoundError: javax/portlet/filter/PortletRequestWrapper
+	at java.lang.ClassLoader.defineClass1(Native Method)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:763)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:642)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.instrumentClass(InstrumentingClassLoader.java:194)
+	... 19 common frames omitted
+Caused by: java.lang.ClassNotFoundException: javax.portlet.filter.PortletRequestWrapper
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:335)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at org.evosuite.instrumentation.InstrumentingClassLoader.loadClass(InstrumentingClassLoader.java:159)
+	... 23 common frames omitted
+[MASTER] 23:14:29.937 [pool-2-thread-1] ERROR ConcreteClassAnalyzer - Removing class from inheritance tree
+[MASTER] 23:14:46.437 [pool-2-thread-1] ERROR JUnitAnalyzer - Ran out of time while checking tests
