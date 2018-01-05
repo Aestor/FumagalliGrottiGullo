@@ -9,8 +9,34 @@ public class Meeting {
     private long user;
     private ZonedDateTime start;
     private ZonedDateTime end;
-    private String location;
+    private String startingLocation;
+    private String endingLocation;
     private String name;
+    private long duration;
+
+    public long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(long duration) {
+        this.duration = duration;
+    }
+
+    public String getStartingLocation() {
+        return startingLocation;
+    }
+
+    public void setStartingLocation(String startingLocation) {
+        this.startingLocation = startingLocation;
+    }
+
+    public String getEndingLocation() {
+        return endingLocation;
+    }
+
+    public void setEndingLocation(String endingLocation) {
+        this.endingLocation = endingLocation;
+    }
     private String details;
     private State state;
     private PreferenceLevel level;
@@ -95,11 +121,11 @@ public class Meeting {
     }
 
     public String getLocation() {
-        return location;
+        return startingLocation;
     }
 
     public void setLocation(String location) {
-        this.location = location;
+        this.startingLocation = location;
     }
 
     public void setDetails(String details) {

@@ -18,6 +18,7 @@ package com.polimi.travlendar.gmaps;
 import com.google.maps.model.DirectionsResult;
 import com.google.maps.model.PlacesSearchResult;
 import com.vaadin.shared.ui.ContentMode;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
@@ -41,12 +42,14 @@ public class LocationForm extends HorizontalLayout implements PlaceSearchFieldCl
     
     DirectionsResult directions;
     Label directionsLabel;
+    Button submit = new Button("Submit");
     
     GoogleMapsService service;
     
     public LocationForm() {
         service = new GoogleMapsService();
         VerticalLayout sideBar = new VerticalLayout();
+        VerticalLayout s = new VerticalLayout();
         start = new PlaceSearchField();
         end = new PlaceSearchField();
         start.setPlaceHolder("Start...");
@@ -59,10 +62,11 @@ public class LocationForm extends HorizontalLayout implements PlaceSearchFieldCl
         directionsLabel = new Label("", ContentMode.PREFORMATTED);
         directionsPanel.setContent(directionsLabel);
         directionsPanel.setHeight("100%");
-        this.addComponents(sideBar, map, directionsPanel);
+        s.addComponents(map, submit);
+        this.addComponents(sideBar, s, directionsPanel);
         this.setSizeFull();
         this.setExpandRatio(sideBar, 1);
-        this.setExpandRatio(map, 2);
+        this.setExpandRatio(s, 2);
         this.setExpandRatio(directionsPanel, 1);
     }
     
@@ -116,5 +120,9 @@ public class LocationForm extends HorizontalLayout implements PlaceSearchFieldCl
     
     public DirectionsResult getDirections(){
         return directions;
+    }
+    
+    public Button getSubmit() {
+        return submit;
     }
 }

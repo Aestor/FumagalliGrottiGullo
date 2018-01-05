@@ -13,6 +13,7 @@ import com.polimi.travlendar.backend.model.events.Meeting.State;
 import com.polimi.travlendar.backend.model.events.Schedule;
 import com.polimi.travlendar.backend.model.events.TimeSelectorComponent;
 import com.polimi.travlendar.backend.model.user.PreferenceLevel;
+import com.polimi.travlendar.gmaps.LocationForm;
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.spring.annotation.SpringComponent;
@@ -41,14 +42,14 @@ public class EventForm extends FormLayout {
     @Autowired
     private Schedule schedule;
 
-    private TextField location = new TextField("Location");
+    private TextField startingLocation = new TextField("Starting Location");
+    private TextField endingLocation = new TextField("Ending Location");
     private TextField name = new TextField("Event");
     private TextField description = new TextField("Description");
     private DateField dateStart = new DateField("Start");
     private DateField dateEnd = new DateField("End");
     private Button submit = new Button("Submit");
     private Button reset = new Button("Reset");
-    private long id;
 
     private VerticalLayout content;
     private TimeSelectorComponent startingTime = new TimeSelectorComponent("Starting time");
@@ -58,6 +59,7 @@ public class EventForm extends FormLayout {
     private ComboBox<PreferenceLevel> preference;
     protected boolean eventOk = true;
     protected boolean wait = false;
+    private long duration;
 
     private HorizontalLayout submitReset = new HorizontalLayout();
 
@@ -65,6 +67,28 @@ public class EventForm extends FormLayout {
      * Constructor to create a new event.
      */
     public EventForm() {
+        Window mapWindow2 = new Window();
+        mapWindow2.setResizable(false);
+        mapWindow2.setDraggable(false);
+        mapWindow2.center();
+        mapWindow2.setWidth("90%");
+        mapWindow2.setHeight("90%");
+        VerticalLayout l = new VerticalLayout();
+        l.addComponents(startingLocation, endingLocation);
+        HorizontalLayout l2 = new HorizontalLayout();
+        LocationForm form = new LocationForm();
+        mapWindow2.setContent(form);
+        form.getSubmit().addClickListener(e -> {
+            mapWindow2.close();
+            startingLocation.setValue(form.getStartPlace().formattedAddress);
+            endingLocation.setValue(form.getEndPlace().formattedAddress);
+            duration = form.getDirections().routes[0].legs[0].duration.inSeconds;
+        });
+        Button seeMap = new Button("See location form");
+        l2.addComponents(l, seeMap);
+        seeMap.addClickListener(e -> {
+            UI.getCurrent().addWindow(mapWindow2);
+        });
         setSizeUndefined();
         schedule = (Schedule) VaadinSession.getCurrent().getAttribute("schedule");
         dateStart.setDateFormat("dd-MM-yyyy");
@@ -83,7 +107,7 @@ public class EventForm extends FormLayout {
         setComboBox();
         HorizontalLayout submitReset = new HorizontalLayout();
         submitReset.addComponents(submit, reset);
-        addComponents(location, name, description, dateStart, startingTime.getLayout(), dateEnd, endingTime.getLayout(), preference, submitReset);
+        addComponents(l2, name, description, dateStart, startingTime.getLayout(), dateEnd, endingTime.getLayout(), preference, submitReset);
         content = new VerticalLayout();
         submit.setClickShortcut(KeyCode.ENTER);
         submit.addClickListener(e -> this.submit());
@@ -101,7 +125,8 @@ public class EventForm extends FormLayout {
         endingTime.setEnabled(true);
         dateStart.setDateFormat("dd-MM-yyyy");
         dateStart.setRangeStart(LocalDate.now());
-        location.setValue(meeting.getLocation());
+        startingLocation.setValue(meeting.getLocation());
+        endingLocation.setValue(meeting.getEndingLocation());
         name.setValue(meeting.getName());
         description.setValue(meeting.getDetails());
         dateStart.setValue(meeting.getStart().toLocalDate());
@@ -111,6 +136,7 @@ public class EventForm extends FormLayout {
         endingTime.setHour(meeting.getEnd().toLocalTime().getHour());
         endingTime.setMinute(meeting.getEnd().toLocalTime().getMinute());
         preference.setValue(meeting.getPreferenceLevel());
+        duration = meeting.getDuration();
         submitReset.removeAllComponents();
         HorizontalLayout editCancel = new HorizontalLayout();
         Button edit = new Button("Edit");
@@ -124,11 +150,13 @@ public class EventForm extends FormLayout {
         m.setStart(begin);
         m.setEnd(end);
         m.setName(name.getValue());
-        m.setLocation(location.getValue());
+        m.setLocation(startingLocation.getValue());
+        m.setEndingLocation(endingLocation.getValue());
         m.setDetails(description.getValue());
         m.setPreferenceLevel(preference.getValue());
         m.setState(State.planned);
         m.setId(meeting.getId());
+        m.setDuration(duration);
         edit.addClickListener(e -> this.edit(m));
         cancel.addClickListener(e -> this.cancel());
 
@@ -151,12 +179,16 @@ public class EventForm extends FormLayout {
             meeting.setStart(begin);
             meeting.setEnd(end);
             meeting.setName(name.getValue());
-            meeting.setLocation(location.getValue());
+            meeting.setStartingLocation(startingLocation.getValue());
+            meeting.setEndingLocation(endingLocation.getValue());
             meeting.setDetails(description.getValue());
             meeting.setPreferenceLevel(preference.getValue());
             meeting.setState(State.planned);
+            meeting.setDuration(m.getDuration());
             if (begin.isBefore(end)) {
-               service.editMeeting(meeting);
+                service.editMeeting(meeting);
+                Notification.show("Event edited");
+
             } else {
                 Notification.show("Select a valid time");
             }
@@ -191,10 +223,12 @@ public class EventForm extends FormLayout {
             meeting.setStart(begin);
             meeting.setEnd(end);
             meeting.setName(name.getValue());
-            meeting.setLocation(location.getValue());
+            meeting.setStartingLocation(startingLocation.getValue());
+            meeting.setEndingLocation(endingLocation.getValue());
             meeting.setDetails(description.getValue());
             meeting.setPreferenceLevel(preference.getValue());
             meeting.setState(State.planned);
+            meeting.setDuration(duration);
             if (begin.isBefore(end)) {
                 CreateEventRecap recap = new CreateEventRecap(meeting);
                 UI.getCurrent().addWindow(recap);
@@ -215,7 +249,7 @@ public class EventForm extends FormLayout {
     }
 
     public void reset() {
-        location.clear();
+        startingLocation.clear();
         name.clear();
         description.clear();
         dateStart.clear();
@@ -239,9 +273,17 @@ public class EventForm extends FormLayout {
         end = ZonedDateTime.of(dateEnd.getValue(), time, ZonedDateTime.now().getZone());
     }
 
-    public String getLocation() {
+    public String getStartingLocation() {
         try {
-            return location.getValue();
+            return startingLocation.getValue();
+        } catch (NullPointerException e) {
+            return "Invalid input";
+        }
+    }
+
+    public String getEndingLocation() {
+        try {
+            return endingLocation.getValue();
         } catch (NullPointerException e) {
             return "Invalid input";
         }
@@ -300,7 +342,7 @@ public class EventForm extends FormLayout {
             });
             VerticalLayout layout = new VerticalLayout();
             TextArea area = new TextArea();
-            area.setValue("Event Recap:\n" + "Location: " + form.getLocation() + "\nEvent: " + form.getName()
+            area.setValue("Event Recap:\n" + "Starting Location: " + form.getLocation() +"\nEnding Location: "+form.getEndingLocation()+ "\nEvent: " + form.getName()
                     + "\nDescription: " + form.getDetails() + "\nDate: " + form.getStart().toLocalDate().toString()
                     + "\nFrom: " + form.getStart().toLocalTime().toString() + " to "
                     + form.getEnd().toLocalTime().toString());

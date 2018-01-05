@@ -37,12 +37,14 @@ public class MeetingRowMapper implements RowMapper<Meeting> {
         meeting.setUser(rs.getLong("id"));
         meeting.setName(rs.getString("nam"));
         meeting.setDetails(rs.getString("details"));
-        meeting.setLocation(rs.getString("location"));
+        meeting.setStartingLocation(rs.getString("starting_location"));
+        meeting.setEndingLocation(rs.getString("ending_location"));
         meeting.setStart(convertDateTime(rs.getTimestamp("timeb")));
         meeting.setEnd(convertDateTime(rs.getTimestamp("timee")));
         meeting.setPreferenceLevel(convertPref(rs.getString("preflevel")));
         meeting.setState(convertState(rs.getString("event_state")));
         meeting.setId(rs.getLong("eventid"));
+        meeting.setDuration(rs.getLong("duration"));
         return meeting;
     }
 

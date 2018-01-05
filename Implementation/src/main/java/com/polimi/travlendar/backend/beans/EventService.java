@@ -52,12 +52,12 @@ public class EventService {
 
     public void addMeeting(Meeting meeting) {
 
-        jdbcTemplate.update("INSERT INTO events (id, location, nam, details, timeb, timee, preflevel, event_state) VALUES (?,?,?,?,?,?,?,?)",
-                meeting.getUser(), meeting.getLocation(), meeting.getName(), meeting.getDetails(), convertDateTime(meeting.getStart()), convertDateTime(meeting.getEnd()), convertPref(meeting.getPreferenceLevel()), convertState(meeting.getState()));
+        jdbcTemplate.update("INSERT INTO events (id, starting_location, ending_location, nam, details, timeb, timee, preflevel, event_state, duration) VALUES (?,?,?,?,?,?,?,?,?,?)",
+                meeting.getUser(), meeting.getStartingLocation(), meeting.getEndingLocation(), meeting.getName(), meeting.getDetails(), convertDateTime(meeting.getStart()), convertDateTime(meeting.getEnd()), convertPref(meeting.getPreferenceLevel()), convertState(meeting.getState()), meeting.getDuration());
     }
 
     public void editMeeting(Meeting meeting) {
-        jdbcTemplate.update("UPDATE events SET location = ?, nam = ?, details = ?, timeb = ?, timee = ?, preflevel = ? WHERE id = ? and eventid = ?", meeting.getLocation(), meeting.getName(), meeting.getDetails(), convertDateTime(meeting.getStart()), convertDateTime(meeting.getEnd()), convertPref(meeting.getPreferenceLevel()), meeting.getUser(), meeting.getId());
+        jdbcTemplate.update("UPDATE events SET starting_location = ?, ending_location = ?, nam = ?, details = ?, timeb = ?, timee = ?, preflevel = ?, duration = ? WHERE id = ? and eventid = ?", meeting.getStartingLocation(), meeting.getEndingLocation(), meeting.getName(), meeting.getDetails(), convertDateTime(meeting.getStart()), convertDateTime(meeting.getEnd()), convertPref(meeting.getPreferenceLevel()), meeting.getDuration(), meeting.getUser(), meeting.getId());
     }
 
     public List<Meeting> getMeetings(User user) throws EmptyResultDataAccessException {
