@@ -21,6 +21,7 @@ import com.polimi.travlendar.frontend.ui.pages.CreateEventPage;
 import com.polimi.travlendar.frontend.ui.pages.ErrorView;
 import com.polimi.travlendar.frontend.ui.pages.SchedulePage;
 import com.polimi.travlendar.frontend.ui.pages.SettingsPage;
+import com.polimi.travlendar.frontend.ui.pages.SharingServicesPage;
 import com.polimi.travlendar.frontend.ui.pages.TestingPage;
 import com.polimi.travlendar.frontend.ui.pages.TicketsPage;
 import com.polimi.travlendar.frontend.ui.pages.gmaps.MapsAddOnPage;
@@ -38,8 +39,6 @@ import com.vaadin.spring.annotation.EnableVaadinNavigation;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.annotation.SpringViewDisplay;
 import com.vaadin.spring.navigator.SpringNavigator;
-import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Image;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
@@ -49,6 +48,9 @@ import com.vaadin.ui.VerticalLayout;
 @SpringViewDisplay
 @SuppressWarnings("serial")
 
+/**
+ * 
+ */
 public class TravlendarUI extends UI {
 
     @Autowired
@@ -116,6 +118,7 @@ public class TravlendarUI extends UI {
                 .add(SettingsPage.class)
                 .add(BalancePage.class)
                 .add(TicketsPage.class)
+                .add(SharingServicesPage.class)
                 .add(AuthenticationPage.class, Position.FOOTER)
                 .withNavigatorProducer(components -> {
                     navigator.init(this, components);

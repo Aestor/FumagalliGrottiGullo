@@ -2,6 +2,8 @@ package com.polimi.travlendar.backend.beans;
 
 import com.polimi.travlendar.backend.model.user.User;
 import com.polimi.travlendar.backend.database.UserRowMapper;
+import com.polimi.travlendar.backend.database.UserSettingsRowMapper;
+import com.polimi.travlendar.backend.model.user.UserSettings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -25,7 +27,6 @@ public class UserService {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    
     /**
      * Checks if the String passed as a parameter is already present in the
      * database as an email.
@@ -35,7 +36,7 @@ public class UserService {
      */
     public boolean check(String email) {
         try {
-            jdbcTemplate.queryForObject("SELECT id FROM users WHERE email=?", new Object[]{email}, long.class);
+            jdbcTemplate.queryForObject("SELECT id FROM users WHERE email=?", new Object[]{email}, Long.class);
         } catch (EmptyResultDataAccessException e) {
             return true;
         }
@@ -83,6 +84,51 @@ public class UserService {
             throw e;
         }
         return result;
+    }
+
+    public void updateUser(User user) {
+        jdbcTemplate.update("UPDATE users SET first_name=?, last_name=?, password=?  WHERE id= ?",
+                user.getFirst_name(), user.getLast_name(), user.getPassword(), user.getId());
+
+    }
+
+    /**
+     * It is called when a new user is registered
+     *
+     * @param email
+     */
+    public void addPreferences(String email) {
+
+        //Save default values for a new registered user
+        Long id = jdbcTemplate.queryForObject("SELECT id FROM users WHERE email=?", new Object[]{email}, Long.class);
+        jdbcTemplate.update("INSERT INTO user_settings (id, car_preference_level, bike_preference_level, bike_availability, car_availability,driver_licence, max_walk_distance) VALUES (?,?, ?, ?, ?,?,?)",
+                id, "Low", "Low", false, false, false, 999);
+    }
+
+    /**
+     * Update user's preferences.
+     *
+     * @param newSettings
+     */
+    public void updatePreferences(UserSettings newSettings, Long userId) {
+
+        jdbcTemplate.update("UPDATE user_settings SET  car_preference_level= ?, bike_preference_level= ?, bike_availability= ?, car_availability= ?,driver_licence= ?, max_walk_distance= ? WHERE id= ?",
+                newSettings.getCarPreference().getPreference(), newSettings.getBikePreference().getPreference(),
+                newSettings.isBikeAvailability(), newSettings.isCarAvailability(),
+                newSettings.isDrivingLicense(), newSettings.getMaxWalkingDistance(), userId);
+
+    }
+
+    /**
+     * Fetches user's preferences.
+     *
+     * @param userId
+     * @return
+     */
+    public UserSettings getPreferences(Long userId) {
+        UserSettings settings;
+        settings = (UserSettings) jdbcTemplate.queryForObject("SELECT * FROM user_settings WHERE id =? ", new Object[]{userId}, new UserSettingsRowMapper());
+        return settings;
     }
 
 }
