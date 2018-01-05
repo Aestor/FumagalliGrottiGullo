@@ -79,7 +79,7 @@ public class EventForm extends FormLayout {
             dateEnd.setRangeStart(dateStart.getValue());
             endingTime.setEnabled(true);
         });
-        
+
         setComboBox();
         HorizontalLayout submitReset = new HorizontalLayout();
         submitReset.addComponents(submit, reset);
@@ -92,79 +92,81 @@ public class EventForm extends FormLayout {
     }
 
     /**
-     * Constructor to edit an event already existing.
+     * Method to setup the edit form.
      *
      * @param meeting the event to edit.
      */
-    public EventForm(Meeting meeting) {
-        dateStart.setDateFormat("dd-MM-yyyy");
-        dateStart.setRangeStart(LocalDate.now());
-        location.setValue(meeting.getLocation());
-        name.setValue(meeting.getName());
-        description.setValue(meeting.getDetails());
-        dateStart.setValue(meeting.getStart().toLocalDate());
-        startingTime.setHour(meeting.getStart().toLocalTime().getHour());
-        startingTime.setMinute(meeting.getStart().toLocalTime().getMinute());
-        endingTime.setHour(meeting.getEnd().toLocalTime().getHour());
-        endingTime.setMinute(meeting.getEnd().toLocalTime().getMinute());
-        submit = new Button("Edit");
-        reset = new Button("Cancel");
-        setComboBox();
-        preference.setValue(meeting.getPreferenceLevel());
-        submitReset.addComponents(submit, reset);
-        addComponents(location, name, description, dateStart, startingTime.getLayout(), endingTime.getLayout(), preference, submitReset);
-        content = new VerticalLayout();
-        submit.setClickShortcut(KeyCode.ENTER);
-        
-        //submit.addClickListener(e -> this.edit());
-        reset.addClickListener(e -> this.cancel());
-
-    }
-
     public void setEdit(Meeting meeting) {
+        dateEnd.setEnabled(true);
+        endingTime.setEnabled(true);
         dateStart.setDateFormat("dd-MM-yyyy");
         dateStart.setRangeStart(LocalDate.now());
         location.setValue(meeting.getLocation());
         name.setValue(meeting.getName());
         description.setValue(meeting.getDetails());
         dateStart.setValue(meeting.getStart().toLocalDate());
+        dateEnd.setValue(meeting.getEnd().toLocalDate());
         startingTime.setHour(meeting.getStart().toLocalTime().getHour());
         startingTime.setMinute(meeting.getStart().toLocalTime().getMinute());
         endingTime.setHour(meeting.getEnd().toLocalTime().getHour());
         endingTime.setMinute(meeting.getEnd().toLocalTime().getMinute());
         preference.setValue(meeting.getPreferenceLevel());
-        submitReset.setVisible(false);
+        submitReset.removeAllComponents();
         HorizontalLayout editCancel = new HorizontalLayout();
         Button edit = new Button("Edit");
         Button cancel = new Button("Cancel");
         editCancel.addComponents(edit, cancel);
         addComponent(editCancel);
         Meeting m = new Meeting(false);
-         convertBegin();
-            convertEnd();
-            m.setUser(schedule.getUser().getId());
-            m.setStart(begin);
-            m.setEnd(end);
-            m.setName(name.getValue());
-            m.setLocation(location.getValue());
-            m.setDetails(description.getValue());
-            m.setPreferenceLevel(preference.getValue());
-            m.setState(State.planned);
-            m.setId(meeting.getId());
-        edit.addClickListener( e-> this.edit(m));
-        cancel.addClickListener( e-> this.cancel());        
-        
+        convertBegin();
+        convertEnd();
+        m.setUser(schedule.getUser().getId());
+        m.setStart(begin);
+        m.setEnd(end);
+        m.setName(name.getValue());
+        m.setLocation(location.getValue());
+        m.setDetails(description.getValue());
+        m.setPreferenceLevel(preference.getValue());
+        m.setState(State.planned);
+        m.setId(meeting.getId());
+        edit.addClickListener(e -> this.edit(m));
+        cancel.addClickListener(e -> this.cancel());
 
     }
 
     public void cancel() {
         UI.getCurrent().getNavigator().navigateTo("");
-        
+
     }
 
-    public void edit(Meeting meeting) {
-        service.editMeeting(meeting);
-        
+    public void edit(Meeting m) {
+
+        try {
+
+            convertBegin();
+            convertEnd();
+            Meeting meeting = new Meeting(false);
+            meeting.setId(m.getId());
+            meeting.setUser(schedule.getUser().getId());
+            meeting.setStart(begin);
+            meeting.setEnd(end);
+            meeting.setName(name.getValue());
+            meeting.setLocation(location.getValue());
+            meeting.setDetails(description.getValue());
+            meeting.setPreferenceLevel(preference.getValue());
+            meeting.setState(State.planned);
+            if (begin.isBefore(end)) {
+               service.editMeeting(meeting);
+            } else {
+                Notification.show("Select a valid time");
+            }
+
+        } catch (NullPointerException | DateTimeParseException | EmptyResultDataAccessException e) {
+            // TODO Auto-generated catch block
+            Notification.show(error());
+        }
+        // TODO Auto-generated catch block
+
     }
 
     private void setComboBox() {
@@ -179,9 +181,9 @@ public class EventForm extends FormLayout {
     }
 
     public void submit() {
-        
+
         try {
-            
+
             convertBegin();
             convertEnd();
             Meeting meeting = new Meeting(false);
@@ -194,10 +196,9 @@ public class EventForm extends FormLayout {
             meeting.setPreferenceLevel(preference.getValue());
             meeting.setState(State.planned);
             if (begin.isBefore(end)) {
-            CreateEventRecap recap = new CreateEventRecap(meeting);
-            UI.getCurrent().addWindow(recap);
-            }
-            else {
+                CreateEventRecap recap = new CreateEventRecap(meeting);
+                UI.getCurrent().addWindow(recap);
+            } else {
                 Notification.show("Select a valid time");
             }
 
@@ -206,7 +207,7 @@ public class EventForm extends FormLayout {
             Notification.show(error());
         }
         // TODO Auto-generated catch block
-        
+
     }
 
     public void createEvent() {
@@ -319,7 +320,7 @@ public class EventForm extends FormLayout {
 
     public void saveEvent(Meeting meeting) {
         try {
-            meeting.setId(service.addMeeting(meeting));
+            service.addMeeting(meeting);
         } catch (EmptyResultDataAccessException e) {
             Notification.show("Internal error!", Type.ERROR_MESSAGE);
         }

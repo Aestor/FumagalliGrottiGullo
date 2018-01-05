@@ -50,15 +50,14 @@ public class EventService {
     @Autowired
     User user;
 
-    public long addMeeting(Meeting meeting) {
+    public void addMeeting(Meeting meeting) {
 
-        jdbcTemplate.update("INSERT INTO events (id, location, nam, details, timeb, timee, preflevel, state) VALUES (?,?,?,?,?,?,?,?)",
+        jdbcTemplate.update("INSERT INTO events (id, location, nam, details, timeb, timee, preflevel, event_state) VALUES (?,?,?,?,?,?,?,?)",
                 meeting.getUser(), meeting.getLocation(), meeting.getName(), meeting.getDetails(), convertDateTime(meeting.getStart()), convertDateTime(meeting.getEnd()), convertPref(meeting.getPreferenceLevel()), convertState(meeting.getState()));
-        return jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", long.class);
     }
 
     public void editMeeting(Meeting meeting) {
-        jdbcTemplate.update("UPDATE events SET location = ?, nam = ?, details = ?, timeb = ?, timee = ?, preflevel = ? WHERE id = ? AND eventid = ?", meeting.getLocation(), meeting.getName(), meeting.getDetails(), convertDateTime(meeting.getStart()), convertDateTime(meeting.getEnd()), meeting.getPreferenceLevel(), meeting.getUser(), meeting.getId());
+        jdbcTemplate.update("UPDATE events SET location = ?, nam = ?, details = ?, timeb = ?, timee = ?, preflevel = ? WHERE id = ? and eventid = ?", meeting.getLocation(), meeting.getName(), meeting.getDetails(), convertDateTime(meeting.getStart()), convertDateTime(meeting.getEnd()), convertPref(meeting.getPreferenceLevel()), meeting.getUser(), meeting.getId());
     }
 
     public List<Meeting> getMeetings(User user) throws EmptyResultDataAccessException {
@@ -89,7 +88,7 @@ public class EventService {
             case LOW:
                 return "LOW";
             default:
-                return null;
+                return "HIGH";
         }
 
     }
@@ -103,7 +102,7 @@ public class EventService {
             case ended:
                 return "ended";
             default:
-                return null;
+                return "planned";
         }
     }
 }

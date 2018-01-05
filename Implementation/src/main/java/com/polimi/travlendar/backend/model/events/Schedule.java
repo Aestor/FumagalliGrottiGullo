@@ -12,7 +12,8 @@ import org.vaadin.addon.calendar.ui.CalendarComponentEvents;
 
 import com.polimi.travlendar.backend.model.user.User;
 import com.polimi.travlendar.frontend.ui.forms.EventForm;
-import com.polimi.travlendar.frontend.ui.pages.CreateEventPage;
+import com.polimi.travlendar.frontend.ui.pages.gmaps.EditEventPage;
+import com.vaadin.server.VaadinSession;
 import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.VaadinSessionScope;
@@ -199,19 +200,10 @@ public class Schedule extends CustomComponent {
 
     }
     
-    private class EditPage extends Window {
-        
-        public EditPage(Meeting meeting) {
-            super("EditEvent");
-            VerticalLayout layout = new VerticalLayout();
-            layout.addComponent(new EventForm(meeting));
-            setContent(layout);
-            
-        }
-    }
     
     public void edit(Meeting meeting) {
-        UI.getCurrent().getNavigator().navigateTo(CreateEventPage.NAME);
+        VaadinSession.getCurrent().setAttribute("editableMeeting", meeting);
+        UI.getCurrent().getNavigator().navigateTo(EditEventPage.NAME);
     }
 
     public void delete(Meeting meeting) {

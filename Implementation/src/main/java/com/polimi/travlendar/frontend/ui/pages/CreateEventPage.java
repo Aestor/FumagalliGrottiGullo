@@ -32,13 +32,9 @@ public class CreateEventPage extends VerticalLayout implements View {
     private EventForm createEvent;
     @Autowired
     private EventService service;
-    @Autowired
-    private Schedule schedule;
-
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
         
-        createEvent.setSchedule(schedule);
         addComponent(createEvent);
 
     }
