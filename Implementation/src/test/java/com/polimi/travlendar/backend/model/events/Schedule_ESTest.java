@@ -21,7 +21,7 @@ public class Schedule_ESTest extends Schedule_ESTest_scaffolding {
   public void test0()  throws Throwable  {
       Schedule schedule0 = null;
       try {
-        schedule0 = new Schedule((User) null);
+        //schedule0 = new Schedule((User) null);
         fail("Expecting exception: NullPointerException");
       
       } catch(NullPointerException e) {

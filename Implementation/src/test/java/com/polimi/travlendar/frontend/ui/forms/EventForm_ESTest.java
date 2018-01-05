@@ -21,7 +21,7 @@ public class EventForm_ESTest extends EventForm_ESTest_scaffolding {
   public void test0()  throws Throwable  {
       EventForm eventForm0 = null;
       try {
-        eventForm0 = new EventForm((Meeting) null);
+        //eventForm0 = new EventForm((Meeting) null);
         fail("Expecting exception: NullPointerException");
       
       } catch(NullPointerException e) {
