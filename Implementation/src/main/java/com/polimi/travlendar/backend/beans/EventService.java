@@ -40,7 +40,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
  */
 @SpringComponent
 @VaadinSessionScope
-@Scope("prototype")
+@Scope("session")
 public class EventService {
 
     @Autowired
@@ -69,6 +69,10 @@ public class EventService {
         }
         return m;
 
+    }
+    
+    public void deleteMeeting(Meeting meeting) {
+        jdbcTemplate.execute("DELETE FROM events WHERE eventid="+meeting.getId()+";");
     }
 
     private Time convertTime(ZonedDateTime t) {

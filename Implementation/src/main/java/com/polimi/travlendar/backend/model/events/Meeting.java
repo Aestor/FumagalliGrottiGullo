@@ -107,7 +107,7 @@ public class Meeting {
     }
 
     public boolean isEditable() {
-        return state == State.planned;
+        return false;
     }
 
     public boolean isLongTimeEvent() {
@@ -121,5 +121,7 @@ public class Meeting {
     public void setPreferenceLevel(PreferenceLevel other) {
         this.level = other;
     }
+    
+    
 
 }

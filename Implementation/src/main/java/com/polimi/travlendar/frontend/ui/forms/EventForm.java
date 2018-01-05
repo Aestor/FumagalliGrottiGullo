@@ -38,14 +38,16 @@ public class EventForm extends FormLayout {
 
     @Autowired
     private EventService service;
+    @Autowired
     private Schedule schedule;
-    
+
     private TextField location = new TextField("Location");
     private TextField name = new TextField("Event");
     private TextField description = new TextField("Description");
     private DateField date = new DateField("Date");
     private Button submit = new Button("Submit");
     private Button reset = new Button("Reset");
+    private long id;
 
     private VerticalLayout content;
     private TimeSelectorComponent startingTime = new TimeSelectorComponent("Starting time");
@@ -56,12 +58,14 @@ public class EventForm extends FormLayout {
     protected boolean eventOk = true;
     protected boolean wait = false;
 
+    private HorizontalLayout submitReset = new HorizontalLayout();
+
     /**
      * Constructor to create a new event.
      */
     public EventForm() {
         setSizeUndefined();
-        schedule = (Schedule)VaadinSession.getCurrent().getAttribute("schedule");
+        schedule = (Schedule) VaadinSession.getCurrent().getAttribute("schedule");
         date.setDateFormat("dd-MM-yyyy");
         date.setPlaceholder("dd-mm-yyyy");
         date.setRangeStart(LocalDate.now());
@@ -96,35 +100,67 @@ public class EventForm extends FormLayout {
         reset = new Button("Cancel");
         setComboBox();
         preference.setValue(meeting.getPreferenceLevel());
-        HorizontalLayout submitReset = new HorizontalLayout();
         submitReset.addComponents(submit, reset);
         addComponents(location, name, description, date, startingTime.getLayout(), endingTime.getLayout(), preference, submitReset);
         content = new VerticalLayout();
         submit.setClickShortcut(KeyCode.ENTER);
-        submit.addClickListener(e -> this.edit());
+        
+        //submit.addClickListener(e -> this.edit());
         reset.addClickListener(e -> this.cancel());
 
     }
 
-    public void cancel() {
+    public void setEdit(Meeting meeting) {
+        date.setDateFormat("dd-MM-yyyy");
+        date.setRangeStart(LocalDate.now());
+        location.setValue(meeting.getLocation());
+        name.setValue(meeting.getName());
+        description.setValue(meeting.getDetails());
+        date.setValue(meeting.getStart().toLocalDate());
+        startingTime.setHour(meeting.getStart().toLocalTime().getHour());
+        startingTime.setMinute(meeting.getStart().toLocalTime().getMinute());
+        endingTime.setHour(meeting.getEnd().toLocalTime().getHour());
+        endingTime.setMinute(meeting.getEnd().toLocalTime().getMinute());
+        preference.setValue(meeting.getPreferenceLevel());
+        submitReset.setVisible(false);
+        HorizontalLayout editCancel = new HorizontalLayout();
+        Button edit = new Button("Edit");
+        Button cancel = new Button("Cancel");
+        editCancel.addComponents(edit, cancel);
+        addComponent(editCancel);
+        Meeting m = new Meeting(false);
+         convertBegin();
+            convertEnd();
+            m.setUser(schedule.getUser().getId());
+            m.setStart(begin);
+            m.setEnd(end);
+            m.setName(name.getValue());
+            m.setLocation(location.getValue());
+            m.setDetails(description.getValue());
+            m.setPreferenceLevel(preference.getValue());
+            m.setState(State.planned);
+            m.setId(meeting.getId());
+        edit.addClickListener( e-> this.edit(m));
+        cancel.addClickListener( e-> this.cancel());        
+        
 
     }
 
-    public void edit() {
-        try {
-            convertBegin();
-            convertEnd();
+    public void cancel() {
+        UI.getCurrent().getNavigator().navigateTo("");
+        
+    }
 
-        } catch (NullPointerException e) {
-
-        }
-
+    public void edit(Meeting meeting) {
+        service.editMeeting(meeting);
+        
     }
 
     private void setComboBox() {
         preference = new ComboBox<>("Event Priority");
         preference.setItems(PreferenceLevel.values());
         preference.setEmptySelectionAllowed(false);
+        preference.setPlaceholder("HIGH");
     }
 
     public VerticalLayout getLayout() {
@@ -245,7 +281,6 @@ public class EventForm extends FormLayout {
             Button ok = new Button("OK", e -> {
 
                 Notification.show("Event created successfully");
-                
                 schedule.onSubmitEvent(form);
                 saveEvent(form);
                 close();
