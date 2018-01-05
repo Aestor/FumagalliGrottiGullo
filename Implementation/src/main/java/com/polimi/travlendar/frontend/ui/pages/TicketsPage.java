@@ -97,7 +97,7 @@ public class TicketsPage extends VerticalLayout implements View {
             //init my tickets section
             Label mytickets = new Label("MY TICKETS:\n");
             mytickets.setStyleName("mytitle");
-            selection = new RadioButtonGroup<String>();
+            selection = new RadioButtonGroup<>();
             selection.setItems("ALL", "ACTIVE", "EXPIRED");
             selection.setStyleName("tickets");
             subform = new FormLayout();
@@ -113,14 +113,14 @@ public class TicketsPage extends VerticalLayout implements View {
                     }
                     case "ACTIVE":{
                         subform.addComponent( new TicketDisplayer(
-                    trains.stream().filter(u -> u.isActivated()&& !isExpired(u)).collect(Collectors.toList()),
+                    trains.stream().filter(u -> u.isActivated()&&!isExpired(u)).collect(Collectors.toList()),
                     urbans.stream().filter(u -> u.isActivated()&& !isExpired(u)).collect(Collectors.toList())));
                         break;
                     }
                     case "EXPIRED":{
                         subform.addComponent( new TicketDisplayer(
-                    trains.stream().filter(u -> isExpired(u)).collect(Collectors.toList()),
-                    urbans.stream().filter(u -> isExpired(u)).collect(Collectors.toList())));
+                    trains.stream().filter(this::isExpired).collect(Collectors.toList()),
+                    urbans.stream().filter(this::isExpired).collect(Collectors.toList())));
                         break;
                     }
                 }
@@ -141,23 +141,23 @@ public class TicketsPage extends VerticalLayout implements View {
      * @return
      */
     private boolean isExpired(Ticket t) {
-        if(t.getValidationTime()!=null){
         
-            ZonedDateTime time ;
+        if((t.getValidationTime()!=null)&&(t.isActivated())){
+        
             switch(t.getType().name){
                 case "single":{
-                    return t.getValidationTime().plusMinutes(t.getValidity()).isAfter(ZonedDateTime.now(t.getValidationTime().getZone()));
+                    return ((t.getValidationTime().plusMinutes(t.getValidity())).isBefore(ZonedDateTime.now(t.getValidationTime().getZone())));
                     
                 }
                 case "weekpass":{
-                    return t.getValidationTime().plusDays(t.getValidity()).isAfter(ZonedDateTime.now(t.getValidationTime().getZone()));
+                    return ((t.getValidationTime().plusDays(t.getValidity())).isBefore(ZonedDateTime.now(t.getValidationTime().getZone())));
                 }
                 case "onemonthpass":{
-                    return t.getValidationTime().plusDays(t.getValidity()).isAfter(ZonedDateTime.now(t.getValidationTime().getZone()));
+                    return ((t.getValidationTime().plusDays(t.getValidity())).isBefore(ZonedDateTime.now(t.getValidationTime().getZone())));
                     
                 }
                 case "yearpass":{
-                    return t.getValidationTime().plusMonths(t.getValidity()).isAfter(ZonedDateTime.now(t.getValidationTime().getZone()));
+                    return ((t.getValidationTime().plusMonths(t.getValidity())).isBefore(ZonedDateTime.now(t.getValidationTime().getZone())));
                 }
             }
         //something went wrong

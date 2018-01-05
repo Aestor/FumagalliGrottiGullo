@@ -23,16 +23,13 @@ import com.polimi.travlendar.frontend.ui.forms.CheckoutForm;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.server.VaadinSession;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
  * Page dedicated to user's own balance. Here it is visible the value and it is
@@ -86,6 +83,7 @@ public class BalancePage extends VerticalLayout implements View {
             current_balance = service.getBalance();
             Component b = new Panel(current_balance.toString() + " $$");
             b.setSizeUndefined();
+            b.setStyleName("balance");
             
 
             addComponents(title, b);

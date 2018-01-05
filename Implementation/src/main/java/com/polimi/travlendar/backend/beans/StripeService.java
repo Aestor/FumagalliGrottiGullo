@@ -65,7 +65,6 @@ public class StripeService {
             APIConnectionException, CardException, APIException {
 
         user = (User) jdbcTemplate.queryForObject("SELECT * FROM users WHERE email=?", new Object[]{chargeRequest.getUser()}, new UserRowMapper());
-        System.out.println(user.toString());
         Customer customer = customerInit(chargeRequest);
 
         if (firstPayment) // MUST REGISTER IN DB //
@@ -88,7 +87,7 @@ public class StripeService {
         if (user.getStripeId().equals("none")) {
 
             // FIRST PAYMENT FOR THE CURRENT USER, MUST REGISTER HIM AS CUSTOMER //
-            Map<String, Object> customerParams = new HashMap<String, Object>();
+            Map<String, Object> customerParams = new HashMap<>();
             customerParams.put("email", chargeRequest.getUser());
             customerParams.put("description", "Travlendar User with id: #" + user.getId());
             customerParams.put("source", chargeRequest.getStripeToken());
