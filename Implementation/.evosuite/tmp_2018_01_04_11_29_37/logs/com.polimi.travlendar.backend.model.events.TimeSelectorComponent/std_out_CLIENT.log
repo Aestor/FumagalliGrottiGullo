@@ -1,0 +1,27 @@
+[MASTER] 12:13:18.063 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletRequest was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 12:13:18.064 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortlet$VaadinHttpAndPortletRequest was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 12:13:18.064 [pool-2-thread-1] WARN  InheritanceTree - Class not in inheritance graph: com.vaadin.server.VaadinPortlet$VaadinHttpAndPortletRequest
+[MASTER] 12:13:18.065 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletRequest was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 12:13:18.065 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletRequest was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 12:13:18.066 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletRequest was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 12:13:18.066 [pool-2-thread-1] WARN  InheritanceTree - Class not in inheritance graph: com.vaadin.server.VaadinPortletRequest
+[MASTER] 12:13:18.067 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletRequest was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 12:13:18.068 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletRequest was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 12:13:18.068 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletRequest was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 12:13:18.068 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletRequest was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 12:13:18.076 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletRequest was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 12:13:18.076 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletRequest was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 12:13:18.084 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletResponse was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 12:13:18.084 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletResponse was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 12:13:20.060 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletService was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 12:13:20.060 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletService was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 12:13:20.060 [pool-2-thread-1] WARN  InheritanceTree - Class not in inheritance graph: com.vaadin.server.VaadinPortletService
+[MASTER] 12:13:20.061 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletService was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 12:13:20.062 [pool-2-thread-1] WARN  CheapPurityAnalyzer - com.vaadin.server.VaadinPortletService was not found in the inheritance tree. Using DEFAULT value for cheap-purity analysis
+[MASTER] 12:13:20.870 [pool-2-thread-1] WARN  TestSuiteSerialization - Cannot load tests because file does not exist: /home/jaycaves/Desktop/FumagalliGrottiGullo/Implementation/.evosuite/evosuite-seeds/com.polimi.travlendar.backend.model.events.TimeSelectorComponent.seed
+[MASTER] 12:13:29.166 [TEST_EXECUTION_THREAD_0] WARN  TestUsageChecker - class com.vaadin.ui.AbstractComponent$$Lambda$89/1538564392 looks like an anonymous class, ignoring it (although reflection says false) AbstractComponent$$Lambda$89/1538564392
+[MASTER] 12:13:45.625 [TEST_EXECUTION_THREAD_0] WARN  TestUsageChecker - class com.vaadin.ui.declarative.ShouldWriteDataDelegate$$Lambda$36/965767499 looks like an anonymous class, ignoring it (although reflection says false) ShouldWriteDataDelegate$$Lambda$36/965767499
+[MASTER] 12:13:58.470 [TEST_EXECUTION_THREAD_0] WARN  TestUsageChecker - class com.vaadin.ui.declarative.DesignContext$$Lambda$113/1967912023 looks like an anonymous class, ignoring it (although reflection says false) DesignContext$$Lambda$113/1967912023
+[MASTER] 12:14:16.286 [pool-2-thread-1] WARN  ClassResetter - class java.lang.NoClassDefFoundError thrown during execution of method  __STATIC_RESET() for class com.vaadin.ui.declarative.DesignAttributeHandler, java.lang.ClassNotFoundException
+[MASTER] 12:14:17.330 [pool-2-thread-1] WARN  ClassResetter - class java.lang.NoClassDefFoundError thrown during execution of method  __STATIC_RESET() for class com.vaadin.ui.declarative.DesignAttributeHandler, null
+[MASTER] 12:14:17.702 [pool-2-thread-1] WARN  ClassResetter - class java.lang.reflect.InvocationTargetException thrown during execution of method  __STATIC_RESET() for class com.vaadin.ui.declarative.DesignAttributeHandler, java.lang.NoClassDefFoundError: Could not initialize class com.vaadin.ui.declarative.DesignAttributeHandler

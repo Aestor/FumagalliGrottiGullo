@@ -1,0 +1,5 @@
+[MASTER] 12:34:37.585 [pool-2-thread-1] WARN  TestSuiteSerialization - Cannot load tests because file does not exist: /home/jaycaves/Desktop/FumagalliGrottiGullo/Implementation/.evosuite/evosuite-seeds/com.polimi.travlendar.TravlendarApplication.seed
+[MASTER] 12:35:16.962 [pool-2-thread-1] WARN  TestSuiteMinimizer - Minimization timeout. Roll back to original test suite
+[MASTER] 12:35:29.620 [pool-2-thread-1] WARN  TestSuiteWriter - Using cached result
+[MASTER] 12:35:29.908 [pool-2-thread-1] WARN  TestSuiteWriter - Using cached result
+[MASTER] 12:35:30.178 [pool-2-thread-1] WARN  TestSuiteWriter - Using cached result
