@@ -28,6 +28,7 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,13 +38,10 @@ import org.springframework.context.annotation.Scope;
  *
  * @author Marco
  */
-@SpringComponent
-@Scope("prototype")
 public class PlaceSearchField extends VerticalLayout implements AutocompleteClient, PlaceSearchFieldClient, SelectionListener {
 
-    @Autowired
     GoogleMapsService service;
-    
+
     PlaceSearchFieldClient client;
 
     private final Label place;
@@ -53,8 +51,10 @@ public class PlaceSearchField extends VerticalLayout implements AutocompleteClie
     private DynamicList predictionsList;
 
     public PlaceSearchField() {
-        client = this;
+        service = new GoogleMapsService();
         
+        client = this;
+
         place = new Label("No place searched.");
 
         searchTextField = new TextField();
@@ -66,23 +66,22 @@ public class PlaceSearchField extends VerticalLayout implements AutocompleteClie
         HorizontalLayout searchBar = new HorizontalLayout();
         searchBar.addComponents(searchTextField, searchButton);
         searchBar.setSpacing(false);
-        
+
         predictionsList = new DynamicList(this, 5, new PredictionCaptionGenerator());
-        
+
         searchTextField.setValueChangeMode(ValueChangeMode.LAZY);
         searchTextField.addValueChangeListener(e -> {
             service.predict(this, searchTextField.getValue());
         });
 
         this.addComponents(place, searchBar, predictionsList);
-        
     }
-    
-    public void registerClient(PlaceSearchFieldClient newClient){
+
+    public void registerClient(PlaceSearchFieldClient newClient) {
         client = newClient;
     }
 
-    public void searchPlace(){
+    public void searchPlace() {
         String text = searchTextField.getValue();
         if (text == null || text.equals("")) {
             searchTextField.setComponentError(new UserError("This field cannot be empty"));
@@ -105,14 +104,13 @@ public class PlaceSearchField extends VerticalLayout implements AutocompleteClie
     }
 
     // AutocompleteClient methods: to recieve ashyncronous predictions by GoogleMapsService
-    
     @Override
     public void deliverPredictions(AutocompletePrediction[] predictions) {
         System.out.println("Place search field: updating predictions...");
         List<Object> list = new ArrayList<Object>();
         for (AutocompletePrediction p : predictions) {
             list.add(p);
-        }    
+        }
         predictionsList.setList(list);
     }
 
@@ -120,9 +118,8 @@ public class PlaceSearchField extends VerticalLayout implements AutocompleteClie
     public void predictionError() {
         Notification.show("Internal error with Google Maps.", Type.ERROR_MESSAGE);
     }
-    
-    // Default PlaceSearchFieldClient methods to use if no client has been registered
 
+    // Default PlaceSearchFieldClient methods to use if no client has been registered
     @Override
     public void deliverPlace(PlaceSearchField caller, PlacesSearchResult result) {
         Notification.show("Result found!");
@@ -132,16 +129,14 @@ public class PlaceSearchField extends VerticalLayout implements AutocompleteClie
     public void resultNotFoundError() {
         Notification.show("Result not found.", Type.WARNING_MESSAGE);
     }
-    
-    // Method to catch user selection from DynamicList of predictions
 
+    // Method to catch user selection from DynamicList of predictions
     @Override
     public void listen(Object selection) {
         AutocompletePrediction prediction = (AutocompletePrediction) selection;
         searchTextField.setValue(prediction.description);
         searchPlace();
     }
-    
-    //
 
+    //
 }

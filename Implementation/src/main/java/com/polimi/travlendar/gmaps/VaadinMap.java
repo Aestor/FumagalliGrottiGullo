@@ -51,7 +51,7 @@ public class VaadinMap extends VerticalLayout {
         map.setMaxZoom(MAX_ZOOM);
 
         this.addComponent(map);
-        this.setExpandRatio(map, 1.0f);
+        this.setSizeFull();
         this.setHeight(HEIGHT.toString() + "px");
 
         places = new PlacesSearchResult[2];

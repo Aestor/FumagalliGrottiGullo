@@ -10,6 +10,8 @@ import com.polimi.travlendar.gmaps.JavaScriptMap;
 import com.polimi.travlendar.frontend.ui.pages.gmaps.MapsAddOnPage;
 import com.polimi.travlendar.frontend.ui.pages.gmaps.MapsPage;
 import com.polimi.travlendar.frontend.ui.pages.gmaps.PlaceSearchPage;
+import com.polimi.travlendar.gmaps.LocationForm;
+import com.polimi.travlendar.gmaps.VaadinMap;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
@@ -106,6 +108,20 @@ public class TestingPage extends VerticalLayout implements View {
         });
 
         this.addComponent(javaScriptMapButton);
+        
+        Window mapWindow2 = new Window();
+        mapWindow2.setResizable(false);
+        mapWindow2.setDraggable(false);
+        mapWindow2.center();
+        mapWindow2.setWidth("90%");
+        mapWindow2.setHeight("90%");
+        LocationForm form = new LocationForm();
+        mapWindow2.setContent(form);
+        Button seeMap = new Button("See location form");
+        seeMap.addClickListener(e -> {
+            getUI().addWindow(mapWindow2);
+        });
+        this.addComponents(seeMap);
     }
 
 }
