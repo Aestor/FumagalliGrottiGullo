@@ -29,7 +29,7 @@ import com.vaadin.ui.VerticalLayout;
  *
  * @author Marco
  */
-public class LocationForm extends HorizontalLayout implements PlaceSearchFieldClient{
+public class LocationForm extends HorizontalLayout implements PlaceSearchFieldClient {
     
     VaadinMap map;
     
@@ -44,7 +44,7 @@ public class LocationForm extends HorizontalLayout implements PlaceSearchFieldCl
     
     GoogleMapsService service;
     
-    public LocationForm(){
+    public LocationForm() {
         service = new GoogleMapsService();
         VerticalLayout sideBar = new VerticalLayout();
         start = new PlaceSearchField();
@@ -65,26 +65,26 @@ public class LocationForm extends HorizontalLayout implements PlaceSearchFieldCl
         this.setExpandRatio(map, 2);
         this.setExpandRatio(directionsPanel, 1);
     }
-
+    
     @Override
     public void deliverPlace(PlaceSearchField caller, PlacesSearchResult result) {
-        if(caller == start){
+        if (caller == start) {
             startPlace = result;
             map.setMarker(startPlace, 1);
         }
-        if(caller == end){
+        if (caller == end) {
             endPlace = result;
             map.setMarker(endPlace, 2);
         }
-        getDirections();
+        calculateDirections();
     }
-
+    
     @Override
     public void resultNotFoundError() {
         Notification.show("Result not found", Type.WARNING_MESSAGE);
     }
     
-        private void getDirections() {
+    private void calculateDirections() {
         if (startPlace != null && endPlace != null) {
             DirectionsResult result = null;
             try {
@@ -95,6 +95,7 @@ public class LocationForm extends HorizontalLayout implements PlaceSearchFieldCl
                 Notification.show("Internal error with Google Maps. Please reload the page.", Type.ERROR_MESSAGE);
             } finally {
                 if (result != null) {
+                    directions = result;
                     String labelResult = service.directionsDescription(result);
                     directionsLabel.setValue(labelResult);
                     map.addPolyline(result);
@@ -103,5 +104,17 @@ public class LocationForm extends HorizontalLayout implements PlaceSearchFieldCl
                 }
             }
         }
+    }
+    
+    public PlacesSearchResult getStartPlace(){
+        return startPlace;
+    }
+    
+    public PlacesSearchResult getEndPlace(){
+        return endPlace;
+    }
+    
+    public DirectionsResult getDirections(){
+        return directions;
     }
 }

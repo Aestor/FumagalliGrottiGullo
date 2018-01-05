@@ -74,7 +74,7 @@ public class PlaceSearchField extends VerticalLayout implements AutocompleteClie
             service.predict(this, searchTextField.getValue());
         });
 
-        this.addComponents(place, searchBar/*, predictionsList*/);
+        this.addComponents(place, searchBar, predictionsList);
     }
 
     public void registerClient(PlaceSearchFieldClient newClient) {

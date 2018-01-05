@@ -18,6 +18,7 @@ package com.polimi.travlendar.gmaps;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ItemCaptionGenerator;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +27,11 @@ import java.util.List;
  *
  * @author Marco
  */
-public class DynamicList extends VerticalLayout {
+public class DynamicList extends Panel {
     
     private SelectionListener listener;
+    
+    private VerticalLayout layout;
     
     private List<Object> list;   
     private List<Button> buttons;
@@ -40,11 +43,13 @@ public class DynamicList extends VerticalLayout {
     public DynamicList(SelectionListener listener, int dimension, ItemCaptionGenerator captionGenerator){
         this.listener = listener;
         list = new ArrayList<Object>();
-        this.setSpacing(false);
+        layout = new VerticalLayout();
+        layout.setSpacing(false);
         this.setWidth("300px");
         this.dimension = dimension;
         this.captionGenerator = captionGenerator;
-        this.addComponent(new Label("Predictions list"));
+        layout.addComponent(new Label("Predictions list"));
+        this.setContent(layout);
     }
     
     public DynamicList(SelectionListener listener, int dimension) {
@@ -57,14 +62,13 @@ public class DynamicList extends VerticalLayout {
         while(list.size()>dimension){
             list.remove(list.size()-1);
         }
-        this.removeAllComponents();
+        layout.removeAllComponents();
         for(Object o : list){
             Button b = new Button(captionGenerator.apply(o));
-            b.setWidth("300px");
             b.addClickListener(e -> {
                listener.listen(o);
             });
-            this.addComponent(b);
+            layout.addComponent(b);
         }
     }
 
