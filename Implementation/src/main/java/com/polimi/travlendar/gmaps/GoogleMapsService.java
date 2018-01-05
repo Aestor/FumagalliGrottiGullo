@@ -29,16 +29,12 @@ import com.google.maps.model.DirectionsResult;
 import com.google.maps.model.DirectionsRoute;
 import com.google.maps.model.PlacesSearchResponse;
 import com.google.maps.model.PlacesSearchResult;
-import com.vaadin.spring.annotation.SpringComponent;
 import java.io.IOException;
-import org.springframework.context.annotation.Scope;
 
 /**
  *
  * @author Marco
  */
-@SpringComponent
-@Scope("prototype")
 public class GoogleMapsService {
 
     private static final String KEY = "AIzaSyD6IaaO4KPZcEWmYzKRS9wtCvYnt2WyfrA";
@@ -77,7 +73,7 @@ public class GoogleMapsService {
             result += "Route " + i + ".\n";
             result += "Summary: " + r.summary + "\n";
             int j = 1;
-            String space = "    ";
+            String space = "";
             for (DirectionsLeg l : r.legs) {
                 result += space + "Leg " + j + ":\n";
                 result += space + "Start address: " + l.startAddress + ".\n";

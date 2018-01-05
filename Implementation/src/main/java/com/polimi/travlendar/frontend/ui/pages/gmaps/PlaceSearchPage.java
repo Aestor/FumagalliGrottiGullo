@@ -1,3 +1,5 @@
+
+
 package com.polimi.travlendar.frontend.ui.pages.gmaps;
 
 import com.github.appreciated.app.layout.annotations.MenuCaption;
@@ -5,6 +7,7 @@ import com.github.appreciated.app.layout.annotations.MenuIcon;
 import com.google.maps.model.DirectionsResult;
 import com.google.maps.model.PlacesSearchResult;
 import com.polimi.travlendar.gmaps.GoogleMapsService;
+import com.polimi.travlendar.gmaps.LocationForm;
 import com.polimi.travlendar.gmaps.PlaceSearchField;
 import com.polimi.travlendar.gmaps.PlaceSearchFieldClient;
 import com.polimi.travlendar.gmaps.ResultNotFoundException;
@@ -21,29 +24,29 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @SuppressWarnings("serial")
 @SpringView(name = PlaceSearchPage.NAME)
 @MenuCaption("Search place")
 @MenuIcon(VaadinIcons.SEARCH)
-public class PlaceSearchPage extends CssLayout implements View, PlaceSearchFieldClient {
+public class PlaceSearchPage extends VerticalLayout implements View, PlaceSearchFieldClient {
 
     public static final String NAME = "place-search";
 
     VaadinMap map;
 
-    @Autowired
     PlaceSearchField startPlaceField;
-    @Autowired
     PlaceSearchField endPlaceField;
 
     PlacesSearchResult startPlace;
     PlacesSearchResult endPlace;
 
-    @Autowired
     GoogleMapsService service;
     Label directionsLabel;
+    
+    LocationForm form;
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
@@ -51,6 +54,9 @@ public class PlaceSearchPage extends CssLayout implements View, PlaceSearchField
         map = new VaadinMap();
 
         Label searchTitle = new Label("Place search");
+        
+        startPlaceField = new PlaceSearchField();
+        endPlaceField = new PlaceSearchField();
 
         startPlaceField.setPlaceHolder("Search starting place...");
         startPlaceField.registerClient(this);
