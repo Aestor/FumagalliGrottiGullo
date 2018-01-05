@@ -1,0 +1,112 @@
+CREATE SCHEMA travlendar;
+
+USE travlendar;
+
+CREATE TABLE users(id SERIAL, email VARCHAR(255), password VARCHAR(255), first_name VARCHAR(255), last_name VARCHAR(255));
+
+CREATE TABLE train_tickets(
+
+id BIGINT references users(id),
+
+ticketsid varchar(255),
+
+ticket_type varchar(255),
+
+departure_location varchar(255),
+
+arrival_location varchar(255),
+
+price int,
+
+validity int,
+
+purchase_date DATE,
+
+purchase_time TIME,
+
+validation_date DATE,
+
+validation_time TIME,
+
+activated boolean,
+
+lenght varchar(255),
+
+primary key (ticketsid, id)
+
+);
+
+
+CREATE TABLE urban_tickets(
+
+id BIGINT references users(id),
+
+ticketsid varchar(255),
+
+ticket_type varchar(255),
+
+city varchar(255),
+
+price int,
+
+validity int,
+
+purchase_date DATE,
+
+purchase_time TIME,
+
+validation_date DATE,
+
+validation_time TIME,
+
+activated boolean,
+
+lenght varchar(255),
+
+primary key (ticketsid, id)
+
+);
+
+CREATE TABLE user_settings (
+
+id BIGINT references users(id),
+
+car_preference_level varchar(255),
+
+bike_preference_level varchar(255),
+
+max_walk_distance int,
+
+car_availability boolean,
+
+bike_availability boolean,
+
+driver_licence boolean,
+
+primary key (id)
+
+);
+CREATE TABLE events(
+
+id BIGINT references users(id),
+
+eventid SERIAL,
+
+location varchar(255),
+
+nam varchar(255),
+
+details varchar(255),
+
+timeb TIMESTAMP,
+
+timee TIMESTAMP,
+
+event_state varchar(255),
+
+preflevel varchar(255),
+primary key (id, eventid)
+
+);
+
+
