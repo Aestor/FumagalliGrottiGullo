@@ -41,18 +41,21 @@ Alternately, create manually a new schema with MySQL Command Line:<br>
 -> CREATE SCHEMA travlendar;<br>
 -> USE travlendar;<br>
 -> CREATE TABLE users(id SERIAL, email VARCHAR(255), password VARCHAR(255), first_name VARCHAR(255), last_name VARCHAR(255));<br>
-->CREATE TABLE events(<br>
-id	BIGINT	references users(id),<br>
-eventid SERIAL PRIMARY KEY,<br>
-location varchar(255),<br>
-nam varchar(255),<br>
-details varchar(255),<br>
-d DATE,<br>
-timeb TIME,<br>
-timee TIME,<br>
-state varchar(255),<br>
-preflevel varchar(255)<br>
-);
+->CREATE TABLE events(
+id	BIGINT	references users(id),
+eventid SERIAL,
+starting_location varchar(255),
+ending_location varchar(255),
+nam varchar(255),
+details varchar(255),
+timeb TIMESTAMP,
+timee TIMESTAMP,
+event_state varchar(255),
+preflevel varchar(255),
+duration BIGINT,
+primary key (id, eventid)
+);    
+
 ->CREATE TABLE train_tickets(
 id BIGINT references users(id),ticketsid varchar(255),ticket_type varchar(255),
 departure_location varchar(255),arrival_location varchar(255),price int,validity int,purchase_date DATE,purchase_time TIME,validation_date DATE,validation_time TIME,activated boolean,
