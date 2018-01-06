@@ -1,7 +1,10 @@
 package com.polimi.travlendar.backend.model.user;
 
 import java.util.ArrayList;
-
+/**
+ * 
+ * @author Aestor
+ */
 public enum PreferenceLevel {
 
 	HIGH("High", 3), MEDIUM("Medium", 2), LOW("Low", 1);

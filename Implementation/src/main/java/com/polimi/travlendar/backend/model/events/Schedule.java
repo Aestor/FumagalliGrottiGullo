@@ -29,6 +29,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 @VaadinSessionScope
 @SuppressWarnings("serial")
 @Scope("session")
+/**
+ * This class creates the Calendar component of the application.
+ *
+ * @Author Aestor
+ */
 public class Schedule extends CustomComponent {
 
     private MeetingDataProvider eventProvider;
@@ -39,9 +44,7 @@ public class Schedule extends CustomComponent {
 
     @Autowired
     private User user;
-    
-    /*@Autowired
-    private EventForm createEvent;*/
+
     @Autowired
     private EventService eService;
 
@@ -63,6 +66,11 @@ public class Schedule extends CustomComponent {
         setCompositionRoot(layout);
     }
 
+    /**
+     * switches the view of the calendar to the selected month.
+     *
+     * @param month the selected month.
+     */
     public void switchToMonth(Month month) {
         calendar.withMonth(month);
     }
@@ -71,6 +79,11 @@ public class Schedule extends CustomComponent {
         return calendar;
     }
 
+    /**
+     * method called whenever a user clicks on an event present in the calendar.
+     *
+     * @param event
+     */
     private void onCalendarClick(CalendarComponentEvents.ItemClickEvent event) {
         MeetingItem item = (MeetingItem) event.getCalendarItem();
 
@@ -80,6 +93,9 @@ public class Schedule extends CustomComponent {
         UI.getCurrent().addWindow(edit);
     }
 
+    /**
+     * Initializes the calendar from a UI point of view.
+     */
     private void initCalendar() {
         eventProvider = new MeetingDataProvider();
 
@@ -103,6 +119,9 @@ public class Schedule extends CustomComponent {
 
     }
 
+    /**
+     * sets up the time slots of the calendar.
+     */
     private void setupBlockedTimeSlots() {
 
         java.util.Calendar cal = java.util.Calendar.getInstance();
@@ -136,24 +155,43 @@ public class Schedule extends CustomComponent {
         calendar.addTimeBlock(start, end);
     }
 
+    /**
+     * Adds listeners to the calendar.
+     */
     private void addCalendarEventListeners() {
         calendar.setHandler(new BasicDateClickHandler(true));
         calendar.setHandler(this::onCalendarClick);
     }
 
+    /**
+     * Handles the addition and removal of events.
+     */
     private final class MeetingDataProvider extends BasicItemProvider<MeetingItem> {
 
+        /**
+         * Removes all the events from the calendar.
+         */
         void removeAllEvents() {
             this.itemList.clear();
             fireItemSetChanged();
         }
 
+        /**
+         * Removes a single event from the calendar.
+         *
+         * @param meeting the event to be removed.
+         */
         void removeEvent(Meeting meeting) {
             this.removeItem(new MeetingItem(meeting));
         }
 
     }
 
+    /**
+     * Adds an event to the calendar.
+     *
+     * @param meeting the event to be added.
+     */
     public void onSubmitEvent(Meeting meeting) {
         eventProvider.addItem(new MeetingItem(meeting));
     }
@@ -162,14 +200,26 @@ public class Schedule extends CustomComponent {
         return user;
     }
 
+    /**
+     * Removes all the events through the event provider.
+     */
     public void removeAll() {
         eventProvider.removeAllEvents();
     }
 
+    /**
+     * removes a single event through the event provider.
+     *
+     * @param meeting the event to be removed.
+     */
     public void removeEvent(Meeting meeting) {
         eventProvider.removeEvent(meeting);
     }
 
+    /**
+     * This private class is a UI component that is needed for the deletion and
+     * editing of events.
+     */
     private class Edit extends Window {
 
         @Autowired
@@ -187,7 +237,7 @@ public class Schedule extends CustomComponent {
             edit.addClickListener(e -> {
                 edit(meeting);
                 close();
-                    });
+            });
             delete.addClickListener(e -> {
                 delete(meeting);
                 close();
@@ -199,13 +249,24 @@ public class Schedule extends CustomComponent {
         }
 
     }
-    
-    
+
+    /**
+     * This method is called inside the window Edit. It calls a new page and
+     * sends the information about the event to the new page.
+     *
+     * @param meeting the meeting that will be edited.
+     */
     public void edit(Meeting meeting) {
         VaadinSession.getCurrent().setAttribute("editableMeeting", meeting);
         UI.getCurrent().getNavigator().navigateTo(EditEventPage.NAME);
     }
 
+    /**
+     * This method is called inside the window Edit. It deletes the event by
+     * deleting it from the calendar and from the database.
+     *
+     * @param meeting the event to be deleted.
+     */
     public void delete(Meeting meeting) {
         eService.deleteMeeting(meeting);
         removeEvent(meeting);

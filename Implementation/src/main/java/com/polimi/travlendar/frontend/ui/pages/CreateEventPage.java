@@ -17,8 +17,8 @@ import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- *
- * @author Paolo Fumagalli
+ *Page used to generate the EventForm to create a new event.
+ * @author Aestor
  */
 @SuppressWarnings("serial")
 @SpringView(name = CreateEventPage.NAME)

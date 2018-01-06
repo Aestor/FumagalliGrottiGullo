@@ -6,6 +6,11 @@ import org.vaadin.addon.calendar.item.BasicItem;
 
 import com.vaadin.icons.VaadinIcons;
 @SuppressWarnings("serial")
+/**
+ * This class handles the communication between meetings and the calendar.
+ * 
+ * @author Aestor
+ */
 public class MeetingItem extends BasicItem {
 
 	private final Meeting meeting;

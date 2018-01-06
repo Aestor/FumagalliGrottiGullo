@@ -19,8 +19,8 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Window;
 
 /**
- *
- * @author Paolo
+ *This class 
+ * @author Aestor
  */
 public class OnEventClick extends Window{
     

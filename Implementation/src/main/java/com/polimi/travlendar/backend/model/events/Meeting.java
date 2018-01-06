@@ -4,6 +4,12 @@ import com.polimi.travlendar.backend.model.user.User;
 import com.polimi.travlendar.backend.model.user.PreferenceLevel;
 import java.time.ZonedDateTime;
 
+/**
+ * This class represents each event that will be created by the user. This class
+ * will be contained in the calendar, which will show each meeting.
+ *
+ * @author Aestor
+ */
 public class Meeting {
 
     private long user;
@@ -49,13 +55,13 @@ public class Meeting {
     public void setState(State state) {
         this.state = state;
     }
-    
+
     public long getId() {
         return id;
     }
-    
+
     public void setId(long id) {
-        this.id=id;
+        this.id = id;
     }
 
     public boolean isLongTime() {
@@ -131,7 +137,10 @@ public class Meeting {
     public void setDetails(String details) {
         this.details = details;
     }
-
+/**
+ * This method returns false makes it impossible to edit the event directly inside the schedule.
+ * @return 
+ */
     public boolean isEditable() {
         return false;
     }
@@ -147,7 +156,5 @@ public class Meeting {
     public void setPreferenceLevel(PreferenceLevel other) {
         this.level = other;
     }
-    
-    
 
 }

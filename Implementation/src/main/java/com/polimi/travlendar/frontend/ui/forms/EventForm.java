@@ -13,6 +13,7 @@ import com.polimi.travlendar.backend.model.events.Meeting.State;
 import com.polimi.travlendar.backend.model.events.Schedule;
 import com.polimi.travlendar.backend.model.events.TimeSelectorComponent;
 import com.polimi.travlendar.backend.model.user.PreferenceLevel;
+import com.polimi.travlendar.frontend.ui.pages.SchedulePage;
 import com.polimi.travlendar.gmaps.LocationForm;
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.server.VaadinSession;
@@ -31,10 +32,16 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-
+/**
+ * This class generates the form to create a new event or edit an already
+ * existing one.
+ *
+ * @Author Aestor
+ */
 @SuppressWarnings("serial")
 @SpringComponent
 @Scope("prototype")
+
 public class EventForm extends FormLayout {
 
     @Autowired
@@ -162,11 +169,19 @@ public class EventForm extends FormLayout {
 
     }
 
+    /**
+     * Goes back to the schedule page.
+     */
     public void cancel() {
-        UI.getCurrent().getNavigator().navigateTo("");
+        UI.getCurrent().getNavigator().navigateTo(SchedulePage.NAME);
 
     }
 
+    /**
+     * method that edits a meeting in the database.
+     *
+     * @param m
+     */
     public void edit(Meeting m) {
 
         try {
@@ -212,6 +227,9 @@ public class EventForm extends FormLayout {
         return content;
     }
 
+    /**
+     * Submits an event to the recap.
+     */
     public void submit() {
 
         try {
@@ -248,6 +266,9 @@ public class EventForm extends FormLayout {
 
     }
 
+    /**
+     * Clears the form.
+     */
     public void reset() {
         startingLocation.clear();
         name.clear();
@@ -262,12 +283,18 @@ public class EventForm extends FormLayout {
         this.schedule = schedule;
     }
 
+    /**
+     * Converts the time selected as beginning of an event into a LocalTime.
+     */
     private void convertBegin() {
         LocalTime time = LocalTime.parse(startingTime.getHour() + ":" + startingTime.getMinute());
         begin = ZonedDateTime.of(dateStart.getValue(), time, ZonedDateTime.now().getZone());
 
     }
 
+    /**
+     * Converts the time selected as ending of an event into LocalTime.
+     */
     private void convertEnd() {
         LocalTime time = LocalTime.parse(endingTime.getHour() + ":" + endingTime.getMinute());
         end = ZonedDateTime.of(dateEnd.getValue(), time, ZonedDateTime.now().getZone());
@@ -321,6 +348,11 @@ public class EventForm extends FormLayout {
         return "Insert valid data";
     }
 
+    /**
+     * This class is a UI class that generates a recap of the chosen elements of
+     * an event. If the user then confirms the information it will be saved into
+     * the database.
+     */
     private class CreateEventRecap extends Window {
 
         public CreateEventRecap(Meeting form) {
@@ -342,7 +374,7 @@ public class EventForm extends FormLayout {
             });
             VerticalLayout layout = new VerticalLayout();
             TextArea area = new TextArea();
-            area.setValue("Event Recap:\n" + "Starting Location: " + form.getLocation() +"\nEnding Location: "+form.getEndingLocation()+ "\nEvent: " + form.getName()
+            area.setValue("Event Recap:\n" + "Starting Location: " + form.getLocation() + "\nEnding Location: " + form.getEndingLocation() + "\nEvent: " + form.getName()
                     + "\nDescription: " + form.getDetails() + "\nDate: " + form.getStart().toLocalDate().toString()
                     + "\nFrom: " + form.getStart().toLocalTime().toString() + " to "
                     + form.getEnd().toLocalTime().toString());
@@ -359,7 +391,10 @@ public class EventForm extends FormLayout {
         }
 
     }
-
+/**
+ * Saves an event into the database.
+ * @param meeting the event to be saved.
+ */
     public void saveEvent(Meeting meeting) {
         try {
             service.addMeeting(meeting);

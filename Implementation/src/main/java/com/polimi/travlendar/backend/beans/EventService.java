@@ -50,16 +50,34 @@ public class EventService {
     @Autowired
     User user;
 
+    /**
+     * Adds an event in the database with the information sent by the user
+     * through an EventForm. The database generates a unique id for each event.
+     *
+     * @param meeting the event to be saved in the database.
+     */
     public void addMeeting(Meeting meeting) {
 
         jdbcTemplate.update("INSERT INTO events (id, starting_location, ending_location, nam, details, timeb, timee, preflevel, event_state, duration) VALUES (?,?,?,?,?,?,?,?,?,?)",
                 meeting.getUser(), meeting.getStartingLocation(), meeting.getEndingLocation(), meeting.getName(), meeting.getDetails(), convertDateTime(meeting.getStart()), convertDateTime(meeting.getEnd()), convertPref(meeting.getPreferenceLevel()), convertState(meeting.getState()), meeting.getDuration());
     }
 
+    /**
+     * Modifies an already existing event in the database.
+     *
+     * @param meeting the event already modified.
+     */
     public void editMeeting(Meeting meeting) {
         jdbcTemplate.update("UPDATE events SET starting_location = ?, ending_location = ?, nam = ?, details = ?, timeb = ?, timee = ?, preflevel = ?, duration = ? WHERE id = ? and eventid = ?", meeting.getStartingLocation(), meeting.getEndingLocation(), meeting.getName(), meeting.getDetails(), convertDateTime(meeting.getStart()), convertDateTime(meeting.getEnd()), convertPref(meeting.getPreferenceLevel()), meeting.getDuration(), meeting.getUser(), meeting.getId());
     }
 
+    /**
+     * Fetches from the database all the events connected to a user.
+     *
+     * @param user the user who's events are extracted.
+     * @return a list of all the events of the user.
+     * @throws EmptyResultDataAccessException
+     */
     public List<Meeting> getMeetings(User user) throws EmptyResultDataAccessException {
         List<Meeting> m = new ArrayList<>();
         try {
@@ -70,15 +88,33 @@ public class EventService {
         return m;
 
     }
-    
+
+    /**
+     * Deletes an event from the database.
+     *
+     * @param meeting the event to be deleted.
+     */
     public void deleteMeeting(Meeting meeting) {
-        jdbcTemplate.execute("DELETE FROM events WHERE eventid="+meeting.getId()+";");
+        jdbcTemplate.execute("DELETE FROM events WHERE eventid=" + meeting.getId() + ";");
     }
 
+    /**
+     * Converts a ZonedDateTIme object to a Timestamp
+     *
+     * @param t the object to be converted.
+     * @return the object converted.
+     */
     private Timestamp convertDateTime(ZonedDateTime t) {
         return Timestamp.valueOf(t.toLocalDateTime());
     }
 
+    /**
+     * Converts a PreferenceLevel object into a String. It is used to make it easier to
+     * communicate with the database.
+     *
+     * @param p the PreferenceLevel object to be converted.
+     * @return the PreferenceLevel object as a String
+     */
     private String convertPref(PreferenceLevel p) {
         switch (p) {
             case HIGH:
@@ -92,7 +128,12 @@ public class EventService {
         }
 
     }
-
+/**
+ * Converts a State object into a String. It is used to make it easier to
+ * communicate with the database.
+ * @param s the State object to be converted.
+ * @return the State object as a String
+ */
     private String convertState(State s) {
         switch (s) {
             case planned:

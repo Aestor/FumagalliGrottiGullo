@@ -21,11 +21,18 @@ import com.vaadin.ui.VerticalLayout;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/**
+ * Page used to view the calendar with its events.
+ *
+ * @author Paolo
+ */
 @SuppressWarnings("serial")
 @SpringView(name = SchedulePage.NAME)
 @MenuCaption("Schedule")
 @MenuIcon(VaadinIcons.CALENDAR)
+
 public class SchedulePage extends VerticalLayout implements View {
+
     @Autowired
     User user;
     @Autowired
@@ -50,21 +57,18 @@ public class SchedulePage extends VerticalLayout implements View {
         Button month = new Button("month",
                 (Button.ClickEvent clickEvent) -> schedule.getCalendar().withMonth(ZonedDateTime.now().getMonth()));
         HorizontalLayout nav = new HorizontalLayout(months, today, week, month);
-                loadEvents();
+        loadEvents();
         this.addComponents(nav);
         this.addComponent(schedule);
 
-
     }
-    
+
     private void loadEvents() {
-           schedule.removeAll();
+        schedule.removeAll();
         List<Meeting> meetings = eService.getMeetings(user);
         meetings.forEach((m) -> {
             schedule.onSubmitEvent(m);
         });
     }
-    
-    
 
 }

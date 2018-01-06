@@ -11,6 +11,11 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
 import java.time.LocalDate;
 
+/**
+ * This custom component creates a form that allows to select hour and time.
+ *
+ * @author Aestor
+ */
 public class TimeSelectorComponent extends CustomComponent {
 
     private List<String> hour = new ArrayList<>();

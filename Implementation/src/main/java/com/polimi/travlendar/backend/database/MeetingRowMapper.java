@@ -31,6 +31,16 @@ import org.springframework.jdbc.core.RowMapper;
  */
 public class MeetingRowMapper implements RowMapper<Meeting> {
 
+    /**
+     * This rowmapper is used to communicate with the table events inside the
+     * database. It sets all the attributes of the meeting taking them from the
+     * database and returns it.
+     *
+     * @param rs
+     * @param rowNum
+     * @return
+     * @throws SQLException
+     */
     @Override
     public Meeting mapRow(ResultSet rs, int rowNum) throws SQLException {
         Meeting meeting = new Meeting(false);
@@ -47,14 +57,21 @@ public class MeetingRowMapper implements RowMapper<Meeting> {
         meeting.setDuration(rs.getLong("duration"));
         return meeting;
     }
-
+/**
+ * converts a Timestamp object into a ZonedDateTime object.
+ * @param t the Timestamp object to be converted.
+ * @return the Timestamp object converted into ZonedDateTime.
+ */
     private ZonedDateTime convertDateTime(Timestamp t) {
         return ZonedDateTime.of(t.toLocalDateTime(), ZoneId.systemDefault());
     }
-    
-    
+/**
+ * Converts a String into a PreferenceLevel object.
+ * @param e the String object to be converted.
+ * @return the String object converted into PreferenceLevel.
+ */
     private PreferenceLevel convertPref(String e) {
-        switch(e) {
+        switch (e) {
             case "HIGH":
                 return PreferenceLevel.HIGH;
             case "MEDIUM":
@@ -62,13 +79,17 @@ public class MeetingRowMapper implements RowMapper<Meeting> {
             case "LOW":
                 return PreferenceLevel.LOW;
             default:
-                    return null;
+                return null;
         }
-        
+
     }
-    
+/**
+ * Converts a String into a State object.
+ * @param s the String object to be converted.
+ * @return the String object converted into State.
+ */
     private State convertState(String s) {
-        switch(s) {
+        switch (s) {
             case "planned":
                 return State.planned;
             case "started":
