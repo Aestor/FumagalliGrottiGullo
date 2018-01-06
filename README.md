@@ -9,24 +9,27 @@ RASD document was mainly elaborated on a shared Google Doc, to improve team coop
 # Implementation
 
 ## Usage
+
+### In short
 Import in your IDE as a Maven project. <br>
 You need to execute mvn install. Some IDEs (e.g.: Eclipe JEE) automatically execute it when you run the project.<br>
 Run the class TravlendarApplication.java as a Java Application.<br>
 From your browser navigate to localhost:8080.
 
-## MySQL
+### Database configuration with MySQL Workbench
 To import the database in your PC:
 1. Install MySQL Workbench
 2. In the program: Server -> Data Import
 3. Select "Import from Self-Contained File" and browse Dump.sql
 4. Create a new schema for the Default Target Schema and name it "travlendar" (important)
 5. Refresh schemas to see travlendar
-### Other Database Init
-(insert here some instructions)
 
+### Database configuration with command line
 Alternately, create manually a new schema with MySQL Command Line:<br>
 Copy and Paste commands from the file _"sql_entries"_ that is accessible in the folder _Implementation_.
 
+### Configure JDBC
+To access the database, the application reads the information in the file src/main/resources/application.properties. By default, the application tries to connect to localhost:3306 with username "admin" and password "root", which are the standard settings of MySQL Workbench. 
 
 ## Stripe Verification
 
@@ -51,3 +54,7 @@ https://vaadin.com/docs/v8/framework/application/application-overview.html
 https://www.w3schools.com/sql/default.asp
 ##### Vaadin login
 https://examples.javacodegeeks.com/enterprise-java/vaadin/vaadin-login-example/
+##### Google Maps
+Directions API: https://developers.google.com/maps/documentation/directions/ <br>
+Places API: https://developers.google.com/maps/documentation/javascript/places <br>
+Java library: https://github.com/googlemaps/google-maps-services-java
