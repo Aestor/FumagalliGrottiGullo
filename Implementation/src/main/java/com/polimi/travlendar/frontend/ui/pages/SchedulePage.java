@@ -1,5 +1,6 @@
 package com.polimi.travlendar.frontend.ui.pages;
 
+import com.github.appreciated.app.layout.annotations.MenuCaption;
 import com.github.appreciated.app.layout.annotations.MenuIcon;
 import com.polimi.travlendar.backend.beans.EventService;
 import com.polimi.travlendar.backend.model.user.User;
@@ -12,7 +13,6 @@ import com.polimi.travlendar.backend.model.events.Schedule;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.server.VaadinSession;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @SuppressWarnings("serial")
 @SpringView(name = SchedulePage.NAME)
+@MenuCaption("Schedule")
 @MenuIcon(VaadinIcons.CALENDAR)
 public class SchedulePage extends VerticalLayout implements View {
     @Autowired

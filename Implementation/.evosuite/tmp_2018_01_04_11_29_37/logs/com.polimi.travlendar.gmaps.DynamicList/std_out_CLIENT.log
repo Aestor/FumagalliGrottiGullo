@@ -1,2 +1,0 @@
-[MASTER] 12:11:00.308 [pool-2-thread-1] WARN  TestSuiteSerialization - Cannot load tests because file does not exist: /home/jaycaves/Desktop/FumagalliGrottiGullo/Implementation/.evosuite/evosuite-seeds/com.polimi.travlendar.gmaps.DynamicList.seed
-[MASTER] 12:11:33.004 [TEST_EXECUTION_THREAD_0] WARN  TestUsageChecker - class com.vaadin.event.EventRouter$$Lambda$22/1310090369 looks like an anonymous class, ignoring it (although reflection says false) EventRouter$$Lambda$22/1310090369
