@@ -53,7 +53,7 @@ The credit buying will be simulated using Stripe. <br>
 To buy tickets you need to use the credit in your balance.
 
 ### Payment verification with Stripe
-All payments are done through Stripe. All customers, credit card data and transactions are safely stored in the cloud area, accessible with credentials ( username: pie-gro-n26@hotmail.it , password: Tr@vlendar2017 ) from https://dashboard.stripe.com . <br> Account is set in testing mode, so it is advised to used fake credit cards in testing this project (here: https://stripe.com/docs/testing). We have not checked all these test codes.
+All payments are done through Stripe. All customers, credit card data and transactions are safely stored in the cloud area, accessible with credentials ( username: pie-gro-n26@hotmail.it , password: Tr@vlendar2017 ) from https://dashboard.stripe.com . <br> Account is set in testing mode, so it is advised to used fake credit cards in testing this project (here: https://stripe.com/docs/testing). We have not checked all these test codes. We suggest using the test card 4242 4242 4242 4242.
 
 ### Sharing services
 The sharing services are not supported yet in our implementation: the "Sharing Services" page contains some links which redirect to the web sites of the main car and bike sharing services.
