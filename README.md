@@ -44,7 +44,8 @@ Click on "Create Event" on the left bar to create a new event. Here you can spec
 
 ### Google Maps directions
 When you choose the location of your event, you will be asked also to set a starting point. It will be needed by the application to calculate the directions and the travel duration to reach the event's location with Google Maps APIs. <br>
-Our implementation does not go further, but according to our project design the application should also take in consideration user's setting to narrow down the trasports choice and notify the user of possible conflict with other events on the schedule.
+Our implementation does not go further, but according to our project design the application should also take in consideration user's setting to narrow down the trasports choice and notify the user of possible conflict with other events on the schedule. <br>
+You can also navigate to http://localhost:8080/#!place-search to test Google Maps integration.
 
 ### Credit and tickets purchase
 With "My Balance" and "My Tickets" in the left bar you can respectively buy credit and transport tickets. <br>
