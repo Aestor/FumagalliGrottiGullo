@@ -144,7 +144,8 @@ public class EventForm extends FormLayout {
         endingTime.setMinute(meeting.getEnd().toLocalTime().getMinute());
         preference.setValue(meeting.getPreferenceLevel());
         duration = meeting.getDuration();
-        submitReset.removeAllComponents();
+        submit.setVisible(false);
+        reset.setVisible(false);
         HorizontalLayout editCancel = new HorizontalLayout();
         Button edit = new Button("Edit");
         Button cancel = new Button("Cancel");

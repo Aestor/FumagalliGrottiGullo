@@ -20,6 +20,7 @@ urlcolor=black
 \titlespacing*{\subsection}{0pt}{0.5cm}{0.5cm}
 \title{Travlendar+\\Implementation And Testing}
 \author{Fumagalli Paolo, Grotti Pietro, Gullo Marco}
+
 \begin{document}
 \pagenumbering{gobble}
 \begin{figure}[t]
@@ -27,6 +28,10 @@ urlcolor=black
 \label{fig:Logo}
 \end{figure}
 \maketitle
+\begin{center}
+\large
+\href{https://github.com/Aestor/FumagalliGrottiGullo}{https://github.com/Aestor/FumagalliGrottiGullo}
+\end{center}
 \newpage
 \pagenumbering{roman}
 \tableofcontents
@@ -208,6 +213,24 @@ Each module of the subsystem \textit{User Application Service} was implemented i
 	\section{Testing}
 \newpage
 	\section{Installation Instruments}
+		\subsection{Configuration}
+		\paragraph{In short\\}Import in your IDE as a Maven project. \\You need to execute mvn install. Some IDEs (e.g.: Eclipe JEE) automatically execute it when you run the project.
+Run the class TravlendarApplication.java as a Java Application.\\From your browser navigate to localhost:8080.
+		\subsection{Database Configuration with MySQL Workbench}
+		\paragraph{}To import the database in your PC:
+		\begin{enumerate}
+			\item Install MySQL Workbench.
+			\item In the program: Server -$>$ Data Import.
+			\item Select "Import from Self-Contained File" and browse Dump.sql.
+			\item Create a new schema for the Default Target Schema and name it "travlendar" (important).
+			\item Refresh schemas to see travlendar.
+		\end{enumerate}
+		\subsection{Database Configuration with Command Line}
+		\paragraph{}Alternately, create manually a new schema with MySQL Command Line:\\Copy and Paste commands from the file \textit{"sql\_entries"} that is accessible in the folder \textit{Implementation}.
+		\subsection{Configure JDBC}
+		\paragraph{}To access the database, the application reads the information in the file \textit{src/main/resources/application.properties}. By default, the application tries to connect to localhost:3306 with username "admin" and password "root", which are the standard settings of MySQL Workbench.
+
+
 \newpage
 	\section{References}
 \begin{itemize}
