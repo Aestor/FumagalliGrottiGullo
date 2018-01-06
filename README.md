@@ -58,6 +58,13 @@ All payments are done through Stripe. All customers, credit card data and transa
 ### Sharing services
 The sharing services are not supported yet in our implementation: the "Sharing Services" page contains some links which redirect to the web sites of the main car and bike sharing services.
 
+## Testing
+
+Unit testing can be done by typing the command `mvn test` <br>
+Integration Testing can be conducted by typing the command `mvn  verify -P integration-test` in the _Implementation_ folder
+
+
+
 ## Troubles and quick fixes
 
 ### Best IDE for this project
