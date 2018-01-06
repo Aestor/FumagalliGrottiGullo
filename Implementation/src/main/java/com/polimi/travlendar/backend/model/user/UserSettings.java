@@ -22,6 +22,11 @@ public class UserSettings {
 
     public UserSettings() {
     }
+
+    @Override
+    public String toString() {
+        return "UserSettings{" + "bikePreference=" + bikePreference + ", carPreference=" + carPreference + ", maxWalkingDistance=" + maxWalkingDistance + ", carAvailability=" + carAvailability + ", bikeAvailability=" + bikeAvailability + ", drivingLicense=" + drivingLicense + '}';
+    }
 	
         
 	

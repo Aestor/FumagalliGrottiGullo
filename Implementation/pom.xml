@@ -46,8 +46,6 @@
         <jacoco.out.it.file>jacoco-it.exec</jacoco.out.it.file>
         <!-- Tells Sonar where the Jacoco coverage result file is located for Integration Tests -->
         <sonar.jacoco.itReportPath>${jacoco.outputDir}/${jacoco.out.it.file}</sonar.jacoco.itReportPath>
-        <skip.integration.tests>true</skip.integration.tests>
-        <skip.unit.tests>false</skip.unit.tests>
         <!-- If there are no local customizations, this can also be "fetch" or 
         "cdn" -->
         <vaadin.widgetset.mode>local</vaadin.widgetset.mode>
@@ -202,8 +200,13 @@
             <groupId>org.evosuite</groupId>
             <artifactId>evosuite-standalone-runtime</artifactId>
             <version>1.0.5</version>
-            <scope>test</scope>
-            
+          </dependency>
+        <dependency>
+          <groupId>org.springframework</groupId>
+    <artifactId>spring-test</artifactId>
+    <version>4.3.13.RELEASE</version>
+    <scope>test</scope>
+            <type>jar</type>
         </dependency>
     </dependencies>
 

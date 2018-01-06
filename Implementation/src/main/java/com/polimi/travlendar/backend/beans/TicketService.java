@@ -170,8 +170,6 @@ public class TicketService {
 
         jdbcTemplate.update("UPDATE train_tickets SET activated= true WHERE id= ? and ticketsid =?",
                 user.getId(), t.getId());
-        jdbcTemplate.update("UPDATE train_tickets SET validation_date= ? WHERE id= ? and ticketsid =?",
-                Date.valueOf(t.getValidationTime().toLocalDate()), user.getId(), t.getId());
         jdbcTemplate.update("UPDATE train_tickets SET validation_time= ? WHERE id= ? and ticketsid =?",
                 Time.valueOf(t.getValidationTime().toLocalTime()), user.getId(), t.getId());
 

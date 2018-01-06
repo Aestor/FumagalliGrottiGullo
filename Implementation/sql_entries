@@ -92,7 +92,9 @@ id BIGINT references users(id),
 
 eventid SERIAL,
 
-location varchar(255),
+starting_location varchar(255),
+
+ending_location varchar(255),
 
 nam varchar(255),
 
@@ -105,6 +107,9 @@ timee TIMESTAMP,
 event_state varchar(255),
 
 preflevel varchar(255),
+
+duration BIGINT,
+
 primary key (id, eventid)
 
 );

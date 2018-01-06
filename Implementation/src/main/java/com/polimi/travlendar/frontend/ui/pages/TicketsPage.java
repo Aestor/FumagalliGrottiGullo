@@ -244,7 +244,5 @@ public class TicketsPage extends VerticalLayout implements View {
 
     }
 
-    private class TicketSection extends VerticalLayout {
-
-    }
+    
 }

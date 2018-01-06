@@ -157,4 +157,26 @@ public class Meeting {
         this.level = other;
     }
 
+    public Meeting(long user, ZonedDateTime start, ZonedDateTime end, String startingLocation, String endingLocation, String name, long duration, String details, State state, PreferenceLevel level, long id, boolean longTime) {
+        this.user = user;
+        this.start = start;
+        this.end = end;
+        this.startingLocation = startingLocation;
+        this.endingLocation = endingLocation;
+        this.name = name;
+        this.duration = duration;
+        this.details = details;
+        this.state = state;
+        this.level = level;
+        this.id = id;
+        this.longTime = longTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Meeting{" + "user=" + user + ", start=" + start + ", end=" + end + ", startingLocation=" + startingLocation + ", endingLocation=" + endingLocation + ", name=" + name + ", duration=" + duration + ", details=" + details + ", state=" + state + ", level=" + level + ", id=" + id + ", longTime=" + longTime + '}';
+    }
+    
+    
+
 }
