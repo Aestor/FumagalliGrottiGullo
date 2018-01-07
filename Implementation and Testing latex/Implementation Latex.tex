@@ -93,7 +93,7 @@ The picture above displays the packages and their organization. FakePTS folder r
 		\label{fig:Modules}
 		\end{figure}
 			\paragraph{}
-Each module of the subsystem \textit{User Application Service} was implemented in the same way: one single session bean with all the methods to handle requests formulated by the front end components, backed up by some model elements. Therefore, modules are not visible in the packages' structure at first sight. For example, the first module on top \textit{Account Manager} is made of the bean named \textit{UserService} and some calsses in the model folder such as \textit{User}, \textit{UserSettings}, \textit{UserPreferences} etc..\\The external modules (shown on the right side of the picture) were defined independently and can easily be mapped 1:1 with the packages described above.\\The module \textit{Vehicle Module} was not implemented into the project.
+Each module of the subsystem \textit{User Application Service} was implemented in the same way: one single session bean with all the methods to handle requests formulated by the front end components, backed up by some model elements. Therefore, modules are not visible in the packages' structure at first sight. For example, the first module on top \textit{Account Manager} is made of the bean named \textit{UserService} and some calsses in the model folder such as \textit{User}, \textit{UserSettings}, \textit{UserPreferences} etc.\\For now, the \textit{Event Module} and the \textit{Schedule Module} are fused together. \\The external modules (shown on the right side of the picture) were defined independently and can easily be mapped 1:1 with the packages described above.\\The module \textit{Vehicle Module} was not implemented into the project.
 \newpage
 		\subsection{Pages}
 			\subsubsection{Login/Register}
@@ -211,6 +211,16 @@ Each module of the subsystem \textit{User Application Service} was implemented i
 		\paragraph{}Regarding non-functional requirements, the project has successfully satisfied the first three. The code is shareable on open-source, can ideally run non-stop and does not generate performance issues. The other two have not been implemented only because we didn't have to deal with them yet. They are flagged as open issues, but the developers are confident that with a little improvement they can be easily achieved.
 \newpage
 	\section{Testing}
+		\subsection{Premise}
+		\paragraph{}Due to delays in the application’s development, allowed time for testing happened to be really short. In the Design Document there is a Gantt diagram showing a prediction of project timeline, which could not be satisfied due to a project setup (framework choice and time for getting confident with them) that took more that the developers expected. Therefore, we focused on set up a good testing base, to start with. Jacoco report tool was added. Unit and Integration testing can be run separately. JMeter is present in the dependencies as well, but could not be completely configured yet. 
+		\subsection{Results}
+		\paragraph{}The unit test base is made of about 230 tests, that cover around 70-75\% of the java classes (via SonarQube report).\\ Integration test base, since java beans are not many, contains about 20 test.
+			\subsubsection{Unit Testing}
+			\paragraph{}Unit testing was made with an automatic tool called EvoSuite. This software is for JUnit, which worked fine for a java web project. Some tests were slightly changed but the majority was considered good enough for the purpose.
+			\subsubsection{Integration Testing}
+			\paragraph{}As explained in the section 4 (source code), modules are made of JBs and some support classes. In the design document we speculated that various modules would need integration, but in the actual project they work separately all the time. Only integration was with the DMBS Module.
+			\subsubsection{System Testing}
+			\paragraph{}JMeter still needs configuration. For future testing it is suggested to add Gatling tool, since it is the one referenced by Vaadin documentation.
 \newpage
 	\section{Installation Instruments}
 		\subsection{Configuration}
@@ -248,6 +258,7 @@ Run the class TravlendarApplication.java as a Java Application.\\From your brows
 \item{}\href{http://www.evosuite.org/documentation/maven-plugin/}{EvoSuite Maven Plugin Tutorial}
 \item{}\href{http://www.baeldung.com/java-stripe-api}{Stripe for Spring}
 \item{}\href{https://vaadin.com/directory/component/app-layout-add-on}{App-Layout Vaadin Addon Documentation}
+\item{}\href{http://www.evosuite.org/}{EvoSuite}
 \end{itemize}			
 \newpage
 	\section{Effort Spent}

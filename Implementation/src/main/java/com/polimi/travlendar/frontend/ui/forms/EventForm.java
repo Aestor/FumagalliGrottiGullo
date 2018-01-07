@@ -18,11 +18,13 @@ import com.polimi.travlendar.gmaps.LocationForm;
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.spring.annotation.SpringComponent;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.TextArea;
@@ -32,6 +34,7 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+
 /**
  * This class generates the form to create a new event or edit an already
  * existing one.
@@ -48,7 +51,7 @@ public class EventForm extends FormLayout {
     private EventService service;
     @Autowired
     private Schedule schedule;
-
+    private Label title = new Label("Create Event");
     private TextField startingLocation = new TextField("Starting Location");
     private TextField endingLocation = new TextField("Ending Location");
     private TextField name = new TextField("Event");
@@ -74,15 +77,13 @@ public class EventForm extends FormLayout {
      * Constructor to create a new event.
      */
     public EventForm() {
+        title.setStyleName("mytitle");
         Window mapWindow2 = new Window();
         mapWindow2.setResizable(false);
         mapWindow2.setDraggable(false);
         mapWindow2.center();
         mapWindow2.setWidth("90%");
         mapWindow2.setHeight("90%");
-        VerticalLayout l = new VerticalLayout();
-        l.addComponents(startingLocation, endingLocation);
-        HorizontalLayout l2 = new HorizontalLayout();
         LocationForm form = new LocationForm();
         mapWindow2.setContent(form);
         form.getSubmit().addClickListener(e -> {
@@ -92,7 +93,6 @@ public class EventForm extends FormLayout {
             duration = form.getDirections().routes[0].legs[0].duration.inSeconds;
         });
         Button seeMap = new Button("See location form");
-        l2.addComponents(l, seeMap);
         seeMap.addClickListener(e -> {
             UI.getCurrent().addWindow(mapWindow2);
         });
@@ -114,7 +114,17 @@ public class EventForm extends FormLayout {
         setComboBox();
         HorizontalLayout submitReset = new HorizontalLayout();
         submitReset.addComponents(submit, reset);
-        addComponents(l2, name, description, dateStart, startingTime.getLayout(), dateEnd, endingTime.getLayout(), preference, submitReset);
+        VerticalLayout f = new VerticalLayout();
+        VerticalLayout b = new VerticalLayout();
+        f.addComponents(title, startingLocation, endingLocation, name, description, dateStart, startingTime.getLayout(), dateEnd, endingTime.getLayout(), preference, submitReset);
+        
+        HorizontalLayout l = new HorizontalLayout();
+        VerticalLayout empty = new VerticalLayout();
+        Label em = new Label("");
+        Label em2 = new Label("");
+        b.addComponents(em, em2, seeMap);
+        l.addComponents(f, b);
+        addComponent(l);
         content = new VerticalLayout();
         submit.setClickShortcut(KeyCode.ENTER);
         submit.addClickListener(e -> this.submit());
@@ -392,10 +402,12 @@ public class EventForm extends FormLayout {
         }
 
     }
-/**
- * Saves an event into the database.
- * @param meeting the event to be saved.
- */
+
+    /**
+     * Saves an event into the database.
+     *
+     * @param meeting the event to be saved.
+     */
     public void saveEvent(Meeting meeting) {
         try {
             service.addMeeting(meeting);
