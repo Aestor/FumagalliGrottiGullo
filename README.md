@@ -29,7 +29,9 @@ Alternately, create manually a new schema with MySQL Command Line:<br>
 Copy and Paste commands from the file _"sql_entries"_ that is accessible in the folder _Implementation_.
 
 ### Database entries
-If you created the database using the command line, there will already be an existing user to access the site, with the email "test@polimi.it" and the password "password". If you used MySQL Workbench you can import the database entries right-clicking the tables in the left bar of MySQL Workbench, in "SCHEMAS > travlendar > Tables", and clicking "Table Data Import Wizard". Then select the .cvs files in the "database" folder. You should repeat this procedure for the tables "users", "user_settings" and "events".
+If you created the database using the command line, there will already be an existing user to access the site, with the email "test@polimi.it" and the password "password". <br>
+If you have used MySQL Workbench, you can import the database entries right-clicking the tables in the left bar of MySQL Workbench, in "SCHEMAS > travlendar > Tables", and clicking "Table Data Import Wizard". <br>
+Then, select the .cvs files in the "database" folder. You should repeat this procedure for the tables "users", "user_settings" and "events".
 
 ### Configure JDBC
 To access the database, the application reads the information in the file src/main/resources/application.properties. By default, the application tries to connect to localhost:3306 with username "admin" and password "root", which are the standard settings of MySQL Workbench. 
