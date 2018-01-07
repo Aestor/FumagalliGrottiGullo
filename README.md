@@ -58,6 +58,13 @@ All payments are done through Stripe. All customers, credit card data and transa
 ### Sharing services
 The sharing services are not supported yet in our implementation: the "Sharing Services" page contains some links which redirect to the web sites of the main car and bike sharing services.
 
+## Testing
+
+Unit testing can be done by typing the command `mvn test` <br>
+Integration Testing can be conducted by typing the command `mvn  verify -P integration-test` in the _Implementation_ folder
+
+
+
 ## Troubles and quick fixes
 
 ### Best IDE for this project
@@ -74,7 +81,8 @@ MySQL 5.7.20<br>
 Vaadin 8<br>
 Google Maps APIs<br>
 Google Maps Services Java 2.1.0<br>
-Stripe 5.25.0 (payments)
+Stripe 5.25.0 (payments)<br>
+EvoSuite 1.0.5 (testing)
 ##### Vaadin + MySQL
 https://vaadin.com/blog/building-a-web-ui-for-mysql-databases-in-plain-java-?utm_campaign=New%20registration&utm_source=hs_automation&utm_medium=email&utm_content=39610603&_hsenc=p2ANqtz--ut22Rfm32KlobpIHtq6LpH3COcrPL4sZEWDAXO1ZoRH34i0P46KUYGkVxwFIw49_cBYJPSgFVZ82j3sQ5lAAvDc8h-g&_hsmi=39610603
 ##### Vaadin layout components
@@ -89,3 +97,5 @@ https://examples.javacodegeeks.com/enterprise-java/vaadin/vaadin-login-example/
 Directions API: https://developers.google.com/maps/documentation/directions/ <br>
 Places API: https://developers.google.com/maps/documentation/javascript/places <br>
 Java library: https://github.com/googlemaps/google-maps-services-java
+##### EvoSuite
+http://www.evosuite.org/
