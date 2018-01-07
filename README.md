@@ -81,7 +81,8 @@ MySQL 5.7.20<br>
 Vaadin 8<br>
 Google Maps APIs<br>
 Google Maps Services Java 2.1.0<br>
-Stripe 5.25.0 (payments)
+Stripe 5.25.0 (payments)<br>
+EvoSuite 1.0.5 (testing)
 ##### Vaadin + MySQL
 https://vaadin.com/blog/building-a-web-ui-for-mysql-databases-in-plain-java-?utm_campaign=New%20registration&utm_source=hs_automation&utm_medium=email&utm_content=39610603&_hsenc=p2ANqtz--ut22Rfm32KlobpIHtq6LpH3COcrPL4sZEWDAXO1ZoRH34i0P46KUYGkVxwFIw49_cBYJPSgFVZ82j3sQ5lAAvDc8h-g&_hsmi=39610603
 ##### Vaadin layout components
@@ -96,3 +97,5 @@ https://examples.javacodegeeks.com/enterprise-java/vaadin/vaadin-login-example/
 Directions API: https://developers.google.com/maps/documentation/directions/ <br>
 Places API: https://developers.google.com/maps/documentation/javascript/places <br>
 Java library: https://github.com/googlemaps/google-maps-services-java
+#### EvoSuite
+http://www.evosuite.org/
