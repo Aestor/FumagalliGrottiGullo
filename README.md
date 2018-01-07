@@ -20,13 +20,16 @@ From your browser navigate to localhost:8080.
 To import the database in your PC:
 1. Install MySQL Workbench
 2. In the program: Server -> Data Import
-3. Select "Import from Self-Contained File" and browse Dump.sql
+3. Select "Import from Self-Contained File" and browse database/dump.sql
 4. Create a new schema for the Default Target Schema and name it "travlendar" (important)
 5. Refresh schemas to see travlendar
 
 ### Database configuration with command line
 Alternately, create manually a new schema with MySQL Command Line:<br>
 Copy and Paste commands from the file _"sql_entries"_ that is accessible in the folder _Implementation_.
+
+### Database entries
+If you created the database using the command line, there will already be an existing user to access the site, with the email "test@polimi.it" and the password "password". If you used MySQL Workbench you can import the database entries right-clicking the tables in the left bar of MySQL Workbench, in "SCHEMAS > travlendar > Tables", and clicking "Table Data Import Wizard". Then select the .cvs files in the "database" folder. You should repeat this procedure for the tables "users", "user_settings" and "events".
 
 ### Configure JDBC
 To access the database, the application reads the information in the file src/main/resources/application.properties. By default, the application tries to connect to localhost:3306 with username "admin" and password "root", which are the standard settings of MySQL Workbench. 
