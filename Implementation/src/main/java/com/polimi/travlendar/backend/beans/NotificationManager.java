@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Scope;
 import com.vaadin.spring.annotation.SpringComponent;
 
 /**
- * 
+ *  For future notifications' feature
  * @author Emmeggi95
  *
  */

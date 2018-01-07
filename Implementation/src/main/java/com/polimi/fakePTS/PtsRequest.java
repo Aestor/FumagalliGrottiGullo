@@ -163,6 +163,6 @@ public class PtsRequest {
     * @return 
     */
     public static int getTrainPrice(String departure, String arrival) {
-        return ThreadLocalRandom.current().nextInt(0, 100);
+        return ThreadLocalRandom.current().nextInt(0, 30);
     }
 }

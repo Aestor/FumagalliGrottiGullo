@@ -26,7 +26,7 @@ import java.time.ZonedDateTime;
 import org.springframework.jdbc.core.RowMapper;
 
 /**
- *
+ * Extracts data from event db and maps them as Meeting objects.
  * @author Paolo
  */
 public class MeetingRowMapper implements RowMapper<Meeting> {

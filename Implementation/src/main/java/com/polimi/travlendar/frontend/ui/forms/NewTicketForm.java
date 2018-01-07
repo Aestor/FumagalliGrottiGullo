@@ -64,28 +64,26 @@ public class NewTicketForm extends HorizontalLayout {
     User user;
 
     @Autowired
-     TicketService service;
+    TicketService service;
 
     RadioButtonGroup<String> selection;
     Ticket tempTicket;
     FormLayout subform; // here form is dynamically loaded
-    
 
     public NewTicketForm() {
-       
+
         this.setResponsive(true);
         selection = new RadioButtonGroup<String>("Choose Ticket type:");
         selection.setItems("TRAIN", "URBAN");
         selection.setStyleName("tickets");
         subform = new FormLayout();
-        
+
         selection.addValueChangeListener(e -> {
             setFormContent(subform);
         });
 
         addComponents(selection, subform);
-     
-        
+
     }
 
     /**
@@ -116,7 +114,7 @@ public class NewTicketForm extends HorizontalLayout {
                 Button ok = new Button("Purchase!");
                 ok.addClickListener(e -> {
 
-                    if ((!start.isEmpty()) && (!end.isEmpty()) && (!start.getValue().equals(end.getValue()))) {
+                    if ((!start.isEmpty()) && (!end.isEmpty()) && (!start.getValue().equals(end.getValue())) && (!date.isEmpty())) {
 
                         if (!date.isEmpty()) {
                             //use fake ticket to temporarly store input data (validity not established here)
@@ -132,15 +130,18 @@ public class NewTicketForm extends HorizontalLayout {
 
                         }
                     } else {
-
-                        Notification.show("Please insert valid locations", Notification.Type.ERROR_MESSAGE);
+                        if (!date.isEmpty()) {
+                            Notification.show("Please insert valid locations", Notification.Type.ERROR_MESSAGE);
+                        } else {
+                            Notification.show("Please insert a date!", Notification.Type.ERROR_MESSAGE);
+                        }
 
                     }
 
                 });
 
                 subform.addComponents(date, start, end, ok);
-                
+
                 break;
 
             }
@@ -214,20 +215,19 @@ public class NewTicketForm extends HorizontalLayout {
         }
     }
 
-  
     /**
-     * When called passes necessary parameters to a TicketService in order to process purchase request. 
-     * Result is displayed with a Notification
+     * When called passes necessary parameters to a TicketService in order to
+     * process purchase request. Result is displayed with a Notification
      */
     private void purchase() {
-        
+
         Notification result = service.purchase(tempTicket, selection.getValue());
         Notification.show(result.getCaption());
-         super.getUI().getNavigator().navigateTo(TicketsPage.NAME);
+        super.getUI().getNavigator().navigateTo(TicketsPage.NAME);
     }
 
-   public TicketService getService(){
-       return service;
-   }
+    public TicketService getService() {
+        return service;
+    }
 
 }

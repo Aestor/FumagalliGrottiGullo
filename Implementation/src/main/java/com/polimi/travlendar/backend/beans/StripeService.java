@@ -119,12 +119,13 @@ public class StripeService {
      * Writes the new balance in the DB.
      * @param newBalance 
      */
-    public void updateBalance(Long newBalance) {
+    public void updateBalance(Long addBalance) {
 
+        
         jdbcTemplate.update("UPDATE users SET balance = ? WHERE email= ?",
-                newBalance, user.getEmail());
+                getBalance()+addBalance, user.getEmail());
 
-        user.setBalance(newBalance);
+        user.setBalance(getBalance()+addBalance);
         
     }
     
@@ -133,8 +134,8 @@ public class StripeService {
      * @return 
      */
     public Long getBalance() {
-        return (Long) jdbcTemplate.queryForObject("SELECT balance FROM users WHERE email = ?",
-                    new Object[]{user.getEmail()}, Long.class);
+        return jdbcTemplate.queryForObject("SELECT balance FROM users WHERE email = ?",
+                new Object[]{user.getEmail()}, Long.class);
     }
     
 

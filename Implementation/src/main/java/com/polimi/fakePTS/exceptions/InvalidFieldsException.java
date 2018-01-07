@@ -16,7 +16,7 @@
 package com.polimi.fakePTS.exceptions;
 
 /**
- *
+ * It is thrown when some parameters do not satisfy some requirements.
  * @author jaycaves
  */
 public class InvalidFieldsException extends IllegalArgumentException{

@@ -64,7 +64,9 @@ public class IT_EventModule {
         Meeting meeting = new Meeting(0, ZonedDateTime.of(LocalDateTime.MAX, ZoneId.systemDefault()) ,ZonedDateTime.of(LocalDateTime.MAX, ZoneId.systemDefault()) , "Milano", "Zena", "EVENT", 10, "details", Meeting.State.started, PreferenceLevel.LOW, 0, true);
         User user = new User(new Long(1),"example@hotmail.it", "password", "Pablo", "Escobar");
         meetings[1] =meeting;
-        // HERE WITH FAKE SOME DATABASE ENTRY //
+       
+        
+// HERE WITH FAKE SOME DATABASE ENTRY //
         Mockito.when( jdbcTemplate.update("INSERT INTO events (id, starting_location, ending_location, nam, details, timeb, timee, preflevel, event_state, duration) VALUES (?,?,?,?,?,?,?,?,?,?)",
                 meeting.getUser(), meeting.getStartingLocation(), meeting.getEndingLocation(), meeting.getName(), meeting.getDetails(), meeting.getStart(), meeting.getEnd(), meeting.getPreferenceLevel(), meeting.getState(), meeting.getDuration())).thenReturn(1);
         Mockito.when(jdbcTemplate.update("UPDATE events SET starting_location = ?, ending_location = ?, nam = ?, details = ?, timeb = ?, timee = ?, preflevel = ?, duration = ? WHERE id = ? and eventid = ?", meeting.getStartingLocation(), meeting.getEndingLocation(), meeting.getName(), meeting.getDetails(), meeting.getStart(), meeting.getEnd(), meeting.getPreferenceLevel(), meeting.getDuration(), meeting.getUser(), meeting.getId())).thenReturn(1);

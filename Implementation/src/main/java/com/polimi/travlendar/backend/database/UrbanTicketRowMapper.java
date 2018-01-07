@@ -27,7 +27,7 @@ import java.time.ZonedDateTime;
 import org.springframework.jdbc.core.RowMapper;
 
 /**
- *
+ * Creates Urban Tickets from entries of the database. 
  * @author jaycaves
  * @author aestor
  */
