@@ -117,7 +117,7 @@ public class StripeService {
     
     /**
      * Writes the new balance in the DB.
-     * @param newBalance 
+     * @param addBalance 
      */
     public void updateBalance(Long addBalance) {
 
