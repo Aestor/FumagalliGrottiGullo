@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- *
+ * Different types of Ticket.
  * @author jaycaves
  */
 public enum TicketType {

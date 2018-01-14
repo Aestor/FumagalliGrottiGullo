@@ -35,7 +35,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
- *
+ * Manages the Ticket Module. Allows creation of tickets and updates the database of tickets.
  * @author jaycaves
  */
 @SpringComponent
@@ -61,14 +61,18 @@ public class TicketService {
      */
     public Notification purchase(Ticket tempTicket, String selection) {
 
+        Long newBalance;
+        Long oldBalance = jdbcTemplate.queryForObject("SELECT balance FROM users WHERE email = ?",
+                new Object[]{user.getEmail()}, Long.class);
+        
         switch (selection) {
 
             case "TRAIN": {
 
                 TrainTicket real;
-                Long newBalance;
 
-                newBalance = user.getBalance() - tempTicket.getPrice();
+                newBalance = oldBalance - tempTicket.getPrice();
+
                 if (newBalance > 0) {
 
                     try {
@@ -95,7 +99,6 @@ public class TicketService {
                     } catch (InvalidFieldsException e) {
 
                         return new Notification(e.getMessage(), Notification.Type.ERROR_MESSAGE);
-                        
 
                     }
                 } else {
@@ -108,9 +111,9 @@ public class TicketService {
             case "URBAN": {
 
                 UrbanTicket real;
-                Long newBalance;
+                
 
-                newBalance = user.getBalance() - tempTicket.getPrice();
+                newBalance = oldBalance - tempTicket.getPrice();
 
                 if (newBalance > 0) {
 
@@ -129,7 +132,7 @@ public class TicketService {
 
                         user.setBalance(newBalance);
 
-                      return  new Notification("PURCHASE SUCCESSFULLY EXECUTED", Notification.Type.HUMANIZED_MESSAGE);
+                        return new Notification("PURCHASE SUCCESSFULLY EXECUTED", Notification.Type.HUMANIZED_MESSAGE);
 
                     } catch (InvalidFieldsException e) {
 
@@ -150,17 +153,17 @@ public class TicketService {
 
         }
     }
-    
-    public List<TrainTicket> initTrains(){
+
+    public List<TrainTicket> initTrains() {
         return jdbcTemplate.query("SELECT * FROM train_tickets WHERE id= ? ",
                 new Object[]{user.getId()}, new TrainTicketRowMapper());
     }
-    
-    public List<UrbanTicket> initUrbans(){
+
+    public List<UrbanTicket> initUrbans() {
         return jdbcTemplate.query("SELECT * FROM urban_tickets WHERE id= ? ",
                 new Object[]{user.getId()}, new UrbanTicketRowMapper());
     }
-    
+
     /**
      * Saves in the DB that a certain train ticket has been activated.
      *

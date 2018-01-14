@@ -48,7 +48,7 @@ public class DynamicList extends Panel {
         this.setWidth("300px");
         this.dimension = dimension;
         this.captionGenerator = captionGenerator;
-        layout.addComponent(new Label("Predictions list"));
+        //layout.addComponent(new Label("Predictions list"));
         this.setContent(layout);
     }
     

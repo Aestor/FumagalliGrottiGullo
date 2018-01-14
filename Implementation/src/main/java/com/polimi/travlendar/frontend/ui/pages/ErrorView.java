@@ -15,6 +15,11 @@ import com.vaadin.ui.VerticalLayout;
 @SpringView
 @Scope("prototype")
 @MenuIcon(VaadinIcons.WARNING)
+
+/**
+ * It is displayed if some navigation error occurs.
+ * @autor Emmeggi95
+ */
 public class ErrorView extends VerticalLayout implements View {
 	
 	@Override

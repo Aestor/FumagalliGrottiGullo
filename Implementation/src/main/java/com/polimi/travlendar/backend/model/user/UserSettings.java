@@ -3,6 +3,11 @@ package com.polimi.travlendar.backend.model.user;
 import lombok.Getter;
 import lombok.Setter;
 
+
+/**
+ * User preferences are transfered with this POJO.
+ * @author jaycaves
+ */
 @Getter
 @Setter 
 public class UserSettings {

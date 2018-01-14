@@ -2,7 +2,7 @@ CREATE SCHEMA travlendar;
 
 USE travlendar;
 
-CREATE TABLE users(id SERIAL, email VARCHAR(255), password VARCHAR(255), first_name VARCHAR(255), last_name VARCHAR(255));
+CREATE TABLE users(id SERIAL, email VARCHAR(255), password VARCHAR(255), first_name VARCHAR(255), last_name VARCHAR(255), balance BIGINT, stripeId VARCHAR(255));
 
 CREATE TABLE train_tickets(
 
@@ -114,4 +114,25 @@ primary key (id, eventid)
 
 );
 
+INSERT INTO users (id, email, password, first_name, last_name, balance, stripeId) 
+VALUES ('12345', 'test@polimi.it', 'password', 'Test', 'Travlendar+', '1000', 'cus_C5w5Wk4sLCK9BM');
+
+INSERT INTO user_settings (id, car_preference_level, bike_preference_level, max_walk_distance, car_availability, bike_availability, driver_licence)
+VALUES ('12345', 'Low', 'Low', '999', '0', '0', '0');
+
+INSERT INTO events (id, eventid, starting_location, ending_location, nam, details, timeb, timee, event_state, preflevel, duration)
+VALUES ('12345', '54321', "Piazza Duca d'Aosta, 1, 20124 Milano MI, Italy", 'Porta Genova, Milano, Italy', 'Test event', 'test...', '2018-04-20 09:00:00', '2018-04-20 12:00:00',
+'planned', 'MEDIUM', '1634');
+
+INSERT INTO events (id, eventid, starting_location, ending_location, nam, details, timeb, timee, event_state, preflevel, duration)
+VALUES ('12345', '67890', "Piazza Duca d'Aosta, 1, 20124 Milano MI, Italy", 'Porta Genova, Milano, Italy', 'Test event', 'test...', '2018-01-20 09:00:00', '2018-01-20 12:00:00',
+'planned', 'MEDIUM', '1634');
+
+INSERT INTO events (id, eventid, starting_location, ending_location, nam, details, timeb, timee, event_state, preflevel, duration)
+VALUES ('12345', '11223', "Piazza Duca d'Aosta, 1, 20124 Milano MI, Italy", 'Porta Genova, Milano, Italy', 'Test event', 'test...', '2018-02-20 09:00:00', '2018-02-20 12:00:00',
+'planned', 'MEDIUM', '1634');
+
+INSERT INTO events (id, eventid, starting_location, ending_location, nam, details, timeb, timee, event_state, preflevel, duration)
+VALUES ('12345', '97531', "Piazza Duca d'Aosta, 1, 20124 Milano MI, Italy", 'Porta Genova, Milano, Italy', 'Test event', 'test...', '2018-03-20 09:00:00', '2018-03-20 12:00:00',
+'planned', 'MEDIUM', '1634');
 

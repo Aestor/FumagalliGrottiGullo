@@ -16,7 +16,7 @@
 package com.polimi.fakePTS.exceptions;
 
 /**
- *
+ * In the activation process, this exception is thrown if the ticket object passed as parameter is not valid for some reason.
  * @author jaycaves
  */
 public class InvalidTicketException extends Exception {

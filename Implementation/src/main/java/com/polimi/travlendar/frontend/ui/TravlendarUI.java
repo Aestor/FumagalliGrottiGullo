@@ -49,7 +49,7 @@ import com.vaadin.ui.VerticalLayout;
 @SuppressWarnings("serial")
 
 /**
- * 
+ * Spring Vaadin UI. Where all pages are built on. Here it is possible to configure the web servlets. Contains also the methods to create the Menu bar.
  */
 public class TravlendarUI extends UI {
 

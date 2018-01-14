@@ -1,0 +1,5 @@
+"id";"eventid";"starting_location";"ending_location";"nam";"details";"timeb";"timee";"event_state";"preflevel";"duration"
+12345;11223;"Piazza Duca d'Aosta, 1, 20124 Milano MI, Italy";"Porta Genova, Milano, Italy";"Test event";"test...";"2018-02-20 09:00:00";"2018-02-20 12:00:00";"planned";"MEDIUM";1634
+12345;54321;"Piazza Duca d'Aosta, 1, 20124 Milano MI, Italy";"Porta Genova, Milano, Italy";"Test event";"test...";"2018-04-20 09:00:00";"2018-04-20 12:00:00";"planned";"MEDIUM";1634
+12345;67890;"Piazza Duca d'Aosta, 1, 20124 Milano MI, Italy";"Porta Genova, Milano, Italy";"Test event";"test...";"2018-01-20 09:00:00";"2018-01-20 12:00:00";"planned";"MEDIUM";1634
+12345;97531;"Piazza Duca d'Aosta, 1, 20124 Milano MI, Italy";"Porta Genova, Milano, Italy";"Test event";"test...";"2018-03-20 09:00:00";"2018-03-20 12:00:00";"planned";"MEDIUM";1634
